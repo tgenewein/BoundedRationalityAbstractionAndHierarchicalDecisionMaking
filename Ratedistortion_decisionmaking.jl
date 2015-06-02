@@ -32,12 +32,7 @@ function CosineUtility(cardinality_x, cardinality_y)
     end
 
     #pre-compute utilities, find maxima
-    U_pre = zeros(cardinality_y, cardinality_x)
-    Umax = zeros(cardinality_y)
-    for i in 1:cardinality_y
-        U_pre[i,:]=U(xvec,yvec[i])
-        Umax[i],ind = findmax(U_pre[i,:])
-    end
+    U_pre, Umax = setuputilityarrays(xvec,yvec,U)
     
     return U_pre, Umax
 end
@@ -45,6 +40,6 @@ end
 
 #exemplary usage
 U_pre, Umax = CosineUtility(card_x, card_ω)
-pxgω,px = BAItarations(px_init,β,U_pre,Umax,pω,5000)
+pxgω,px = BAiterations(px_init,β,U_pre,Umax,pω,5000)
 
 U_pre,pxgω,px
