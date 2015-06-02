@@ -57,7 +57,7 @@ function setuputilityarrays(x::Vector, ω::Vector, utility::Function)
     U_pre = zeros(cardinality_ω, cardinality_x)
     Umax = zeros(cardinality_ω)
     for i in 1:cardinality_ω
-        U_pre[i,:]=utility(x,y[i])
+        U_pre[i,:]=utility(x,ω[i])
         Umax[i],ind = findmax(U_pre[i,:])
     end
     
