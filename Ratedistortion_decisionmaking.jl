@@ -9,6 +9,8 @@ using BlahutArimoto
 card_x = 3 #cardinality x
 card_ω = 2 #cardinality ω
 β = 1 #inverse temperature
+ε = 0.000001 #convergence critetion for BAiterations
+maxiter = 5000 #maximum number of BA iterations
 
 #set up uniform p(ω)
 pω = ones(card_ω)/card_ω 
@@ -40,6 +42,6 @@ end
 
 #exemplary usage
 U_pre, Umax = CosineUtility(card_x, card_ω)
-pxgω,px = BAiterations(px_init,β,U_pre,Umax,pω,5000)
+pxgω,px = BAiterations(px_init,β,U_pre,Umax,pω,ε,maxiter)
 
 U_pre,pxgω,px

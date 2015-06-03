@@ -28,7 +28,7 @@ end
 
 
 #This function performs Blahut-Arimoto iterations
-function BAiterations(px_init::Vector, β, U_pre::Matrix, Umax::Vector, pω::Array, maxiter::Integer)
+function BAiterations(px_init::Vector, β, U_pre::Matrix, Umax::Vector, pω::Array, ε_conv::Real, maxiter::Integer)
     px_new = px_init    
     card_ω = size(U_pre,1)
     card_x = size(U_pre,2)
@@ -39,14 +39,22 @@ function BAiterations(px_init::Vector, β, U_pre::Matrix, Umax::Vector, pω::Arr
         px_new = zeros(card_x)       
         for k in 1:card_ω
             #update p(x|ω)
-            pxgω[k,:] = boltzmanndist(px,β,squeeze(U_pre[k,:],1))            
+            pxgω[k,:] = boltzmanndist(px,β,vec(U_pre[k,:]))            
             #update p(x)            
-            px_new = px_new + squeeze([pxgω[k,:]*pω[k]],1)
+            px_new = px_new + vec(pxgω[k,:]*pω[k])
+        end
+
+        #check for convergence
+        if norm(px-px_new) < ε_conv
+        	return pxgω, vec(px_new)
         end
     end
     
+    warn("[BAiterations] maximum iteration reached - returning... (results might be inaccurate)")
     return pxgω, vec(px_new)  #the squeeze will turn px into a vector again
 end
+
+
 
 #Setup pre-evalutated utility matrix and the utility-maximum vector
 function setuputilityarrays(x::Vector, ω::Vector, utility::Function)
