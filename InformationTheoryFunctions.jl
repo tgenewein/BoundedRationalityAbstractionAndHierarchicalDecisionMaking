@@ -1,5 +1,5 @@
 ######################################################################
-#This is intended to be part of the module BlahutArimoto
+#This is part of the module BlahutArimoto
 ######################################################################
 
 using Distances, Distributions.Distribution

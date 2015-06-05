@@ -8,7 +8,12 @@ module BlahutArimoto
 #include helper functions for mutual information, expected utiliy
 include("InformationTheoryFunctions.jl")
 
+#include helper functions for visualization
+include("VisualizationFunctions.jl")
+
+
 export boltzmanndist, BAiterations, setuputilityarrays
+
 
 #This function computes p_boltz = 1/Z * p0 * exp(β*ΔU),
 #where Z is the normalization constant (partition function)
@@ -77,6 +82,14 @@ end
 
 #TODO: perhaps also include a version that computes the above values but only for the 
 #final result after iterating
+
+#TODO: perhaps don't expose entropy() (so other code using the method
+#remains unaffected)? 
+
+#TODO: Move the BA code into a seperate file such that the main-file
+#of the module remains uncluttered. Perhaps move everything into a
+#src folder. Look at how this is properly done and also look at the
+#structure that the Julia function for generating modules creates.
 
 #TODO: include 2-level BA algorithm(s) here(?)
 
