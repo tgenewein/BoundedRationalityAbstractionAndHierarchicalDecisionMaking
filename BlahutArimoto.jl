@@ -2,6 +2,8 @@ module BlahutArimoto
 
 #using #dependencies
 
+#using DataFrames, Gadfly, Distances, Distributions.Distribution
+
 #import #methods to overload
 
 

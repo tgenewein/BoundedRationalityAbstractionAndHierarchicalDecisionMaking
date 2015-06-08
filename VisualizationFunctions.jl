@@ -2,7 +2,7 @@
 #This is part of the module BlahutArimoto
 ######################################################################
 
-using Gadfly, DataFrames 
+using DataFrames, Gadfly
 
 #import ...
 
