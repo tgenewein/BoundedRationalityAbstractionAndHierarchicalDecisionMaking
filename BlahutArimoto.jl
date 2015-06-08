@@ -33,44 +33,44 @@ end
 
 
 #This function performs Blahut-Arimoto iterations
-function BAiterations(pa_init::Vector, β, U_pre::Matrix, Umax::Vector, pω::Array, ε_conv::Real, maxiter::Integer)
+function BAiterations(pa_init::Vector, β, U_pre::Matrix, Umax::Vector, po::Array, ε_conv::Real, maxiter::Integer)
     pa_new = pa_init    
     card_a = size(U_pre,1)
-    card_ω = size(U_pre,2)    
-    pagω = zeros(card_a,card_ω)
+    card_o = size(U_pre,2)    
+    pago = zeros(card_a,card_o)
     
     for iter in 1:maxiter
         pa = deepcopy(pa_new)  #make sure not to just copy the reference
         pa_new = zeros(card_a)       
-        for k in 1:card_ω
-            #update p(a|ω)
-            pagω[:,k] = boltzmanndist(pa,β,vec(U_pre[:,k]))            
+        for k in 1:card_o
+            #update p(a|o)
+            pago[:,k] = boltzmanndist(pa,β,vec(U_pre[:,k]))            
             #update p(a)            
-            pa_new = pa_new + vec((pagω[:,k]')*pω[k])
+            pa_new = pa_new + vec((pago[:,k]')*po[k])
         end
 
         #check for convergence
         if norm(pa-pa_new) < ε_conv
-        	return pagω, vec(pa_new)
+        	return pago, vec(pa_new)
         end
     end
     
     warn("[BAiterations] maximum iteration reached - returning... (results might be inaccurate)")
-    return pagω, vec(pa_new)  #the squeeze will turn pa into a vector again
+    return pago, vec(pa_new)  #the squeeze will turn pa into a vector again
 end
 
 
 
 #Setup pre-evalutated utility matrix and the utility-maximum vector
-function setuputilityarrays(a::Vector, ω::Vector, utility::Function)
+function setuputilityarrays(a::Vector, o::Vector, utility::Function)
     cardinality_a = length(a) 
-    cardinality_ω = length(ω)
+    cardinality_o = length(o)
 
     #pre-compute utilities, find maxima
-    U_pre = zeros(cardinality_a, cardinality_ω)
-    Umax = zeros(cardinality_ω)
-    for i in 1:cardinality_ω
-        U_pre[:,i]=utility(a,ω[i])
+    U_pre = zeros(cardinality_a, cardinality_o)
+    Umax = zeros(cardinality_o)
+    for i in 1:cardinality_o
+        U_pre[:,i]=utility(a,o[i])
         Umax[i],ind = findmax(U_pre[:,i])
     end
     
@@ -93,7 +93,7 @@ end
 
 #TODO: include 2-level BA algorithm(s) here(?)
 
-#TODO: also use 'a' and 'ω' in InformationTheoryFunctions.jl
+#TODO: also use 'a' and 'o' in InformationTheoryFunctions.jl
 
 
 end
