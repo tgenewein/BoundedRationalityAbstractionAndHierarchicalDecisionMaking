@@ -2,12 +2,6 @@
 #This is part of the module BlahutArimoto
 ######################################################################
 
-using Distances, Distributions.Distribution
-
-import Distributions.entropy #the function entropy() will be overwritten here
-
-export  mutualinformation, expectedutility, entropy
-
 
 #functions for computing mutual informations (in bits)
 function mutualinformation(py::Vector, px::Vector, pxgiveny::Matrix)    
@@ -64,5 +58,5 @@ end
 
 #Also expose entropy() from Distributions.jl
 function entropy(d::Distribution)
-	return Distributions.entropy(d,2) #in bits
+    return Distributions.entropy(d,2) #in bits
 end

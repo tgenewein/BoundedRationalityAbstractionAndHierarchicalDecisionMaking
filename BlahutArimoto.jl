@@ -2,9 +2,17 @@ module BlahutArimoto
 
 #using #dependencies
 
-#using DataFrames, Gadfly, Distances, Distributions.Distribution
+using DataFrames, Color, Gadfly, Distances, Distributions.Distribution
 
-#import #methods to overload
+
+import Distributions.entropy
+
+
+export boltzmanndist, BAiterations, setuputilityarrays,
+       mutualinformation, expectedutility, entropy,
+       boltzmannresult2DataFrame, 
+       BAmarginal2DataFrame, BAconditional2DataFrame, BAresult2DataFrame,
+       visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution
 
 
 #include helper functions for mutual information, expected utiliy
@@ -13,8 +21,6 @@ include("InformationTheoryFunctions.jl")
 #include helper functions for visualization
 include("VisualizationFunctions.jl")
 
-
-export boltzmanndist, BAiterations, setuputilityarrays
 
 
 #This function computes p_boltz = 1/Z * p0 * exp(β*ΔU),
@@ -53,7 +59,7 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, Umax::Vector, po::Arra
 
         #check for convergence
         if norm(pa-pa_new) < ε_conv
-        	return pago, vec(pa_new)
+            return pago, vec(pa_new)
         end
     end
     
@@ -82,11 +88,11 @@ end
 #TODO: include a version of this function that computes the evolution of mutual information
 #and expected utility in each iteration and return this as a DataFrame
 
-#TODO: perhaps also include a version that computes the above values but only for the 
+#TODO: also include a version that computes the above values but only for the 
 #final result after iterating
 
 #TODO: perhaps don't expose entropy() (so other code using the method
-#remains unaffected)? 
+#remains unaffected)? Maybe insted provide fcn called bitentropy or sth. like that? 
 
 #TODO: Move the BA code into a seperate file such that the main-file
 #of the module remains uncluttered. Perhaps move everything into a
@@ -97,5 +103,10 @@ end
 
 #TODO: also use 'a' and 'o' in InformationTheoryFunctions.jl
 
+#TODO: document functions (in markdown? look up how to do this properly)
+
+#TODO: write some tests (especially in case future releases break something)
+
+#TODO: adopt src/ test/ structure
 
 end

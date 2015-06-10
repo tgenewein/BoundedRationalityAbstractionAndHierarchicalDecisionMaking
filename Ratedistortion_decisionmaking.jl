@@ -37,6 +37,6 @@ end
 
 #exemplary usage
 U_pre, Umax, xvec, ϕvec = cosineutility(card_x, card_ϕ)
-pxgϕ,px = BAiterations(px_init,β,U_pre,Umax,pϕ,ε,maxiter)
+pxgϕ,px = BAiterations(px_init, β, U_pre, Umax, pϕ, ε, maxiter)
 
 U_pre,pxgϕ,px
