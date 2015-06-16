@@ -106,7 +106,26 @@ end
 
 
 
-
+#standard theme (to make plots consistent and allow for more control for publication-quality plots)
+function BATheme()
+    #font = "'PT Sans','Helvetica Neue','Helvetica',sans-serif"
+    #font = "Computer Modern Math"
+    font = "'Latin Modern Math','Latin-Modern',serif"
+    #font = "Latin Modern"
+    #font = "Helvetica"
+    #font = "Times New Roman"
+    return Theme(line_width = 2pt,# Width of lines in the line geometry. (Measure)
+                minor_label_font = font,#: Font used for minor labels such as guide entries and labels. (String)
+                #minor_label_font_size: Font size used for minor labels. (Measure)
+                major_label_font = font,# Font used for major labels such as titles and axis labels. (String)
+                major_label_font_size = 12pt,# Font size used for major labels. (Measure)
+                key_title_font = font,# Font used for titles of keys. (String)
+                key_title_font_size = 11pt, # Font size used for key titles. (Measure)
+                key_label_font = font,# Font used for key entry labels. (String)
+                key_label_font_size = 10pt,# Font size used for key entry labels. (Measure)
+                bar_spacing = 1pt,# Spacing between bars in Geom.bar. (Measure)
+                )
+end
 
 
 #standard continous color scale used by visualization functions in this file

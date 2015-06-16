@@ -10,7 +10,7 @@ import Distributions.entropy
 
 export boltzmanndist, BAiterations, setuputilityarrays,
        mutualinformation, expectedutility, entropy,
-       boltzmannresult2DataFrame, 
+       boltzmannresult2DataFrame, BATheme, 
        BAmarginal2DataFrame, BAconditional2DataFrame, BAresult2DataFrame,
        visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution
 
