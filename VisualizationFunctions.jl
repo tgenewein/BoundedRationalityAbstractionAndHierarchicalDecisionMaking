@@ -181,6 +181,7 @@ function visualizeBAmarginal(pa_df::DataFrame, avec::Vector; alabel="Action a", 
                    Guide.colorkey(legendlabel),
                    Guide.xticks(label=false), Guide.xlabel(nothing),
                    Guide.ylabel(alabel, orientation=:vertical),
+                   BATheme(),
         BAprobabilityvisscale()
         )
     else
@@ -189,6 +190,7 @@ function visualizeBAmarginal(pa_df::DataFrame, avec::Vector; alabel="Action a", 
                    Guide.colorkey(legendlabel),
                    Guide.xticks(label=false), Guide.xlabel(nothing),
                    Guide.ylabel(alabel, orientation=:vertical),
+                   BATheme(),
         BAprobabilityvisscale()
         )
     end
@@ -237,6 +239,7 @@ function visualizeBAconditional(pago_df::DataFrame, avec::Vector, ovec::Vector;
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),Guide.xticks(orientation=:vertical),
                    Guide.xlabel(olabel), Guide.ylabel(alabel, orientation=:vertical),
+                   BATheme(),
         BAprobabilityvisscale()
         )
     else
@@ -244,6 +247,7 @@ function visualizeBAconditional(pago_df::DataFrame, avec::Vector, ovec::Vector;
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),
                    Guide.xlabel(olabel), Guide.ylabel(alabel, orientation=:vertical),
+                   BATheme(),
         BAprobabilityvisscale()
         )
     end
