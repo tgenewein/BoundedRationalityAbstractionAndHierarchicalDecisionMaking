@@ -9,210 +9,318 @@
      stroke-width="0.3"
      font-size="3.88"
 >
-<g class="plotroot yscalable" id="fig-16dff281a2664288a986e59d5a4b0074-element-1">
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-2">
-    <text x="141.82" y="112" text-anchor="middle">a</text>
+<g class="plotroot xscalable yscalable" id="fig-46166f8baae940f696e96bed61234543-element-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-2">
+    <text x="156.82" y="109.15" text-anchor="end" dy="0.35em" transform="rotate(-90, 156.82, 109.15)">β</text>
   </g>
-  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-3">
-    <text x="116.93" y="104.39" text-anchor="middle">a1</text>
-    <text x="133.52" y="104.39" text-anchor="middle">a2</text>
-    <text x="150.11" y="104.39" text-anchor="middle">a3</text>
-    <text x="166.7" y="104.39" text-anchor="middle">a4</text>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-3">
+    <text x="140.63" y="105.15" text-anchor="middle">0</text>
+    <text x="147.11" y="105.15" text-anchor="middle">10</text>
+    <text x="153.58" y="105.15" text-anchor="middle">20</text>
+    <text x="160.05" y="105.15" text-anchor="middle">30</text>
+    <text x="166.53" y="105.15" text-anchor="middle">40</text>
+    <text x="173" y="105.15" text-anchor="middle">50</text>
   </g>
-  <g clip-path="url(#fig-16dff281a2664288a986e59d5a4b0074-element-5)" id="fig-16dff281a2664288a986e59d5a4b0074-element-4">
-    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-16dff281a2664288a986e59d5a4b0074-element-6">
-      <rect x="108.63" y="72.61" width="66.37" height="28.1"/>
+  <g clip-path="url(#fig-46166f8baae940f696e96bed61234543-element-5)" id="fig-46166f8baae940f696e96bed61234543-element-4">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-46166f8baae940f696e96bed61234543-element-6">
+      <rect x="138.63" y="72.61" width="36.37" height="28.86"/>
     </g>
-    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-7">
-      <path fill="none" d="M108.63,98.72 L 175 98.72"/>
-      <path fill="none" d="M108.63,86.66 L 175 86.66"/>
-      <path fill="none" d="M108.63,74.61 L 175 74.61"/>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-7">
+      <path fill="none" d="M138.63,99.48 L 175 99.48"/>
+      <path fill="none" d="M138.63,93.26 L 175 93.26"/>
+      <path fill="none" d="M138.63,87.04 L 175 87.04"/>
+      <path fill="none" d="M138.63,80.83 L 175 80.83"/>
+      <path fill="none" d="M138.63,74.61 L 175 74.61"/>
     </g>
-    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-8">
-      <path fill="none" d="M125.22,72.61 L 125.22 100.72"/>
-      <path fill="none" d="M141.82,72.61 L 141.82 100.72"/>
-      <path fill="none" d="M158.41,72.61 L 158.41 100.72"/>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-8">
+      <path fill="none" d="M140.63,72.61 L 140.63 101.48"/>
+      <path fill="none" d="M147.11,72.61 L 147.11 101.48"/>
+      <path fill="none" d="M153.58,72.61 L 153.58 101.48"/>
+      <path fill="none" d="M160.05,72.61 L 160.05 101.48"/>
+      <path fill="none" d="M166.53,72.61 L 166.53 101.48"/>
+      <path fill="none" d="M173,72.61 L 173 101.48"/>
     </g>
-    <g class="plotpanel" id="fig-16dff281a2664288a986e59d5a4b0074-element-9">
-      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-16dff281a2664288a986e59d5a4b0074-element-10">
-        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-16dff281a2664288a986e59d5a4b0074-element-11">
-          <rect x="108.63" y="97.86" width="16.59" height="0.85"/>
-          <rect x="125.22" y="98.72" width="16.59" height="0.01"/>
-          <rect x="141.82" y="98.72" width="16.59" height="0.01"/>
-          <rect x="158.41" y="75.46" width="16.59" height="23.25"/>
-        </g>
+    <g class="plotpanel" id="fig-46166f8baae940f696e96bed61234543-element-9">
+      <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" stroke="#00BFFF" id="fig-46166f8baae940f696e96bed61234543-element-10">
+        <path fill="none" d="M140.63,99.48 L 140.7 99.32 140.76 98.89 140.83 98.23 140.89 97.4 140.96 96.47 141.02 95.49 141.08 94.52 141.15 93.59 141.21 92.71 141.28 91.92 141.34 91.21 141.41 90.58 141.47 90.04 141.54 89.56 141.6 89.15 141.67 88.8 141.73 88.5 141.8 88.25 141.86 88.03 141.93 87.85 141.99 87.69 142.06 87.56 142.12 87.45 142.19 87.35 142.25 87.27 142.31 87.2 142.38 87.13 142.44 87.08 142.51 87.03 142.57 86.99 142.64 86.95 142.7 86.92 142.77 86.89 142.83 86.86 142.9 86.83 142.96 86.81 143.03 86.78 143.09 86.76 143.16 86.74 143.22 86.72 143.29 86.69 143.35 86.67 143.42 86.65 143.48 86.63 143.54 86.61 143.61 86.59 143.67 86.57 143.74 86.55 143.8 86.53 143.87 86.5 143.93 86.48 144 86.46 144.06 86.44 144.13 86.41 144.19 86.39 144.26 86.37 144.32 86.34 144.39 86.32 144.45 86.3 144.52 86.27 144.58 86.25 144.65 86.22 144.71 86.2 144.77 86.17 144.84 86.14 144.9 86.12 144.97 86.09 145.03 86.06 145.1 86.04 145.16 86.01 145.23 85.98 145.29 85.95 145.36 85.92 145.42 85.9 145.49 85.87 145.55 85.84 145.62 85.81 145.68 85.78 145.75 85.75 145.81 85.72 145.88 85.69 145.94 85.65 146 85.62 146.07 85.59 146.13 85.56 146.2 85.53 146.26 85.49 146.33 85.46 146.39 85.43 146.46 85.4 146.52 85.36 146.59 85.33 146.65 85.3 146.72 85.26 146.78 85.23 146.85 85.19 146.91 85.16 146.98 85.12 147.04 85.09 147.11 85.05 147.17 85.02 147.23 84.98 147.3 84.95 147.36 84.91 147.43 84.88 147.49 84.84 147.56 84.8 147.62 84.77 147.69 84.73 147.75 84.69 147.82 84.66 147.88 84.62 147.95 84.58 148.01 84.54 148.08 84.51 148.14 84.47 148.21 84.43 148.27 84.39 148.34 84.35 148.4 84.32 148.46 84.28 148.53 84.24 148.59 84.2 148.66 84.16 148.72 84.12 148.79 84.08 148.85 84.05 148.92 84.01 148.98 83.97 149.05 83.93 149.11 83.89 149.18 83.85 149.24 83.81 149.31 83.77 149.37 83.73 149.44 83.69 149.5 83.65 149.57 83.61 149.63 83.57 149.69 83.53 149.76 83.49 149.82 83.45 149.89 83.41 149.95 83.37 150.02 83.33 150.08 83.29 150.15 83.25 150.21 83.21 150.28 83.17 150.34 83.13 150.41 83.09 150.47 83.05 150.54 83.01 150.6 82.97 150.67 82.93 150.73 82.89 150.8 82.85 150.86 82.81 150.92 82.77 150.99 82.73 151.05 82.69 151.12 82.65 151.18 82.61 151.25 82.57 151.31 82.53 151.38 82.49 151.44 82.45 151.51 82.41 151.57 82.37 151.64 82.33 151.7 82.29 151.77 82.25 151.83 82.21 151.9 82.17 151.96 82.13 152.03 82.09 152.09 82.05 152.15 82.01 152.22 81.97 152.28 81.93 152.35 81.9 152.41 81.86 152.48 81.82 152.54 81.78 152.61 81.74 152.67 81.7 152.74 81.66 152.8 81.62 152.87 81.58 152.93 81.55 153 81.51 153.06 81.47 153.13 81.43 153.19 81.39 153.26 81.35 153.32 81.32 153.38 81.28 153.45 81.24 153.51 81.2 153.58 81.16 153.64 81.13 153.71 81.09 153.77 81.05 153.84 81.01 153.9 80.98 153.97 80.94 154.03 80.9 154.1 80.87 154.16 80.83 154.23 80.79 154.29 80.76 154.36 80.72 154.42 80.68 154.49 80.65 154.55 80.61 154.61 80.58 154.68 80.54 154.74 80.5 154.81 80.47 154.87 80.43 154.94 80.4 155 80.36 155.07 80.33 155.13 80.29 155.2 80.26 155.26 80.22 155.33 80.19 155.39 80.15 155.46 80.12 155.52 80.08 155.59 80.05 155.65 80.02 155.72 79.98 155.78 79.95 155.84 79.92 155.91 79.88 155.97 79.85 156.04 79.82 156.1 79.78 156.17 79.75 156.23 79.72 156.3 79.68 156.36 79.65 156.43 79.62 156.49 79.59 156.56 79.55 156.62 79.52 156.69 79.49 156.75 79.46 156.82 79.43 156.88 79.4 156.95 79.37 157.01 79.33 157.07 79.3 157.14 79.27 157.2 79.24 157.27 79.21 157.33 79.18 157.4 79.15 157.46 79.12 157.53 79.09 157.59 79.06 157.66 79.03 157.72 79 157.79 78.97 157.85 78.94 157.92 78.91 157.98 78.89 158.05 78.86 158.11 78.83 158.18 78.8 158.24 78.77 158.3 78.74 158.37 78.71 158.43 78.69 158.5 78.66 158.56 78.63 158.63 78.6 158.69 78.58 158.76 78.55 158.82 78.52 158.89 78.5 158.95 78.47 159.02 78.44 159.08 78.42 159.15 78.39 159.21 78.36 159.28 78.34 159.34 78.31 159.41 78.29 159.47 78.26 159.53 78.23 159.6 78.21 159.66 78.18 159.73 78.16 159.79 78.13 159.86 78.11 159.92 78.08 159.99 78.06 160.05 78.03 160.12 78.01 160.18 77.99 160.25 77.96 160.31 77.94 160.38 77.92 160.44 77.89 160.51 77.87 160.57 77.84 160.64 77.82 160.7 77.8 160.76 77.78 160.83 77.75 160.89 77.73 160.96 77.71 161.02 77.69 161.09 77.66 161.15 77.64 161.22 77.62 161.28 77.6 161.35 77.58 161.41 77.55 161.48 77.53 161.54 77.51 161.61 77.49 161.67 77.47 161.74 77.45 161.8 77.43 161.87 77.41 161.93 77.39 161.99 77.37 162.06 77.35 162.12 77.33 162.19 77.31 162.25 77.29 162.32 77.27 162.38 77.25 162.45 77.23 162.51 77.21 162.58 77.19 162.64 77.17 162.71 77.15 162.77 77.13 162.84 77.11 162.9 77.09 162.97 77.08 163.03 77.06 163.1 77.04 163.16 77.02 163.22 77 163.29 76.99 163.35 76.97 163.42 76.95 163.48 76.93 163.55 76.91 163.61 76.9 163.68 76.88 163.74 76.86 163.81 76.85 163.87 76.83 163.94 76.81 164 76.8 164.07 76.78 164.13 76.76 164.2 76.75 164.26 76.73 164.33 76.71 164.39 76.7 164.45 76.68 164.52 76.67 164.58 76.65 164.65 76.64 164.71 76.62 164.78 76.6 164.84 76.59 164.91 76.57 164.97 76.56 165.04 76.54 165.1 76.53 165.17 76.51 165.23 76.5 165.3 76.49 165.36 76.47 165.43 76.46 165.49 76.44 165.56 76.43 165.62 76.41 165.68 76.4 165.75 76.39 165.81 76.37 165.88 76.36 165.94 76.35 166.01 76.33 166.07 76.32 166.14 76.31 166.2 76.29 166.27 76.28 166.33 76.27 166.4 76.25 166.46 76.24 166.53 76.23 166.59 76.21 166.66 76.2 166.72 76.19 166.79 76.18 166.85 76.17 166.91 76.15 166.98 76.14 167.04 76.13 167.11 76.12 167.17 76.11 167.24 76.09 167.3 76.08 167.37 76.07 167.43 76.06 167.5 76.05 167.56 76.04 167.63 76.02 167.69 76.01 167.76 76 167.82 75.99 167.89 75.98 167.95 75.97 168.02 75.96 168.08 75.95 168.14 75.94 168.21 75.93 168.27 75.92 168.34 75.91 168.4 75.9 168.47 75.89 168.53 75.88 168.6 75.87 168.66 75.86 168.73 75.85 168.79 75.84 168.86 75.83 168.92 75.82 168.99 75.81 169.05 75.8 169.12 75.79 169.18 75.78 169.25 75.77 169.31 75.76 169.37 75.75 169.44 75.74 169.5 75.73 169.57 75.72 169.63 75.71 169.7 75.71 169.76 75.7 169.83 75.69 169.89 75.68 169.96 75.67 170.02 75.66 170.09 75.65 170.15 75.65 170.22 75.64 170.28 75.63 170.35 75.62 170.41 75.61 170.48 75.6 170.54 75.6 170.6 75.59 170.67 75.58 170.73 75.57 170.8 75.56 170.86 75.56 170.93 75.55 170.99 75.54 171.06 75.53 171.12 75.53 171.19 75.52 171.25 75.51 171.32 75.5 171.38 75.5 171.45 75.49 171.51 75.48 171.58 75.48 171.64 75.47 171.71 75.46 171.77 75.45 171.83 75.45 171.9 75.44 171.96 75.43 172.03 75.43 172.09 75.42 172.16 75.41 172.22 75.41 172.29 75.4 172.35 75.39 172.42 75.39 172.48 75.38 172.55 75.38 172.61 75.37 172.68 75.36 172.74 75.36 172.81 75.35 172.87 75.34 172.94 75.34 173 75.33"/>
       </g>
     </g>
   </g>
-  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-12">
-    <text x="107.63" y="98.72" text-anchor="end" dy="0.35em">0.0</text>
-    <text x="107.63" y="86.66" text-anchor="end" dy="0.35em">0.5</text>
-    <text x="107.63" y="74.61" text-anchor="end" dy="0.35em">1.0</text>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-11">
+    <text x="137.63" y="99.48" text-anchor="end" dy="0.35em">0.0</text>
+    <text x="137.63" y="93.26" text-anchor="end" dy="0.35em">0.5</text>
+    <text x="137.63" y="87.04" text-anchor="end" dy="0.35em">1.0</text>
+    <text x="137.63" y="80.83" text-anchor="end" dy="0.35em">1.5</text>
+    <text x="137.63" y="74.61" text-anchor="end" dy="0.35em">2.0</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-13">
-    <text x="98.81" y="84.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 98.81, 86.66)">p(a)</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-12">
+    <text x="128.81" y="85.04" text-anchor="middle" dy="0.35em" transform="rotate(-90, 128.81, 87.04)">D_KL(p||p0) [bits]</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-14">
-    <text x="141.82" y="70.61" text-anchor="middle">Posterior, β=40</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-13">
+    <text x="156.82" y="70.61" text-anchor="middle">KL-divergence</text>
   </g>
 </g>
-<g class="plotroot yscalable" id="fig-16dff281a2664288a986e59d5a4b0074-element-15">
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-16">
-    <text x="51.82" y="112" text-anchor="middle">a</text>
+<g class="plotroot yscalable" id="fig-46166f8baae940f696e96bed61234543-element-14">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-15">
+    <text x="96.82" y="112" text-anchor="middle">a</text>
   </g>
-  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-17">
-    <text x="26.93" y="104.39" text-anchor="middle">a1</text>
-    <text x="43.52" y="104.39" text-anchor="middle">a2</text>
-    <text x="60.11" y="104.39" text-anchor="middle">a3</text>
-    <text x="76.7" y="104.39" text-anchor="middle">a4</text>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-16">
+    <text x="83.18" y="104.39" text-anchor="middle">a1</text>
+    <text x="92.27" y="104.39" text-anchor="middle">a2</text>
+    <text x="101.36" y="104.39" text-anchor="middle">a3</text>
+    <text x="110.45" y="104.39" text-anchor="middle">a4</text>
   </g>
-  <g clip-path="url(#fig-16dff281a2664288a986e59d5a4b0074-element-19)" id="fig-16dff281a2664288a986e59d5a4b0074-element-18">
-    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-16dff281a2664288a986e59d5a4b0074-element-20">
-      <rect x="18.63" y="72.61" width="66.37" height="28.1"/>
+  <g clip-path="url(#fig-46166f8baae940f696e96bed61234543-element-18)" id="fig-46166f8baae940f696e96bed61234543-element-17">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-46166f8baae940f696e96bed61234543-element-19">
+      <rect x="78.63" y="72.61" width="36.37" height="28.1"/>
     </g>
-    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-21">
-      <path fill="none" d="M18.63,98.72 L 85 98.72"/>
-      <path fill="none" d="M18.63,86.66 L 85 86.66"/>
-      <path fill="none" d="M18.63,74.61 L 85 74.61"/>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-20">
+      <path fill="none" d="M78.63,98.72 L 115 98.72"/>
+      <path fill="none" d="M78.63,86.66 L 115 86.66"/>
+      <path fill="none" d="M78.63,74.61 L 115 74.61"/>
     </g>
-    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-22">
-      <path fill="none" d="M35.22,72.61 L 35.22 100.72"/>
-      <path fill="none" d="M51.82,72.61 L 51.82 100.72"/>
-      <path fill="none" d="M68.41,72.61 L 68.41 100.72"/>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-21">
+      <path fill="none" d="M87.72,72.61 L 87.72 100.72"/>
+      <path fill="none" d="M96.82,72.61 L 96.82 100.72"/>
+      <path fill="none" d="M105.91,72.61 L 105.91 100.72"/>
     </g>
-    <g class="plotpanel" id="fig-16dff281a2664288a986e59d5a4b0074-element-23">
-      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-16dff281a2664288a986e59d5a4b0074-element-24">
-        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-16dff281a2664288a986e59d5a4b0074-element-25">
-          <rect x="18.63" y="88.34" width="16.59" height="10.37"/>
-          <rect x="35.22" y="94.47" width="16.59" height="4.25"/>
-          <rect x="51.82" y="94.47" width="16.59" height="4.25"/>
-          <rect x="68.41" y="93.48" width="16.59" height="5.24"/>
+    <g class="plotpanel" id="fig-46166f8baae940f696e96bed61234543-element-22">
+      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-46166f8baae940f696e96bed61234543-element-23">
+        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-46166f8baae940f696e96bed61234543-element-24">
+          <rect x="78.63" y="98.45" width="9.09" height="0.26"/>
+          <rect x="87.72" y="98.72" width="9.09" height="0.01"/>
+          <rect x="96.82" y="98.72" width="9.09" height="0.01"/>
+          <rect x="105.91" y="74.88" width="9.09" height="23.84"/>
         </g>
       </g>
     </g>
   </g>
-  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-26">
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-25">
+    <text x="77.63" y="98.72" text-anchor="end" dy="0.35em">0.0</text>
+    <text x="77.63" y="86.66" text-anchor="end" dy="0.35em">0.5</text>
+    <text x="77.63" y="74.61" text-anchor="end" dy="0.35em">1.0</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-26">
+    <text x="68.81" y="84.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 68.81, 86.66)">p*(a)</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-27">
+    <text x="96.82" y="70.61" text-anchor="middle">Posterior, β=45</text>
+  </g>
+</g>
+<g class="plotroot yscalable" id="fig-46166f8baae940f696e96bed61234543-element-28">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-29">
+    <text x="36.82" y="112" text-anchor="middle">a</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-30">
+    <text x="23.18" y="104.39" text-anchor="middle">a1</text>
+    <text x="32.27" y="104.39" text-anchor="middle">a2</text>
+    <text x="41.36" y="104.39" text-anchor="middle">a3</text>
+    <text x="50.45" y="104.39" text-anchor="middle">a4</text>
+  </g>
+  <g clip-path="url(#fig-46166f8baae940f696e96bed61234543-element-32)" id="fig-46166f8baae940f696e96bed61234543-element-31">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-46166f8baae940f696e96bed61234543-element-33">
+      <rect x="18.63" y="72.61" width="36.37" height="28.1"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-34">
+      <path fill="none" d="M18.63,98.72 L 55 98.72"/>
+      <path fill="none" d="M18.63,86.66 L 55 86.66"/>
+      <path fill="none" d="M18.63,74.61 L 55 74.61"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-35">
+      <path fill="none" d="M27.72,72.61 L 27.72 100.72"/>
+      <path fill="none" d="M36.82,72.61 L 36.82 100.72"/>
+      <path fill="none" d="M45.91,72.61 L 45.91 100.72"/>
+    </g>
+    <g class="plotpanel" id="fig-46166f8baae940f696e96bed61234543-element-36">
+      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-46166f8baae940f696e96bed61234543-element-37">
+        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-46166f8baae940f696e96bed61234543-element-38">
+          <rect x="18.63" y="88.2" width="9.09" height="10.52"/>
+          <rect x="27.72" y="98.18" width="9.09" height="0.53"/>
+          <rect x="36.82" y="97.29" width="9.09" height="1.42"/>
+          <rect x="45.91" y="87.09" width="9.09" height="11.63"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-39">
     <text x="17.63" y="98.72" text-anchor="end" dy="0.35em">0.0</text>
     <text x="17.63" y="86.66" text-anchor="end" dy="0.35em">0.5</text>
     <text x="17.63" y="74.61" text-anchor="end" dy="0.35em">1.0</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-27">
-    <text x="8.81" y="84.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 86.66)">p(a)</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-40">
+    <text x="8.81" y="84.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 86.66)">p*(a)</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-28">
-    <text x="51.82" y="70.61" text-anchor="middle">Posterior, β=0.1</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-41">
+    <text x="36.82" y="70.61" text-anchor="middle">Posterior, β=1</text>
   </g>
 </g>
-<g class="plotroot yscalable" id="fig-16dff281a2664288a986e59d5a4b0074-element-29">
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-30">
-    <text x="141.82" y="52" text-anchor="middle">a</text>
+<g class="plotroot xscalable yscalable" id="fig-46166f8baae940f696e96bed61234543-element-42">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-43">
+    <text x="156.82" y="52" text-anchor="middle">β</text>
   </g>
-  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-31">
-    <text x="116.93" y="44.39" text-anchor="middle">a1</text>
-    <text x="133.52" y="44.39" text-anchor="middle">a2</text>
-    <text x="150.11" y="44.39" text-anchor="middle">a3</text>
-    <text x="166.7" y="44.39" text-anchor="middle">a4</text>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-44">
+    <text x="140.63" y="44.39" text-anchor="middle">0</text>
+    <text x="147.11" y="44.39" text-anchor="middle">10</text>
+    <text x="153.58" y="44.39" text-anchor="middle">20</text>
+    <text x="160.05" y="44.39" text-anchor="middle">30</text>
+    <text x="166.53" y="44.39" text-anchor="middle">40</text>
+    <text x="173" y="44.39" text-anchor="middle">50</text>
   </g>
-  <g clip-path="url(#fig-16dff281a2664288a986e59d5a4b0074-element-33)" id="fig-16dff281a2664288a986e59d5a4b0074-element-32">
-    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-16dff281a2664288a986e59d5a4b0074-element-34">
-      <rect x="108.63" y="12.61" width="66.37" height="28.1"/>
+  <g clip-path="url(#fig-46166f8baae940f696e96bed61234543-element-46)" id="fig-46166f8baae940f696e96bed61234543-element-45">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-46166f8baae940f696e96bed61234543-element-47">
+      <rect x="138.63" y="12.61" width="36.37" height="28.1"/>
     </g>
-    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-35">
-      <path fill="none" d="M108.63,38.71 L 175 38.71"/>
-      <path fill="none" d="M108.63,26.66 L 175 26.66"/>
-      <path fill="none" d="M108.63,14.61 L 175 14.61"/>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-48">
+      <path fill="none" d="M138.63,38.72 L 175 38.72"/>
+      <path fill="none" d="M138.63,32.69 L 175 32.69"/>
+      <path fill="none" d="M138.63,26.66 L 175 26.66"/>
+      <path fill="none" d="M138.63,20.64 L 175 20.64"/>
+      <path fill="none" d="M138.63,14.61 L 175 14.61"/>
     </g>
-    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-36">
-      <path fill="none" d="M125.22,12.61 L 125.22 40.71"/>
-      <path fill="none" d="M141.82,12.61 L 141.82 40.71"/>
-      <path fill="none" d="M158.41,12.61 L 158.41 40.71"/>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-49">
+      <path fill="none" d="M140.63,12.61 L 140.63 40.72"/>
+      <path fill="none" d="M147.11,12.61 L 147.11 40.72"/>
+      <path fill="none" d="M153.58,12.61 L 153.58 40.72"/>
+      <path fill="none" d="M160.05,12.61 L 160.05 40.72"/>
+      <path fill="none" d="M166.53,12.61 L 166.53 40.72"/>
+      <path fill="none" d="M173,12.61 L 173 40.72"/>
     </g>
-    <g class="plotpanel" id="fig-16dff281a2664288a986e59d5a4b0074-element-37">
-      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-16dff281a2664288a986e59d5a4b0074-element-38">
-        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-16dff281a2664288a986e59d5a4b0074-element-39">
-          <rect x="108.63" y="29.07" width="16.59" height="9.64"/>
-          <rect x="125.22" y="33.89" width="16.59" height="4.82"/>
-          <rect x="141.82" y="33.89" width="16.59" height="4.82"/>
-          <rect x="158.41" y="33.89" width="16.59" height="4.82"/>
+    <g class="plotpanel" id="fig-46166f8baae940f696e96bed61234543-element-50">
+      <g stroke-width="0.3" fill="#000000" fill-opacity="0.000" class="geometry" stroke="#00BFFF" id="fig-46166f8baae940f696e96bed61234543-element-51">
+        <path fill="none" d="M140.63,35.34 L 140.7 33.29 140.76 31.35 140.83 29.56 140.89 27.97 140.96 26.57 141.02 25.38 141.08 24.37 141.15 23.53 141.21 22.84 141.28 22.28 141.34 21.82 141.41 21.45 141.47 21.16 141.54 20.92 141.6 20.73 141.67 20.58 141.73 20.46 141.8 20.36 141.86 20.28 141.93 20.22 141.99 20.17 142.06 20.13 142.12 20.09 142.19 20.06 142.25 20.04 142.31 20.02 142.38 20.01 142.44 19.99 142.51 19.98 142.57 19.97 142.64 19.97 142.7 19.96 142.77 19.95 142.83 19.95 142.9 19.94 142.96 19.94 143.03 19.93 143.09 19.93 143.16 19.92 143.22 19.92 143.29 19.92 143.35 19.91 143.42 19.91 143.48 19.91 143.54 19.9 143.61 19.9 143.67 19.9 143.74 19.89 143.8 19.89 143.87 19.89 143.93 19.88 144 19.88 144.06 19.88 144.13 19.88 144.19 19.87 144.26 19.87 144.32 19.87 144.39 19.86 144.45 19.86 144.52 19.86 144.58 19.86 144.65 19.85 144.71 19.85 144.77 19.85 144.84 19.85 144.9 19.84 144.97 19.84 145.03 19.84 145.1 19.83 145.16 19.83 145.23 19.83 145.29 19.83 145.36 19.82 145.42 19.82 145.49 19.82 145.55 19.82 145.62 19.81 145.68 19.81 145.75 19.81 145.81 19.81 145.88 19.8 145.94 19.8 146 19.8 146.07 19.8 146.13 19.79 146.2 19.79 146.26 19.79 146.33 19.79 146.39 19.78 146.46 19.78 146.52 19.78 146.59 19.78 146.65 19.77 146.72 19.77 146.78 19.77 146.85 19.77 146.91 19.76 146.98 19.76 147.04 19.76 147.11 19.76 147.17 19.75 147.23 19.75 147.3 19.75 147.36 19.75 147.43 19.74 147.49 19.74 147.56 19.74 147.62 19.74 147.69 19.74 147.75 19.73 147.82 19.73 147.88 19.73 147.95 19.73 148.01 19.72 148.08 19.72 148.14 19.72 148.21 19.72 148.27 19.72 148.34 19.71 148.4 19.71 148.46 19.71 148.53 19.71 148.59 19.7 148.66 19.7 148.72 19.7 148.79 19.7 148.85 19.7 148.92 19.69 148.98 19.69 149.05 19.69 149.11 19.69 149.18 19.69 149.24 19.68 149.31 19.68 149.37 19.68 149.44 19.68 149.5 19.68 149.57 19.67 149.63 19.67 149.69 19.67 149.76 19.67 149.82 19.67 149.89 19.67 149.95 19.66 150.02 19.66 150.08 19.66 150.15 19.66 150.21 19.66 150.28 19.65 150.34 19.65 150.41 19.65 150.47 19.65 150.54 19.65 150.6 19.65 150.67 19.64 150.73 19.64 150.8 19.64 150.86 19.64 150.92 19.64 150.99 19.63 151.05 19.63 151.12 19.63 151.18 19.63 151.25 19.63 151.31 19.63 151.38 19.62 151.44 19.62 151.51 19.62 151.57 19.62 151.64 19.62 151.7 19.62 151.77 19.62 151.83 19.61 151.9 19.61 151.96 19.61 152.03 19.61 152.09 19.61 152.15 19.61 152.22 19.6 152.28 19.6 152.35 19.6 152.41 19.6 152.48 19.6 152.54 19.6 152.61 19.6 152.67 19.59 152.74 19.59 152.8 19.59 152.87 19.59 152.93 19.59 153 19.59 153.06 19.59 153.13 19.59 153.19 19.58 153.26 19.58 153.32 19.58 153.38 19.58 153.45 19.58 153.51 19.58 153.58 19.58 153.64 19.57 153.71 19.57 153.77 19.57 153.84 19.57 153.9 19.57 153.97 19.57 154.03 19.57 154.1 19.57 154.16 19.56 154.23 19.56 154.29 19.56 154.36 19.56 154.42 19.56 154.49 19.56 154.55 19.56 154.61 19.56 154.68 19.56 154.74 19.55 154.81 19.55 154.87 19.55 154.94 19.55 155 19.55 155.07 19.55 155.13 19.55 155.2 19.55 155.26 19.55 155.33 19.55 155.39 19.54 155.46 19.54 155.52 19.54 155.59 19.54 155.65 19.54 155.72 19.54 155.78 19.54 155.84 19.54 155.91 19.54 155.97 19.54 156.04 19.53 156.1 19.53 156.17 19.53 156.23 19.53 156.3 19.53 156.36 19.53 156.43 19.53 156.49 19.53 156.56 19.53 156.62 19.53 156.69 19.53 156.75 19.52 156.82 19.52 156.88 19.52 156.95 19.52 157.01 19.52 157.07 19.52 157.14 19.52 157.2 19.52 157.27 19.52 157.33 19.52 157.4 19.52 157.46 19.52 157.53 19.51 157.59 19.51 157.66 19.51 157.72 19.51 157.79 19.51 157.85 19.51 157.92 19.51 157.98 19.51 158.05 19.51 158.11 19.51 158.18 19.51 158.24 19.51 158.3 19.51 158.37 19.51 158.43 19.5 158.5 19.5 158.56 19.5 158.63 19.5 158.69 19.5 158.76 19.5 158.82 19.5 158.89 19.5 158.95 19.5 159.02 19.5 159.08 19.5 159.15 19.5 159.21 19.5 159.28 19.5 159.34 19.5 159.41 19.5 159.47 19.49 159.53 19.49 159.6 19.49 159.66 19.49 159.73 19.49 159.79 19.49 159.86 19.49 159.92 19.49 159.99 19.49 160.05 19.49 160.12 19.49 160.18 19.49 160.25 19.49 160.31 19.49 160.38 19.49 160.44 19.49 160.51 19.49 160.57 19.49 160.64 19.48 160.7 19.48 160.76 19.48 160.83 19.48 160.89 19.48 160.96 19.48 161.02 19.48 161.09 19.48 161.15 19.48 161.22 19.48 161.28 19.48 161.35 19.48 161.41 19.48 161.48 19.48 161.54 19.48 161.61 19.48 161.67 19.48 161.74 19.48 161.8 19.48 161.87 19.48 161.93 19.48 161.99 19.48 162.06 19.47 162.12 19.47 162.19 19.47 162.25 19.47 162.32 19.47 162.38 19.47 162.45 19.47 162.51 19.47 162.58 19.47 162.64 19.47 162.71 19.47 162.77 19.47 162.84 19.47 162.9 19.47 162.97 19.47 163.03 19.47 163.1 19.47 163.16 19.47 163.22 19.47 163.29 19.47 163.35 19.47 163.42 19.47 163.48 19.47 163.55 19.47 163.61 19.47 163.68 19.47 163.74 19.47 163.81 19.47 163.87 19.46 163.94 19.46 164 19.46 164.07 19.46 164.13 19.46 164.2 19.46 164.26 19.46 164.33 19.46 164.39 19.46 164.45 19.46 164.52 19.46 164.58 19.46 164.65 19.46 164.71 19.46 164.78 19.46 164.84 19.46 164.91 19.46 164.97 19.46 165.04 19.46 165.1 19.46 165.17 19.46 165.23 19.46 165.3 19.46 165.36 19.46 165.43 19.46 165.49 19.46 165.56 19.46 165.62 19.46 165.68 19.46 165.75 19.46 165.81 19.46 165.88 19.46 165.94 19.46 166.01 19.46 166.07 19.46 166.14 19.46 166.2 19.46 166.27 19.45 166.33 19.45 166.4 19.45 166.46 19.45 166.53 19.45 166.59 19.45 166.66 19.45 166.72 19.45 166.79 19.45 166.85 19.45 166.91 19.45 166.98 19.45 167.04 19.45 167.11 19.45 167.17 19.45 167.24 19.45 167.3 19.45 167.37 19.45 167.43 19.45 167.5 19.45 167.56 19.45 167.63 19.45 167.69 19.45 167.76 19.45 167.82 19.45 167.89 19.45 167.95 19.45 168.02 19.45 168.08 19.45 168.14 19.45 168.21 19.45 168.27 19.45 168.34 19.45 168.4 19.45 168.47 19.45 168.53 19.45 168.6 19.45 168.66 19.45 168.73 19.45 168.79 19.45 168.86 19.45 168.92 19.45 168.99 19.45 169.05 19.45 169.12 19.45 169.18 19.45 169.25 19.45 169.31 19.45 169.37 19.45 169.44 19.45 169.5 19.45 169.57 19.45 169.63 19.45 169.7 19.45 169.76 19.45 169.83 19.45 169.89 19.45 169.96 19.45 170.02 19.45 170.09 19.44 170.15 19.44 170.22 19.44 170.28 19.44 170.35 19.44 170.41 19.44 170.48 19.44 170.54 19.44 170.6 19.44 170.67 19.44 170.73 19.44 170.8 19.44 170.86 19.44 170.93 19.44 170.99 19.44 171.06 19.44 171.12 19.44 171.19 19.44 171.25 19.44 171.32 19.44 171.38 19.44 171.45 19.44 171.51 19.44 171.58 19.44 171.64 19.44 171.71 19.44 171.77 19.44 171.83 19.44 171.9 19.44 171.96 19.44 172.03 19.44 172.09 19.44 172.16 19.44 172.22 19.44 172.29 19.44 172.35 19.44 172.42 19.44 172.48 19.44 172.55 19.44 172.61 19.44 172.68 19.44 172.74 19.44 172.81 19.44 172.87 19.44 172.94 19.44 173 19.44"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-52">
+    <text x="137.63" y="38.72" text-anchor="end" dy="0.35em">1.5</text>
+    <text x="137.63" y="32.69" text-anchor="end" dy="0.35em">2.0</text>
+    <text x="137.63" y="26.66" text-anchor="end" dy="0.35em">2.5</text>
+    <text x="137.63" y="20.64" text-anchor="end" dy="0.35em">3.0</text>
+    <text x="137.63" y="14.61" text-anchor="end" dy="0.35em">3.5</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-53">
+    <text x="128.81" y="24.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 128.81, 26.66)">E[U]</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-54">
+    <text x="156.82" y="10.61" text-anchor="middle">Expected utility</text>
+  </g>
+</g>
+<g class="plotroot yscalable" id="fig-46166f8baae940f696e96bed61234543-element-55">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-56">
+    <text x="96.82" y="52" text-anchor="middle">a</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-57">
+    <text x="83.18" y="44.39" text-anchor="middle">a1</text>
+    <text x="92.27" y="44.39" text-anchor="middle">a2</text>
+    <text x="101.36" y="44.39" text-anchor="middle">a3</text>
+    <text x="110.45" y="44.39" text-anchor="middle">a4</text>
+  </g>
+  <g clip-path="url(#fig-46166f8baae940f696e96bed61234543-element-59)" id="fig-46166f8baae940f696e96bed61234543-element-58">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-46166f8baae940f696e96bed61234543-element-60">
+      <rect x="78.63" y="12.61" width="36.37" height="28.1"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-61">
+      <path fill="none" d="M78.63,38.71 L 115 38.71"/>
+      <path fill="none" d="M78.63,26.66 L 115 26.66"/>
+      <path fill="none" d="M78.63,14.61 L 115 14.61"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-62">
+      <path fill="none" d="M87.72,12.61 L 87.72 40.71"/>
+      <path fill="none" d="M96.82,12.61 L 96.82 40.71"/>
+      <path fill="none" d="M105.91,12.61 L 105.91 40.71"/>
+    </g>
+    <g class="plotpanel" id="fig-46166f8baae940f696e96bed61234543-element-63">
+      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-46166f8baae940f696e96bed61234543-element-64">
+        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-46166f8baae940f696e96bed61234543-element-65">
+          <rect x="78.63" y="32.69" width="9.09" height="6.03"/>
+          <rect x="87.72" y="32.69" width="9.09" height="6.03"/>
+          <rect x="96.82" y="32.69" width="9.09" height="6.03"/>
+          <rect x="105.91" y="32.69" width="9.09" height="6.03"/>
         </g>
       </g>
     </g>
   </g>
-  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-40">
-    <text x="107.63" y="38.71" text-anchor="end" dy="0.35em">0.0</text>
-    <text x="107.63" y="26.66" text-anchor="end" dy="0.35em">0.5</text>
-    <text x="107.63" y="14.61" text-anchor="end" dy="0.35em">1.0</text>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-66">
+    <text x="77.63" y="38.71" text-anchor="end" dy="0.35em">0.0</text>
+    <text x="77.63" y="26.66" text-anchor="end" dy="0.35em">0.5</text>
+    <text x="77.63" y="14.61" text-anchor="end" dy="0.35em">1.0</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-41">
-    <text x="98.81" y="24.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 98.81, 26.66)">p0(a)</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-67">
+    <text x="68.81" y="24.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 68.81, 26.66)">p0(a)</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-42">
-    <text x="141.82" y="10.61" text-anchor="middle">Prior</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-68">
+    <text x="96.82" y="10.61" text-anchor="middle">Prior</text>
   </g>
 </g>
-<g class="plotroot yscalable" id="fig-16dff281a2664288a986e59d5a4b0074-element-43">
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-44">
-    <text x="50.64" y="52" text-anchor="middle">a</text>
+<g class="plotroot yscalable" id="fig-46166f8baae940f696e96bed61234543-element-69">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-70">
+    <text x="35.64" y="52" text-anchor="middle">a</text>
   </g>
-  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-45">
-    <text x="24.87" y="44.39" text-anchor="middle">a1</text>
-    <text x="42.05" y="44.39" text-anchor="middle">a2</text>
-    <text x="59.23" y="44.39" text-anchor="middle">a3</text>
-    <text x="76.41" y="44.39" text-anchor="middle">a4</text>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-71">
+    <text x="21.12" y="44.39" text-anchor="middle">a1</text>
+    <text x="30.8" y="44.39" text-anchor="middle">a2</text>
+    <text x="40.48" y="44.39" text-anchor="middle">a3</text>
+    <text x="50.16" y="44.39" text-anchor="middle">a4</text>
   </g>
-  <g clip-path="url(#fig-16dff281a2664288a986e59d5a4b0074-element-47)" id="fig-16dff281a2664288a986e59d5a4b0074-element-46">
-    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-16dff281a2664288a986e59d5a4b0074-element-48">
-      <rect x="16.28" y="12.61" width="68.72" height="28.1"/>
+  <g clip-path="url(#fig-46166f8baae940f696e96bed61234543-element-73)" id="fig-46166f8baae940f696e96bed61234543-element-72">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-46166f8baae940f696e96bed61234543-element-74">
+      <rect x="16.28" y="12.61" width="38.72" height="28.1"/>
     </g>
-    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-49">
-      <path fill="none" d="M16.28,38.72 L 85 38.72"/>
-      <path fill="none" d="M16.28,32.69 L 85 32.69"/>
-      <path fill="none" d="M16.28,26.66 L 85 26.66"/>
-      <path fill="none" d="M16.28,20.64 L 85 20.64"/>
-      <path fill="none" d="M16.28,14.61 L 85 14.61"/>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-75">
+      <path fill="none" d="M16.28,38.72 L 55 38.72"/>
+      <path fill="none" d="M16.28,32.69 L 55 32.69"/>
+      <path fill="none" d="M16.28,26.66 L 55 26.66"/>
+      <path fill="none" d="M16.28,20.64 L 55 20.64"/>
+      <path fill="none" d="M16.28,14.61 L 55 14.61"/>
     </g>
-    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-16dff281a2664288a986e59d5a4b0074-element-50">
-      <path fill="none" d="M33.46,12.61 L 33.46 40.72"/>
-      <path fill="none" d="M50.64,12.61 L 50.64 40.72"/>
-      <path fill="none" d="M67.82,12.61 L 67.82 40.72"/>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46166f8baae940f696e96bed61234543-element-76">
+      <path fill="none" d="M25.96,12.61 L 25.96 40.72"/>
+      <path fill="none" d="M35.64,12.61 L 35.64 40.72"/>
+      <path fill="none" d="M45.32,12.61 L 45.32 40.72"/>
     </g>
-    <g class="plotpanel" id="fig-16dff281a2664288a986e59d5a4b0074-element-51">
-      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-16dff281a2664288a986e59d5a4b0074-element-52">
-        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-16dff281a2664288a986e59d5a4b0074-element-53">
-          <rect x="16.28" y="20.64" width="17.18" height="18.08"/>
-          <rect x="33.46" y="32.69" width="17.18" height="6.03"/>
-          <rect x="50.64" y="32.69" width="17.18" height="6.03"/>
-          <rect x="67.82" y="20.03" width="17.18" height="18.68"/>
+    <g class="plotpanel" id="fig-46166f8baae940f696e96bed61234543-element-77">
+      <g shape-rendering="crispEdges" stroke-width="0.3" id="fig-46166f8baae940f696e96bed61234543-element-78">
+        <g stroke="#000000" stroke-opacity="0.000" fill="#00BFFF" class="geometry" id="fig-46166f8baae940f696e96bed61234543-element-79">
+          <rect x="16.28" y="20.64" width="9.68" height="18.08"/>
+          <rect x="25.96" y="38.59" width="9.68" height="0.12"/>
+          <rect x="35.64" y="32.69" width="9.68" height="6.03"/>
+          <rect x="45.32" y="20.03" width="9.68" height="18.68"/>
         </g>
       </g>
     </g>
   </g>
-  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-16dff281a2664288a986e59d5a4b0074-element-54">
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46166f8baae940f696e96bed61234543-element-80">
     <text x="15.29" y="38.72" text-anchor="end" dy="0.35em">0</text>
     <text x="15.29" y="32.69" text-anchor="end" dy="0.35em">1</text>
     <text x="15.29" y="26.66" text-anchor="end" dy="0.35em">2</text>
     <text x="15.29" y="20.64" text-anchor="end" dy="0.35em">3</text>
     <text x="15.29" y="14.61" text-anchor="end" dy="0.35em">4</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-55">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-81">
     <text x="8.81" y="24.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 26.66)">U(a)</text>
   </g>
-  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-16dff281a2664288a986e59d5a4b0074-element-56">
-    <text x="50.64" y="10.61" text-anchor="middle">Utility</text>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-46166f8baae940f696e96bed61234543-element-82">
+    <text x="35.64" y="10.61" text-anchor="middle">Utility</text>
   </g>
 </g>
 <defs>
-<clipPath id="fig-16dff281a2664288a986e59d5a4b0074-element-47">
-  <path d="M16.28,12.61 L 85 12.61 85 40.72 16.28 40.72" />
+<clipPath id="fig-46166f8baae940f696e96bed61234543-element-46">
+  <path d="M138.63,12.61 L 175 12.61 175 40.72 138.63 40.72" />
 </clipPath
-><clipPath id="fig-16dff281a2664288a986e59d5a4b0074-element-5">
-  <path d="M108.63,72.61 L 175 72.61 175 100.72 108.63 100.72" />
+><clipPath id="fig-46166f8baae940f696e96bed61234543-element-18">
+  <path d="M78.63,72.61 L 115 72.61 115 100.72 78.63 100.72" />
 </clipPath
-><clipPath id="fig-16dff281a2664288a986e59d5a4b0074-element-33">
-  <path d="M108.63,12.61 L 175 12.61 175 40.71 108.63 40.71" />
+><clipPath id="fig-46166f8baae940f696e96bed61234543-element-5">
+  <path d="M138.63,72.61 L 175 72.61 175 101.48 138.63 101.48" />
 </clipPath
-><clipPath id="fig-16dff281a2664288a986e59d5a4b0074-element-19">
-  <path d="M18.63,72.61 L 85 72.61 85 100.72 18.63 100.72" />
+><clipPath id="fig-46166f8baae940f696e96bed61234543-element-59">
+  <path d="M78.63,12.61 L 115 12.61 115 40.71 78.63 40.71" />
+</clipPath
+><clipPath id="fig-46166f8baae940f696e96bed61234543-element-32">
+  <path d="M18.63,72.61 L 55 72.61 55 100.72 18.63 100.72" />
+</clipPath
+><clipPath id="fig-46166f8baae940f696e96bed61234543-element-73">
+  <path d="M16.28,12.61 L 55 12.61 55 40.72 16.28 40.72" />
 </clipPath
 ></defs>
 </svg>
