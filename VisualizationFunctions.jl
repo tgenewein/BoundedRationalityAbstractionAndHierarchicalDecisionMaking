@@ -1,7 +1,3 @@
-######################################################################
-#This is part of the module BlahutArimoto
-######################################################################
-
 
 function boltzmannresult2DataFrame(pa::Vector, avec::Vector, varargin...)
     #if string representation for a is provided, check its dimensionality and use it

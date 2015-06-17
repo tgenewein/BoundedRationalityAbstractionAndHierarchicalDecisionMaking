@@ -1,7 +1,3 @@
-######################################################################
-#This is part of the module BlahutArimoto
-######################################################################
-
 
 #functions for computing mutual informations (in bits)
 function mutualinformation(py::Vector, px::Vector, pxgiveny::Matrix)    
