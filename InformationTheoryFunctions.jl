@@ -67,6 +67,7 @@ function RDobjective(EU,I,β)
     return EU-I/β
 end
 
+#compute I(A;O), H(A), H(A|O), E[U] and E[U]-I(A;O)/β
 function analyzeBAsolution(po::Vector, pa::Vector, pago::Matrix, U_pre::Matrix, β)
     #compute I(a;o)
     I = mutualinformation(po,pa,pago)

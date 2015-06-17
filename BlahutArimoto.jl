@@ -115,10 +115,6 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, Umax::Vector, po::Arra
     
 end
 
-#convert performance measures to DataFrame representation
-function performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj)
-    return DataFrame(I_ao=I, H_a=Ha, H_ago = Hago, E_U = EU, RD_obj = RDobj)
-end
 
 #TODO: include 2-level BA algorithm(s) here(?)
 
