@@ -2,24 +2,25 @@ module RateDistortionDecisionMaking
 
 #using #dependencies
 
-using DataFrames, Color, Gadfly, Distances.kl_divergence, Distributions.Distribution
-
-
-import Distributions.entropy
-
+using DataFrames, Color, Gadfly, 
+      Distances.kl_divergence,
+      Distributions
 
 export boltzmanndist, BAiterations, setuputilityarrays,
-       mutualinformation, expectedutility, entropy,
-       boltzmannresult2DataFrame, BATheme, 
+       mutualinformation, expectedutility, entropybits,
+       RDobjective, analyzeBAsolution, performancemeasures2DataFrame,
+       boltzmannresult2DataFrame, BAtheme, 
        BAmarginal2DataFrame, BAconditional2DataFrame, BAresult2DataFrame,
-       visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution
+       visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution,
+       plotperformancemeasures, BAdiscretecolorscale
 
 
-#include BlahutArimoto iterations
-include("BlahutArimoto.jl")
 
 #include helper functions for mutual information, expected utiliy
 include("InformationTheoryFunctions.jl")
+
+#include BlahutArimoto iterations
+include("BlahutArimoto.jl")
 
 #include helper functions for visualization
 include("VisualizationFunctions.jl")
@@ -37,5 +38,7 @@ include("VisualizationFunctions.jl")
 #TODO: write some tests (especially in case future releases break something)
 
 #TODO: adopt src/ test/ structure
+
+#TODO: perhaps create a seperate julia file for the conversion functions to DataFrames?
 
 end

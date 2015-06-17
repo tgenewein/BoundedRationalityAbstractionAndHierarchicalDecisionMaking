@@ -103,7 +103,7 @@ end
 
 
 #standard theme (to make plots consistent and allow for more control for publication-quality plots)
-function BATheme()
+function BAtheme()
     #font = "'PT Sans','Helvetica Neue','Helvetica',sans-serif"
     #font = "Computer Modern Math"
     font = "'Latin Modern Math','Latin-Modern',serif"
@@ -120,6 +120,7 @@ function BATheme()
                 key_label_font = font,# Font used for key entry labels. (String)
                 key_label_font_size = 10pt,# Font size used for key entry labels. (Measure)
                 bar_spacing = 1pt,# Spacing between bars in Geom.bar. (Measure)
+                #boxplot_spacing: Spacing between boxplots in Geom.boxplot. (Measure)
                 )
 end
 
@@ -139,7 +140,7 @@ function BAcontinuouscolorscale()
     
     #alternatively, use a built-in colormap; they have been designed (scientifically) for 
     #most accurately displaying data using a color-coding.
-    colors = colormap("Blues")
+    colors = colormap("Reds")
     
     
     #you can transform the colors to simulate certain visual deficiencies
@@ -154,6 +155,31 @@ end
 #standard color scale for visualizing probabilities (i.e. values ∈ (0,1))
 function BAprobabilityvisscale()
     return Scale.ContinuousColorScale(BAcontinuouscolorscale(),minvalue=0.0,maxvalue=1)
+end
+
+#standard discrete color-scale used by visualization functions in this file
+function BAdiscretecolorscale(ncolors::Int)
+    return BAdiscretecolorscale(ncolors,0)
+end
+
+#standard discrete color-scale used by visualization functions in this file
+#offset is the number of colors that are skipped
+function BAdiscretecolorscale(ncolors::Int, offset::Int)
+    if ncolors < 1
+        error("Less than 1 colors requested - invalid operation.")
+    end
+    if offset < 0
+        error("Offset value must be positive but negative value was provided.")
+    end
+    
+    colors = ["blue","purple"]
+    navailable = size(colors,1)
+    
+    if (offset+ncolors)>navailable
+        error("More colors requested than available - extend the manual color scale in BAdiscretecolorscale(...) if possible")
+    else
+        return Scale.color_discrete_manual(colors[(offset+1):(offset+ncolors)]...)
+    end
 end
 
 
@@ -175,18 +201,18 @@ function visualizeBAmarginal(pa_df::DataFrame, avec::Vector; alabel="Action a", 
         plt = plot(pa_df, x=av, y="a_string", color="p_a", Geom.rectbin,
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),
-                   Guide.xticks(label=false), Guide.xlabel(nothing),
+                   Guide.xticks(label=false), Guide.xlabel(nothing, orientation=:horizontal),
                    Guide.ylabel(alabel, orientation=:vertical),
-                   BATheme(),
+                   BAtheme(),
         BAprobabilityvisscale()
         )
     else
         plt = plot(pa_df, x=av, y="a", color="p_a", Geom.rectbin,
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),
-                   Guide.xticks(label=false), Guide.xlabel(nothing),
+                   Guide.xticks(label=false), Guide.xlabel(nothing, orientation=:horizontal),
                    Guide.ylabel(alabel, orientation=:vertical),
-                   BATheme(),
+                   BAtheme(),
         BAprobabilityvisscale()
         )
     end
@@ -234,16 +260,16 @@ function visualizeBAconditional(pago_df::DataFrame, avec::Vector, ovec::Vector;
         plt = plot(pago_df, x="o_string", y="a_string", color="p_ago", Geom.rectbin,
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),Guide.xticks(orientation=:vertical),
-                   Guide.xlabel(olabel), Guide.ylabel(alabel, orientation=:vertical),
-                   BATheme(),
+                   Guide.xlabel(olabel, orientation=:horizontal), Guide.ylabel(alabel, orientation=:vertical),
+                   BAtheme(),
         BAprobabilityvisscale()
         )
     else
         plt = plot(pago_df, x="o", y="a", color="p_ago", Geom.rectbin,
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),
-                   Guide.xlabel(olabel), Guide.ylabel(alabel, orientation=:vertical),
-                   BATheme(),
+                   Guide.xlabel(olabel, orientation=:horizontal), Guide.ylabel(alabel, orientation=:vertical),
+                   BAtheme(),
         BAprobabilityvisscale()
         )
     end
@@ -281,8 +307,8 @@ function visualizeBAsolution(pa, pago, avec::Vector, ovec::Vector;
     plt_marg = visualizeBAmarginal(pa, avec, alabel=alabel, legendlabel=legendlabel_marginal)
     plt_cond = visualizeBAconditional(pago, avec, ovec, alabel=alabel, olabel=olabel, legendlabel=legendlabel_conditional)
 
-    display(plt_marg)
-    display(plt_cond)
+    plt_stack = hstack(plt_marg, plt_cond)
+    display(plt_stack)
     return plt_marg, plt_cond
 end
 
@@ -295,9 +321,73 @@ function visualizeBAsolution{T1<:String, T2<:String}(pa::Vector, pago::Matrix, a
     plt_marg = visualizeBAmarginal(pa, avec, a_strings, alabel=alabel, legendlabel=legendlabel_marginal)
     plt_cond = visualizeBAconditional(pago, avec, ovec, a_strings, o_strings, alabel=alabel, olabel=olabel, legendlabel=legendlabel_conditional)
 
-    display(plt_marg)
-    display(plt_cond)
+    plt_stack = hstack(plt_marg, plt_cond)
+    display(plt_stack)
     return plt_marg, plt_cond
+end
+
+
+
+
+
+
+#plots the evolution of I(A;O), H(A), H(A|O), E[U] and the rate distortion objective as a function of β
+function plotperformancemeasures(I::Vector, Ha::Vector, Hago::Vector, EU::Vector, RDobj::Vector, β_vals::Vector)    
+    #turn results into data frame
+    perf_res = performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj);    
+    return plotperformancemeasures(perf_res, β_vals)
+end
+
+#plots the evolution of I(A;O), H(A), H(A|O), E[U] and the rate distortion objective as a function of β
+function plotperformancemeasures(perf_dataframe::DataFrame, β_vals)    
+    #append inv. temp. column to data frame
+    perf_dataframe[:β] = β_vals;
+
+    #------- plot evolution of I(a;o), H(a), H(a|o), E[U(a)] and E[U(a,o)]-1/β I(a;o)
+    #realign columns of data frame for easy plotting 
+    #(each column will become a line in the plot - values will depend on the β column)
+    #entropic variables (in bits) go in one plot
+    perf_res_entropic = stack(perf_dataframe, [:I_ao, :H_a, :H_ago], :β)
+    #expected utility and the overall objective (in utils) go in another plot
+    perf_res_utils = stack(perf_dataframe, [:E_U, :RD_obj], :β)
+    
+    
+    #since Gadfly (currently) does not support setting the legend-strings only (colorkey strings)
+    #add a column to the data-frame that has a nice string-representation of the variable-name
+    ncols = size(perf_res_entropic,1)
+    perf_res_entropic[:variable_str] = ["" for x in 1:ncols]
+    perf_res_entropic[perf_res_entropic[:variable].==:I_ao,:variable_str] = "I(A;O)"
+    perf_res_entropic[perf_res_entropic[:variable].==:H_a,:variable_str] = "H(A)"
+    perf_res_entropic[perf_res_entropic[:variable].==:H_ago,:variable_str] = "H(A|O)"
+
+    ncols = size(perf_res_utils,1)
+    perf_res_utils[:variable_str] = ["" for x in 1:ncols]
+    perf_res_utils[perf_res_utils[:variable].==:E_U,:variable_str] = "E[U]"
+    perf_res_utils[perf_res_utils[:variable].==:RD_obj,:variable_str] = "RU_obj"
+    #create the two plots and stack them vertically
+    plt_entropic = plot(perf_res_entropic,x="β",y="value",color="variable_str",Geom.line,BAtheme(),
+    Guide.ylabel("[bits]"),Guide.colorkey(""))
+    
+    
+    
+    plt_utils = plot(perf_res_utils,x="β",y="value",color="variable_str",Geom.line,BAtheme(),
+    Guide.ylabel("[utils]"),Guide.colorkey(""),BAdiscretecolorscale(2))
+    plt_performance = vstack(plt_entropic, plt_utils)
+    #----------------------------------------------------------
+    
+    
+    #------- plot rate-utility curve (infeasible regsion is shaded)
+    nvals = size(perf_dataframe,1)
+    ymax_val = maximum(perf_dataframe[:E_U])
+    ymax = ones(nvals)*ymax_val
+    plt_rateutility = plot(perf_dataframe,x="I_ao",y="E_U", ymin="E_U", ymax=ymax, Geom.line, Geom.ribbon,
+    Guide.xlabel("I(A;O)"),Guide.ylabel("E[U]"), BAtheme())
+    #----------------------------------------------------------
+    
+    display(plt_performance)
+    display(plt_rateutility)
+    
+    return plt_entropic, plt_utils, plt_rateutility
 end
 
 
