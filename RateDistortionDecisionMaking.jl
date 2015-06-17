@@ -2,7 +2,7 @@ module BlahutArimoto
 
 #using #dependencies
 
-using DataFrames, Color, Gadfly, Distances, Distributions.Distribution
+using DataFrames, Color, Gadfly, Distances.kl_divergence, Distributions.Distribution
 
 
 import Distributions.entropy

@@ -143,7 +143,7 @@ function BAcontinuouscolorscale()
     
     #alternatively, use a built-in colormap; they have been designed (scientifically) for 
     #most accurately displaying data using a color-coding.
-    colors = colormap("Reds")
+    colors = colormap("Blues")
     
     
     #you can transform the colors to simulate certain visual deficiencies
@@ -313,3 +313,5 @@ end
 #      perhaps reuse the same functions but define a type (probdist) for the BAresults.
 #      If the vis fcn shows a probdist, use ∈(0,1) for color-scale limits, otherwise not.
 #      Check if you could reuse an existing type for this (perhaps from Distributions.jl?)
+
+#TODO: functions for visualizing distribution-vectors as bars (similar to the FreeEnergy notebook)?
