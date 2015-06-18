@@ -8,8 +8,10 @@ function setuputilityarrays(a::Vector, o::Vector, utility::Function)
     U_pre = zeros(cardinality_a, cardinality_o)
     Umax = zeros(cardinality_o)
     for i in 1:cardinality_o
-        U_pre[:,i]=utility(a,o[i])
-        Umax[i],ind = findmax(U_pre[:,i])
+        for j in 1:cardinality_a
+            U_pre[j,i]=utility(a[j],o[i])
+        end
+        Umax[i] = maximum(U_pre[:,i])
     end
     
     return U_pre, Umax

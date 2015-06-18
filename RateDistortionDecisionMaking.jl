@@ -11,7 +11,7 @@ export boltzmanndist, BAiterations, setuputilityarrays,
        RDobjective, analyzeBAsolution, performancemeasures2DataFrame,
        boltzmannresult2DataFrame, BAtheme, 
        BAmarginal2DataFrame, BAconditional2DataFrame, BAresult2DataFrame,
-       visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution,
+       visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution, visualizeMatrix,
        plotperformancemeasures, BAdiscretecolorscale
 
 
