@@ -77,8 +77,9 @@ function BAdiscretecolorscale(ncolors::Int, offset::Int)
     if offset < 0
         error("Offset value must be positive but negative value was provided.")
     end
-    
-    colors = ["blue","purple"]
+    #these are the Gadfly default colors (for continuous colors)
+    colors = [Scale.color_continuous().f(p) for p in linspace(0, 1, (ncolors+offset))]
+    #colors = ["blue","purple"]
     navailable = size(colors,1)
     
     if (offset+ncolors)>navailable
@@ -277,7 +278,7 @@ end
 function plotperformancemeasures(I::Vector, Ha::Vector, Hago::Vector, EU::Vector, RDobj::Vector, β_vals::Vector;
                                  suppress_vis::Bool=false, theme_args...)    
     #turn results into data frame
-    perf_res = performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj);    
+    perf_res = performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj)    
     return plotperformancemeasures(perf_res, β_vals, suppress_vis = suppress_vis; theme_args...)
 end
 
@@ -322,7 +323,7 @@ function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; sup
     ymax_val = maximum(perf_dataframe[:E_U])
     ymax = ones(nvals)*ymax_val
     plt_rateutility = plot(perf_dataframe,x="I_ao",y="E_U", ymin="E_U", ymax=ymax, Geom.line, Geom.ribbon,
-    Guide.xlabel("I(A;O)"),Guide.ylabel("E[U]"), BAtheme(;theme_args...))
+    Guide.xlabel("I(A;O) [bits]"),Guide.ylabel("E[U]"), BAtheme(;theme_args...))
     #----------------------------------------------------------
     
     if suppress_vis == false
@@ -339,3 +340,6 @@ end
 #TODO: add the option to provide a title-string to the plots?
 
 #TODO: functions for visualizing distribution-vectors as bars (similar to the FreeEnergy notebook)?
+
+#TODO: for the discrete color-scale, the Gadfly default continuous colors are now used - use the default 
+#discrete colors
