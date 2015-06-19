@@ -64,13 +64,13 @@ end
 
 
 #standard discrete color-scale used by visualization functions in this file
-function BAdiscretecolorscale(ncolors::Int)
+function BAdiscretecolorscale(ncolors::Integer)
     return BAdiscretecolorscale(ncolors,0)
 end
 
 #standard discrete color-scale used by visualization functions in this file
 #offset is the number of colors that are skipped
-function BAdiscretecolorscale(ncolors::Int, offset::Int)
+function BAdiscretecolorscale(ncolors::Integer, offset::Integer)
     if ncolors < 1
         error("Less than 1 colors requested - invalid operation.")
     end
@@ -276,14 +276,15 @@ end
 
 #plots the evolution of I(A;O), H(A), H(A|O), E[U] and the rate distortion objective as a function of β
 function plotperformancemeasures(I::Vector, Ha::Vector, Hago::Vector, EU::Vector, RDobj::Vector, β_vals::Vector;
-                                 suppress_vis::Bool=false, theme_args...)    
+                                 suppress_vis::Bool=false, xlabel_perf="β", theme_args...)    
     #turn results into data frame
     perf_res = performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj)    
     return plotperformancemeasures(perf_res, β_vals, suppress_vis = suppress_vis; theme_args...)
 end
 
 #plots the evolution of I(A;O), H(A), H(A|O), E[U] and the rate distortion objective as a function of β
-function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; suppress_vis::Bool=false, theme_args...)    
+function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; suppress_vis::Bool=false,
+                                 xlabel_perf="β", theme_args...)    
     #append inv. temp. column to data frame
     perf_dataframe[:β] = β_vals;
 
