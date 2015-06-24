@@ -1,0 +1,13 @@
+
+###################
+##### Jupyter #####
+###################
+startIJulia.bat
+.ipynb_checkpoints/
+
+
+###################
+##### Sublime #####
+###################
+*.sublime-project
+*.sublime-workspace
