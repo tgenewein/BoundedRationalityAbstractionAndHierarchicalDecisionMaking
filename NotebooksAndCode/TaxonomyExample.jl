@@ -54,7 +54,7 @@ function setuptaxonomy()
         end
 
         #correct category
-        if a<17
+        if a<18
             cat = ceil(o/3)
             if (a-13) == cat
                 return u_correct_category
@@ -66,6 +66,11 @@ function setuptaxonomy()
         supcat = ceil(o/6)
         if (a-17) == supcat
             return u_correct_supercategory
+        end
+        
+        #separate case for a==19
+        if a==19 && o==13
+           return u_correct_supercategory
         end
 
 
