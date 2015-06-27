@@ -2,21 +2,21 @@
 function setuptaxonomy()
     #set up taxonomy example
     #observations
-    o_strings = ["Laptop","Monitor","Video game", #COMPUTER
-                 "Tripod","Lens","Battery pack", #CAMERA
-                 "Grapes","Cranberries","Limes", #FRUIT
-                 "Pie crust","Pancake mix","Yeast","Muffin cups", #BAKING
+    o_strings = ["Laptop","Monitor","Gamepad", #COMPUTER
+                 "Coffee machine","Vaccuum cleaner","Electric toothbrush", #HOUSEHOLD devices
+                 "Grapes","Strawberries","Limes", #FRUIT
+                 "Pancake mix","Baking soda","Baker's yeast","Muffin cups", #BAKING
                 ]
 
     num_obs = size(o_strings,1)
     o_vec = [1:num_obs]
 
-    #actions are observations + categories + supercategories
-    a_strings = ["Laptop bag","HDMI cable","Gamepad",
-                 "Shutter release remote","Lens bag","Car charger",
-                 "Cheese","Oats","Rum","Apples",
-                 "Maple syrup","Flour","Chocolate chips",
-                 "COMPUTER","PHOTO","FRUIT","BAKING","Electronics","Food"]
+    #actions
+    a_strings = ["Laptop sleeve","Monitor cable","Video game",
+                 "Coffee capsules","Vaccuum cleaner bags","Brush heads",
+                 "Cheese","Cream","Cane sugar",
+                 "Maple syrup","Vinegar","Flour","Chocolate chips",
+                 "COMPUTER","HOUSEHOLD","FRUIT","BAKING","Electronics","Food"]
     num_acts = size(a_strings,1)
     a_vec = [1:num_acts]
     
@@ -43,7 +43,7 @@ function setuptaxonomy()
         end
 
 
-        #For pie crust both FRUIT and BAKING is fine
+        #For pancake mix both FRUIT and BAKING is fine
         if o==10 && a==16
             return u_correct_category
         end
