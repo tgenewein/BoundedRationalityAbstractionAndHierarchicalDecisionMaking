@@ -2,8 +2,8 @@
 function setuptaxonomy()
     #set up taxonomy example
     #observations
-    o_strings = ["Laptop","Monitor","Gamepad", #COMPUTER
-                 "Coffee machine","Vaccuum cleaner","Electric toothbrush", #HOUSEHOLD devices
+    o_strings = ["Laptop","Monitor","Gamepad", #COMPUTERS
+                 "Coffee machine","Vacuum cleaner","Electric toothbrush", #small APPLIANCES
                  "Grapes","Strawberries","Limes", #FRUIT
                  "Pancake mix","Baking soda","Baker's yeast","Muffin cups", #BAKING
                 ]
@@ -13,10 +13,10 @@ function setuptaxonomy()
 
     #actions
     a_strings = ["Laptop sleeve","Monitor cable","Video game",
-                 "Coffee capsules","Vaccuum cleaner bags","Brush heads",
+                 "Coffee","Vacuum cleaner bags","Brush heads",
                  "Cheese","Cream","Cane sugar",
                  "Maple syrup","Vinegar","Flour","Chocolate chips",
-                 "COMPUTER","HOUSEHOLD","FRUIT","BAKING","Electronics","Food"]
+                 "COMPUTERS","APPLIANCES","FRUIT","BAKING","Electronics","Food"]
     num_acts = size(a_strings,1)
     a_vec = [1:num_acts]
     
