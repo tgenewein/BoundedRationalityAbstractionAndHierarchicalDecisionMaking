@@ -239,4 +239,17 @@ end
 
 #TODO: provide a function that initializes p(o|w) and p(a|o,w) either uniformly or randomly
 
+#TODO: update module (export the new functions)
+
+#TODO: test the special cases by setting different temperatures to certain values
+
+#TODO: the code is numerically brittle (e.g. setting one of the temperatures < 0.01 can lead to NaNs)
+#try to improve this (by doing certain things in log-space? or perhaps by using an infinite precision data-type?
+# - that would sound nice if it doesn't make things too slow...)
+#TODO: is it possible to choose in the initialization routine, whether you want Float64 or the type with
+#infinite precision without changing anything else in the rest of the code - if so, provide the option to
+#do so!
+#On the other hand, it would be sufficient to use the BigFloat only during the iterations and round
+#when computing the performance measures, etc. - perhaps that's a cleaner solution
+
 
