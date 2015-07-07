@@ -37,7 +37,7 @@ end
 
 
 #This function performs Blahut-Arimoto iterations
-function BAiterations(pa_init::Vector, β, U_pre::Matrix, Umax::Vector, po::Array, ε_conv::Real, maxiter::Integer; 
+function BAiterations(pa_init::Vector, β, U_pre::Matrix, Umax::Vector, po::Vector, ε_conv::Real, maxiter::Integer; 
                        compute_performance::Bool=false, performance_per_iteration::Bool=false,
                        performance_as_dataframe::Bool=false)
     pa_new = pa_init    

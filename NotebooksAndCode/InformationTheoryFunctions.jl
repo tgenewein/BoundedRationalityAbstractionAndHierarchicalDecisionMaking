@@ -1,26 +1,45 @@
 
 #functions for computing mutual informations (in bits)
+#po is the distribution where the KL is averaged over
+#the KL measures going from pa to pago
 function mutualinformation(po::Vector, pa::Vector, pago::Matrix)    
     card_o = size(po,1)
-    if size(pago,1)==card_o
-        rowwise = true;
-    elseif size(pago,2)==card_o
-        rowwise = false;
-    else
-        error("Dimensionality of p(o) and p(a|o) does not match!")
+    card_a = size(pa,1)
+    if (size(pago,1)!=card_a) || (size(pago,2)!=card_o)
+        error("Dimensionality of p(a|o) does not match p(o), p(a)!")
     end
     
     MI = 0
     for i in 1:card_o
-        if rowwise
-            MI += po[i] * kl_divergence(vec(pago[i,:]),pa)/log(2) #from package Distances.jl, divide by log(2) for bits
-        else
-            MI += po[i] * kl_divergence(vec(pago[:,i]),pa)/log(2) #from package Distances.jl, divide by log(2) for bits         
-        end
+        MI += po[i] * kl_divergence(vec(pago[:,i]),pa)/log(2) #from package Distances.jl, divide by log(2) for bits         
     end
     
     return MI
 end
+
+
+#functions for computing the conditional mutual information
+#I(A;W|O)(in bits)
+function conditional_mutualinformation(pw::Vector, pogw::Matrix, pago::Matrix, pagow)  
+    #I(A;W|O) = ∑_w p(w) DKL( p(a|o,w)||p(a|o) )
+    #I(A;W|O) = ∑_w p(w) ∑_o p(o|w) ∑_a p(a|o,w) log( p(a|o,w)/p(a|o) )
+    
+    #TODO: dimensionality check?
+    
+    card_w = length(pw)
+    card_o = size(pogw,1)    
+    
+    
+    MI = 0
+    for j in 1:card_w
+        for k in 1:card_o
+            MI += pw[j]*pogw[k,j] * kl_divergence( vec(pagow[:,k,j]), vec(pago[:,k]))/log(2) #from package Distances.jl, divide by log(2) for bits
+        end
+    end   
+    
+    return MI
+end
+
 
 
 
@@ -29,26 +48,38 @@ end
 #pago and U_pre must have the same dimensionality
 function expectedutility(po::Vector, pago::Matrix, U_pre::Matrix)
     card_o = size(po,1)
-    if size(pago,1)==card_o
-        rowwise = true;
-    elseif size(pago,2)==card_o
-        rowwise = false;
-    else
-        error("Dimensionality of po and p(a|o) does not match!")
+    card_a = size(pago,1)
+    if (size(pago,2)!=card_o) || (size(U_pre,1)!=card_a) || (size(U_pre,2)!=card_o)
+        error("Dimensionality of p(a|o), U_pre(a,o) and p(o) does not match!")
     end
     
     EU = 0
     for i in 1:card_o
-        if rowwise
-            EU += po[i] * sum(pago[i,:] .* U_pre[i,:])
-        else
+        #TODO: clean up
+        #if rowwise
+        #    EU += po[i] * sum(pago[i,:] .* U_pre[i,:])
+        #else
             EU += po[i] * sum(pago[:,i] .* U_pre[:,i])
-        end
+        #end
     end
     
     
     return EU
 end
+
+
+#This function assumes that the utility function U(a,w) is not a function of the percept o
+function expectedutility(pw::Vector, pogw::Matrix, pagow, U_pre::Matrix)
+    #E[U] = ∑_a,o,w p(w)p(o|w)p(a|o,w) U(a,w)
+    
+    #reuse the function that computes E[U] for ∑_a,w p(w)p(a|w) U(a,w)
+    #to do so, compute p(a|w)
+    pagw = marginalizeo(pogw,pagow)
+    
+    return expectedutility(pw,pagw,U_pre)
+end
+
+
 
 
 #Entropy in bits (using entropy from Distributions.jl)
@@ -62,10 +93,21 @@ function entropybits(p::Vector)
 end
 
 
+
+
 #compute value of rate-distortion objective (avg ΔF)
 function RDobjective(EU,I,β)
     return EU-I/β
 end
+
+#Objective-value for the three-variable general case
+function ThreeVArRDobjective(EU, I_ow, I_ao, I_awgo, β1, β2, β3)
+    return EU - (1/β1)*I_ow - (1/β2)*I_ao - (1/β3)*I_awgo
+end
+
+
+
+
 
 #compute I(A;O), H(A), H(A|O), E[U] and E[U]-I(A;O)/β
 function analyzeBAsolution(po::Vector, pa::Vector, pago::Matrix, U_pre::Matrix, β)
@@ -82,6 +124,55 @@ function analyzeBAsolution(po::Vector, pa::Vector, pago::Matrix, U_pre::Matrix, 
 
     return I, Ha, Hago, EU, RDobj
 end
+
+
+
+#compute mutual informations, entropies and value of objective for three-variable general case
+function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::Matrix,
+    pago::Matrix, pagow, U_pre::Matrix, β1, β2, β3)
+    
+    #compute I(O;W)
+    I_ow = mutualinformation(pw,po,pogw)
+    
+    #compute I(A;O)
+    I_ao = mutualinformation(po,pa,pago)
+    
+    #compute I(A;W|O)
+    I_awgo = conditional_mutualinformation(pw, pogw, pago, pagow)
+    
+    #compute H(O)
+    #s1 = sum(po) 
+    println("1: ∑p(o) = $(sum(po))") #TODO: rather wrap this in a try-catch block
+    Ho = entropybits(po)
+    
+    #compute H(A)
+    #s2 = sum(pa)
+    println("2: ∑p(a) =  $(sum(pa))") #TODO: rather wrap this in a try-catch block
+    Ha = entropybits(pa)
+    
+    #compute H(O|W)
+    Hogw = Ho - I_ow
+    
+    #compute H(A|O)
+    Hago = Ha - I_ao
+    
+    #compute H(A|O,W)
+    Hagow = Hago - I_awgo
+    
+    
+    #compute EU
+    #TODO: this is already computed in the main-iterations, don't recompute it here!
+    #Perhaps allow the EU to be passed as an optional argument and if it's passed,
+    #don't recompute it
+    EU = expectedutility(pw,pogw,pagow,U_pre)
+    
+    #compute value of objective
+    ThreeVarRDobj = ThreeVArRDobjective(EU, I_ow, I_ao, I_awgo, β1, β2, β3)
+
+    return I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj
+end
+
+
 
 
 #TODO: add functions for conditional entropy?

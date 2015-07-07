@@ -104,3 +104,10 @@ end
 function performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj)
     return DataFrame(I_ao=I, H_a=Ha, H_ago = Hago, E_U = EU, RD_obj = RDobj)
 end
+
+
+#convert performance measures to DataFrame - this method is intended for the three-variable general case
+function performancemeasures2DataFrame(I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj)
+    return DataFrame(I_ow=I_ow, I_ao=I_ao, I_awgo=I_awgo, H_o=Ho, H_a=Ha, H_ogw=Hogw, 
+                     H_ago=Hago, H_agow=Hagow, E_U=EU, Objective_value=ThreeVarRDobj)
+end
