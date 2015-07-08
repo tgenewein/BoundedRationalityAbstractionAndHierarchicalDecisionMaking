@@ -107,7 +107,7 @@ end
 
 
 #convert performance measures to DataFrame - this method is intended for the three-variable general case
-function performancemeasures2DataFrame(I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj)
-    return DataFrame(I_ow=I_ow, I_ao=I_ao, I_awgo=I_awgo, H_o=Ho, H_a=Ha, H_ogw=Hogw, 
-                     H_ago=Hago, H_agow=Hagow, E_U=EU, Objective_value=ThreeVarRDobj)
+function performancemeasures2DataFrame(I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj)
+    return DataFrame(I_ow=I_ow, I_ao=I_ao, I_awgo=I_awgo, I_aw=I_aw, H_o=Ho, H_a=Ha, H_ogw=Hogw, 
+                     H_ago=Hago, H_agow=Hagow, H_agw=Hagw, E_U=EU, Objective_value=ThreeVarRDobj)
 end

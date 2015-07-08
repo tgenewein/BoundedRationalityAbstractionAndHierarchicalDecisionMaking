@@ -7,7 +7,7 @@ using DataFrames, Color, Gadfly,
       Distributions
 
 export boltzmanndist, BAiterations, setuputilityarrays,
-       mutualinformation, expectedutility, entropybits,
+       mutualinformation, expectedutility, entropybits, kl_divergence_bits,
        RDobjective, analyzeBAsolution, performancemeasures2DataFrame,
        boltzmannresult2DataFrame, BAtheme, 
        BAmarginal2DataFrame, BAconditional2DataFrame, BAresult2DataFrame,

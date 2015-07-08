@@ -63,6 +63,49 @@ end
 
 
 
+
+
+#This function performs Blahut-Arimoto iterations for the three-variable general case
+#and initializes p(o|w) and p(a|o,w) either uniformly or randomly, depending on the value
+#of the optional argument 'init_uniform'
+function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Matrix, pw::Vector,
+                              ε_conv::Real, maxiter::Integer; compute_performance::Bool=false,
+                              performance_per_iteration::Bool=false, performance_as_dataframe::Bool=false,
+                              init_uniformly = false)
+    
+    #----- Initialization -----#
+    num_worldstates = length(pw)
+    num_acts = size(U_pre,1)
+
+    #initialize p(o|w) and p(a|o,w)
+    if init_uniformly
+        p_ogw_init = ones(cardinality_obs, num_worldstates)  #uniform initialization
+        p_agow_init = ones(num_acts, cardinality_obs, num_worldstates) #uniform initialization
+    else
+        p_ogw_init = rand(cardinality_obs, num_worldstates)  #random initialization
+        p_agow_init = rand(num_acts, cardinality_obs, num_worldstates) #random initialization
+    end
+        
+    #normalize
+    for j in 1:num_worldstates    
+        #p(o|w)
+        p_ogw_init[:,j] = p_ogw_init[:,j] / sum(p_ogw_init[:,j])
+        
+        #p(a|o,w)
+        for k in 1:cardinality_obs
+            p_agow_init[:,k,j] = p_agow_init[:,k,j] / sum(p_agow_init[:,k,j])
+        end
+    end
+
+
+    #------- Blahut-Arimoto call --------#
+    #Blahut-Arimoto iterations for the three-variable general case
+    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, p_w, ε, maxiter, 
+                                compute_performance=true, performance_per_iteration=false, performance_as_dataframe=true)
+    
+end
+
+
 #This function performs Blahut-Arimoto iterations for the three-variable general case
 function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3, 
     U_pre::Matrix, pw::Vector, ε_conv::Real, maxiter::Integer;
@@ -81,6 +124,12 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
 
  
     #initialize marginals consistently
+    #TODO: perhaps it would be better to choose the marginals and initialize the
+    #conditionals consistently (for instance for the sequential case, p(a|o)=p(a|o,w) ∀w,
+    #with random initializations, this can not be ensured that's perhaps why the iterations
+    #run into numerical issues - with proper initialization this might be alleviated? However,
+    #at least the unifomr initialization should do this as well, but perhaps it is too symmetric,
+    #and does not allow the iterations to do anything?)
     po_new, pa_new, pago_new, pagw = compute_marginals(pw, pogw, pagow) 
     
 
@@ -95,11 +144,13 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         I_ow_i = zeros(maxiter)  #I(O;W)
         I_ao_i = zeros(maxiter)  #I(A;O)
         I_awgo_i = zeros(maxiter)  #I(A;W|O)
+        I_aw_i = zeros(maxiter) #I(A;W)
         Ha_i = zeros(maxiter)  #H(A)
         Ho_i = zeros(maxiter)  #H(O)
         Hago_i = zeros(maxiter)  #H(A|O)
         Hogw_i = zeros(maxiter)  #H(O|W)
-        Hagow_i= zeros(maxiter)  #H(A|O,W)
+        Hagow_i = zeros(maxiter)  #H(A|O,W)
+        Hagw_i = zeros(maxiter) #H(A|W)
         ThreeVarRDobj_i = zeros(maxiter)
     end
     
@@ -133,8 +184,8 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         
         for j in 1:card_w
             for k in 1:card_o
-                DKL_a[k,j] = kl_divergence(vec(pagow[:,k,j]),pa)/log(2) #from package Distances.jl, divide by log(2) for bits
-                DKL_ago[k,j] = kl_divergence(vec(pagow[:,k,j]),vec(pago[:,k]))/log(2) #from package Distances.jl, divide by log(2) for bits
+                DKL_a[k,j] = kl_divergence_bits(vec(pagow[:,k,j]),pa)
+                DKL_ago[k,j] = kl_divergence_bits(vec(pagow[:,k,j]),vec(pago[:,k]))
             end
         end
         
@@ -162,7 +213,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
                 #end                
                 #normalize (TODO: is this normalization correct?)
                 #pagow[:,k,j] = pagow[:,k,j] / sum(pagow[:,k,j])                
-                pagow_util_kj = U_pre[:,j] - (1/β2)*log(pago[:,k]./pa)/log(2) #divide by log(2) for bits                    
+                pagow_util_kj = U_pre[:,j] - (1/β2)*log_bits(pago[:,k]./pa)                
                 pagow[:,k,j] = boltzmanndist(vec(pago[:,k]), β3, pagow_util_kj)
             end
         end
@@ -182,10 +233,11 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
 
         #compute entropic quantities (if requested with additional parameter)
         if performance_per_iteration
-            I_ow_i[iter], I_ao_i[iter], I_awgo_i[iter], 
+            I_ow_i[iter], I_ao_i[iter], I_awgo_i[iter], I_aw_i[iter],
             Ho_i[iter], Ha_i[iter], Hogw_i[iter], Hago_i[iter],
-            Hagow_i[iter], EU_i[iter], ThreeVarRDobj_i[iter] = analyze_three_var_BAsolution(pw, po_new, pa_new,
-                                                               pogw, pago_new, pagow, U_pre, β1, β2, β3)
+            Hagow_i[iter], Hagw_i[iter],
+            EU_i[iter], ThreeVarRDobj_i[iter] = analyze_three_var_BAsolution(pw, po_new, pa_new, pogw, pago_new,
+                                                                             pagow, pagw, U_pre, β1, β2, β3)
         end
 
         #check for convergence
@@ -205,39 +257,40 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
 
     #return results
     if compute_performance == false
-        return po_new, pa_new, pogw, pago_new, pagow 
+        return po_new, pa_new, pogw, pago_new, pagow, pagw
     else
         if performance_per_iteration == false
             #compute performance measures for final solution
-            I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj = analyze_three_var_BAsolution(pw, po_new,
-                                                                               pa_new, pogw, pago_new, pagow, U_pre, β1, β2, β3)
+            I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj = analyze_three_var_BAsolution(pw, po_new,
+                                                                                           pa_new, pogw, pago_new, pagow, pagw, U_pre, β1, β2, β3)
         else
             #"cut" valid results from preallocated vector
             I_ow = I_ow_i[1:iter]
             I_ao = I_ao_i[1:iter]
             I_awgo = I_awgo_i[1:iter]
+            I_aw = I_aw_i[1:iter]
             Ho = Ho_i[1:iter]
             Ha = Ha_i[1:iter]
             Hogw = Hogw_i[1:iter]
             Hago = Hago_i[1:iter]
             Hagow = Hagow_i[1:iter]
+            Hagw = Hagw_i[1:iter]
             EU = EU_i[1:iter]
             ThreeVarRDobj = ThreeVarRDobj_i[1:iter]
         end
 
         #if needed, transform to data frame
         if performance_as_dataframe == false
-            return po_new, pa_new, pogw, pago_new, pagow, I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj
+            return po_new, pa_new, pogw, pago_new, pagow, pagw, I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj
         else
-            performance_df = performancemeasures2DataFrame(I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj)
-            return po_new, pa_new, pogw, pago_new, pagow, performance_df 
+            performance_df = performancemeasures2DataFrame(I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj)
+            return po_new, pa_new, pogw, pago_new, pagow, pagw, performance_df 
         end
     end
     
 end
 
 
-#TODO: provide a function that initializes p(o|w) and p(a|o,w) either uniformly or randomly
 
 #TODO: update module (export the new functions)
 

@@ -231,6 +231,86 @@ end
 
 
 
+
+#plot a 2-dim slice of a 3-dim matrix like p(a|o,w=wk) with a dropdown box that allows to select wk
+#
+#legendlabelfunc is a function that takes the current w (Integer) and returns a string-representation
+#for the legend - the default below simply prints "p(a|o,w=3)" in case w_vis=3 (i.e. the third entry in
+#the dropdown was selected)
+function visualizeBA_double_conditional(pagow, avec::Vector, ovec::Vector;
+                                        alabel="Action a", olabel="Observation o", 
+                                        legendlabelfunc=(w)->("p(a|o,w=$w)"),
+                                        dropdownlabel = "World state w",
+                                        useprob_colorscale::Bool=true, theme_args...)
+    if useprob_colorscale
+        colorscale = BAprobabilityvisscale()
+    else
+        colorscale = BAmatrixvisscale()
+    end
+
+    #create a dropdown box for selecting wk in p(a|o,w=wk)
+    w_vals = [1:size(pagow,3)]  #all valid w-values
+
+    #dropdown box for selecting w
+    dropdown_w = dropdown(w_vals,label=dropdownlabel)
+    
+
+    #use lift to connect the actual plotting-code to the dropdown box
+    plt_pagow_vis = lift(w_vis->begin
+                                pagow_vis = pagow[:,:,w_vis]
+                                visualizeBAconditional(pagow_vis, avec, ovec,
+                                alabel=alabel, olabel=olabel, legendlabel=legendlabelfunc(w_vis),
+                                useprob_colorscale=useprob_colorscale; theme_args...)
+                                end, dropdown_w)
+
+
+    return dropdown_w, plt_pagow_vis
+
+end
+
+
+#plot a 2-dim slice of a 3-dim matrix like p(a|o,w=wk) with a dropdown box that allows to select wk
+#
+#legendlabelfunc is a function that takes the current w (Integer) and returns a string-representation
+#for the legend - the default below simply prints "p(a|o,w=3)" in case w_vis=3 (i.e. the third entry in
+#the dropdown was selected)
+function visualizeBA_double_conditional{T1<:String, T2<:String}(pagow, avec::Vector, ovec::Vector,
+                                        a_strings::Vector{T1}, o_strings::Vector{T2};
+                                        alabel="Action a", olabel="Observation o", 
+                                        legendlabelfunc=(w)->("p(a|o,w=$w)"),
+                                        dropdownlabel = "World state w",
+                                        useprob_colorscale::Bool=true, theme_args...)
+    if useprob_colorscale
+        colorscale = BAprobabilityvisscale()
+    else
+        colorscale = BAmatrixvisscale()
+    end
+
+    #create a dropdown box for selecting wk in p(a|o,w=wk)
+    w_vals = [1:size(pagow,3)]  #all valid w-values
+
+    #dropdown box for selecting w
+    dropdown_w = dropdown(w_vals,label=dropdownlabel)
+    
+
+    #use lift to connect the actual plotting-code to the dropdown box
+    plt_pagow_vis = lift(w_vis->begin
+                                pagow_vis = pagow[:,:,w_vis]
+                                visualizeBAconditional(pagow_vis, avec, ovec, a_strings, o_strings,
+                                alabel=alabel, olabel=olabel, legendlabel=legendlabelfunc(w_vis),
+                                useprob_colorscale=useprob_colorscale; theme_args...)
+                                end, dropdown_w)
+
+
+    return dropdown_w, plt_pagow_vis
+end
+
+
+
+
+
+
+
 #visualization of both the marginal and the conditional
 function visualizeBAsolution(pa, pago, avec::Vector, ovec::Vector; 
                              alabel="Action a", olabel="Observation o",
@@ -270,6 +350,42 @@ end
 
 
 
+
+
+#plots the different prob-distributions (this one is quite restrictive in terms of strings for labels, etc.)
+function visualize_three_var_BAsolution{T1<:String, T2<:String, T3<:String}(po::Vector, pa::Vector,
+                                        pogw::Matrix, pago::Matrix, pagow, pagw::Matrix,
+                                        ovec::Vector, avec::Vector, wvec::Vector,
+                                        o_strings::Vector{T1}, a_strings::Vector{T2}, w_strings::Vector{T3}; 
+                                        olabel_string="o", alabel_string="a", wlabel_string="w", theme_args...)
+    
+    plt_po = visualizeBAmarginal(po, ovec, o_strings, alabel="Observation $olabel_string",
+                                 legendlabel="p($olabel_string)"; theme_args...)
+
+    plt_pa = visualizeBAmarginal(pa, avec, a_strings, alabel="Action $alabel_string",
+                                 legendlabel="p($alabel_string)"; theme_args...)
+
+    plt_pogw = visualizeBAconditional(pogw, ovec, wvec, o_strings, w_strings,
+                                      alabel="Observation $olabel_string", olabel="Worldstate $wlabel_string", 
+                                      legendlabel="p($olabel_string|$wlabel_string)"; theme_args...)
+
+    plt_pago = visualizeBAconditional(pago, a_vec, o_vec, a_strings, o_strings,
+                                      alabel="Action $alabel_string", olabel="Observation $olabel_string",
+                                      legendlabel="p($alabel_string|$olabel_string)"; theme_args...)
+
+
+    plt_pagw = visualizeBAconditional(pagw, avec, wvec, a_strings, w_strings,
+                                      alabel="Action $alabel_string", olabel="Worldstate $wlabel_string",
+                                      legendlabel="p($alabel_string|$wlabel_string)"; theme_args...)
+
+    dpdown, plt_pagow_vis = visualizeBA_double_conditional(pagow, avec, ovec, a_strings, o_strings,
+                                                           alabel="Action $alabel_string", olabel="Observation $olabel_string",
+                                                           legendlabelfunc=(w)->("p($alabel_string|$olabel_string,$wlabel_string=$w)"),
+                                                           dropdownlabel = "World state $wlabel_string"; theme_args...)
+
+    return plt_po, plt_pa, plt_pogw, plt_pago, plt_pagw, dpdown, plt_pagow_vis
+
+end
 
 
 
@@ -336,6 +452,45 @@ function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; sup
     return plt_entropic, plt_utils, plt_rateutility
 end
 
+
+
+
+#plots mutual informations, entropies and EU, J as (stacked) bars
+function plot_three_var_performancemeasures(performance_df::DataFrame, max_utility; theme_args...)
+    #extract relevant fields in correct order from data frame
+    bitval_all = [performance_df[end,:I_ow], performance_df[end,:I_ao], performance_df[end,:I_awgo], performance_df[end,:I_aw],
+                  performance_df[end,:H_ogw], performance_df[end,:H_ago], performance_df[end,:H_agow], performance_df[end,:H_agw]]
+
+    #the color values will specify the legend entries
+    color_label_bitvals = ["I(O;W)", "I(A;O)", "I(A;W|O)", "I(A;W)",
+                           "H(O|W)", "H(A|O)", "H(A|O,W)", "H(A|W)"]
+
+    #the x-values are used for stacking the bars and denoting the corresponding entropic term
+    x_label_bitvals = ["H(O)", "H(A)", "H(A|O)", "H(A) ",
+                       "H(O)","H(A)","H(A|O)", "H(A) "]
+
+    #plot stacked bars for the entropic terms, that are a sum of a mutual information term and
+    #a conditional term
+    p_composed = plot(x=x_label_bitvals, y=bitval_all, color=color_label_bitvals, Geom.bar(position=:stack),
+                      Guide.ylabel("[bits]"), Guide.xlabel(""), Guide.title("Composition of entropic terms"), 
+                      Guide.colorkey(""), Scale.y_continuous(minvalue=0), BAtheme(;theme_args...))
+
+    subs = [1,2,3,4]
+    p_MI = plot(x=color_label_bitvals[subs], y=bitval_all[subs], color=color_label_bitvals[subs], Geom.bar(position=:stack),
+                Guide.ylabel("[bits]"), Guide.xlabel(""), Guide.title("Mutual information terms"), 
+                Scale.y_continuous(minvalue=0), BAtheme(key_position = :none; theme_args...))
+
+    #extract expected utility and value of objective
+    perf = [performance_df[end,:E_U], performance_df[end,:Objective_value]]
+    #these labels will define the legend entries
+    label_perf = ["E[U]", "J = E[U] - 1/β ∑ I"]
+
+    p_perf = plot(x=label_perf, y=perf, color=label_perf, Geom.bar,
+                  Guide.ylabel("[utils]"), Guide.xlabel(""), Guide.title(""), Guide.colorkey(""), 
+                  BAdiscretecolorscale(2), Scale.y_continuous(minvalue=0, maxvalue=max_utility), BAtheme(;theme_args...))
+
+    return p_MI, p_composed, p_perf
+end
 
 
 #TODO: add the option to provide a title-string to the plots?

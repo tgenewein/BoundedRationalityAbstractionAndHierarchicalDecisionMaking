@@ -11,7 +11,7 @@ function mutualinformation(po::Vector, pa::Vector, pago::Matrix)
     
     MI = 0
     for i in 1:card_o
-        MI += po[i] * kl_divergence(vec(pago[:,i]),pa)/log(2) #from package Distances.jl, divide by log(2) for bits         
+        MI += po[i] * kl_divergence_bits(vec(pago[:,i]),pa)
     end
     
     return MI
@@ -33,7 +33,7 @@ function conditional_mutualinformation(pw::Vector, pogw::Matrix, pago::Matrix, p
     MI = 0
     for j in 1:card_w
         for k in 1:card_o
-            MI += pw[j]*pogw[k,j] * kl_divergence( vec(pagow[:,k,j]), vec(pago[:,k]))/log(2) #from package Distances.jl, divide by log(2) for bits
+            MI += pw[j]*pogw[k,j] * kl_divergence_bits( vec(pagow[:,k,j]), vec(pago[:,k]))
         end
     end   
     
@@ -92,6 +92,20 @@ function entropybits(p::Vector)
     return entropybits(Categorical(p))
 end
 
+#Explicitly provide a function for the log in bits here.
+#The rationale behind this is that it makes it easily possible to spot all the 
+#places (in the code) to change if one wants to use the nats (natural logarithm) intead of bits.
+function log_bits(x)
+    return log2(x)
+end
+
+#Kullback-Leibler divergence in bits 
+function kl_divergence_bits(p_x::Vector, p0_x::Vector)
+    #D_KL_bits = ∑_x p(x) log2 (p(x)/p0(x))
+    return kl_divergence(p_x, p0_x)/log(2) #using function from Distances.jl
+end
+
+
 
 
 
@@ -129,7 +143,7 @@ end
 
 #compute mutual informations, entropies and value of objective for three-variable general case
 function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::Matrix,
-    pago::Matrix, pagow, U_pre::Matrix, β1, β2, β3)
+    pago::Matrix, pagow, pagw::Matrix, U_pre::Matrix, β1, β2, β3)
     
     #compute I(O;W)
     I_ow = mutualinformation(pw,po,pogw)
@@ -139,6 +153,9 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     
     #compute I(A;W|O)
     I_awgo = conditional_mutualinformation(pw, pogw, pago, pagow)
+
+    #compute I(A;W)
+    I_aw = mutualinformation(pw,pa,pagw)
     
     #compute H(O)
     #s1 = sum(po) 
@@ -158,6 +175,9 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     
     #compute H(A|O,W)
     Hagow = Hago - I_awgo
+
+    #compute H(A|W)
+    Hagw = Ha - I_aw
     
     
     #compute EU
@@ -169,7 +189,7 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     #compute value of objective
     ThreeVarRDobj = ThreeVArRDobjective(EU, I_ow, I_ao, I_awgo, β1, β2, β3)
 
-    return I_ow, I_ao, I_awgo, Ho, Ha, Hogw, Hago, Hagow, EU, ThreeVarRDobj
+    return I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj
 end
 
 
