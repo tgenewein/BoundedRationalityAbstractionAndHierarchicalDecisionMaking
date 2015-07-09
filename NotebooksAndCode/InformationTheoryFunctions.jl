@@ -1,17 +1,17 @@
 
 #functions for computing mutual informations (in bits)
 #po is the distribution where the KL is averaged over
-#the KL measures going from pa to pago
-function mutualinformation(po::Vector, pa::Vector, pago::Matrix)    
-    card_o = size(po,1)
-    card_a = size(pa,1)
-    if (size(pago,1)!=card_a) || (size(pago,2)!=card_o)
-        error("Dimensionality of p(a|o) does not match p(o), p(a)!")
+#the KL measures going from px to pxgy
+function mutualinformation(py::Vector, px::Vector, pxgy::Matrix)    
+    card_y = size(py,1)
+    card_x = size(px,1)
+    if (size(pxgy,1)!=card_x) || (size(pxgy,2)!=card_y)
+        error("Dimensionality of p(x|y) does not match p(x), p(y)!")
     end
     
     MI = 0
-    for i in 1:card_o
-        MI += po[i] * kl_divergence_bits(vec(pago[:,i]),pa)
+    for i in 1:card_y
+        MI += py[i] * kl_divergence_bits(vec(pxgy[:,i]),px)
     end
     
     return MI
@@ -19,21 +19,21 @@ end
 
 
 #functions for computing the conditional mutual information
-#I(A;W|O)(in bits)
-function conditional_mutualinformation(pw::Vector, pogw::Matrix, pago::Matrix, pagow)  
-    #I(A;W|O) = ∑_w p(w) DKL( p(a|o,w)||p(a|o) )
-    #I(A;W|O) = ∑_w p(w) ∑_o p(o|w) ∑_a p(a|o,w) log( p(a|o,w)/p(a|o) )
+#I(X;Y|Z)(in bits)
+function conditional_mutualinformation(py::Vector, pzgy::Matrix, pxgz::Matrix, pxgzy)  
+    #I(X;Y|Z) = ∑_y p(y) DKL( p(x|z,y)||p(x|z) )
+    #I(X;Y|Z) = ∑_y p(y) ∑_z p(z|y) ∑_x p(x|z,y) log( p(x|z,y)/p(x|z) )
     
     #TODO: dimensionality check?
     
-    card_w = length(pw)
-    card_o = size(pogw,1)    
+    card_y = length(py)
+    card_z = size(pzgy,1)    
     
     
     MI = 0
-    for j in 1:card_w
-        for k in 1:card_o
-            MI += pw[j]*pogw[k,j] * kl_divergence_bits( vec(pagow[:,k,j]), vec(pago[:,k]))
+    for j in 1:card_y
+        for k in 1:card_z
+            MI += py[j]*pzgy[k,j] * kl_divergence_bits( vec(pxgzy[:,k,j]), vec(pxgz[:,k]))
         end
     end   
     
@@ -44,26 +44,20 @@ end
 
 
 #function for computing the expected utility
-#pxgiveny and umatrix must have the same dimensionality
-#pago and U_pre must have the same dimensionality
-function expectedutility(po::Vector, pago::Matrix, U_pre::Matrix)
-    card_o = size(po,1)
-    card_a = size(pago,1)
-    if (size(pago,2)!=card_o) || (size(U_pre,1)!=card_a) || (size(U_pre,2)!=card_o)
-        error("Dimensionality of p(a|o), U_pre(a,o) and p(o) does not match!")
+#pagw and U_pre must have the same dimensionality
+function expectedutility(pw::Vector, pagw::Matrix, U_pre::Matrix)
+    #E[U] = ∑_a,w p(w)p(a|w) U(a,w)
+    card_w = size(pw,1)
+    card_a = size(pagw,1)
+    if (size(pagw,2)!=card_w) || (size(U_pre,1)!=card_a) || (size(U_pre,2)!=card_w)
+        error("Dimensionality of p(a|w), U_pre(a,w) and p(w) does not match!")
     end
     
     EU = 0
-    for i in 1:card_o
-        #TODO: clean up
-        #if rowwise
-        #    EU += po[i] * sum(pago[i,:] .* U_pre[i,:])
-        #else
-            EU += po[i] * sum(pago[:,i] .* U_pre[:,i])
-        #end
+    for i in 1:card_w
+            EU += pw[i] * sum(pagw[:,i] .* U_pre[:,i])
     end
-    
-    
+        
     return EU
 end
 
@@ -102,7 +96,23 @@ end
 #Kullback-Leibler divergence in bits 
 function kl_divergence_bits(p_x::Vector, p0_x::Vector)
     #D_KL_bits = ∑_x p(x) log2 (p(x)/p0(x))
-    return kl_divergence(p_x, p0_x)/log(2) #using function from Distances.jl
+
+    #TODO: once you can confirm that the KL is or is not the problem, clean this up
+    if sum(isnan(p0_x)) > 0
+        error("NaN before kl_divergence computation!")
+    end
+
+    if sum(p0_x.==0) > 0
+        error("Zeros in denominator before kl_divergence computation!")
+    end
+
+    kl_div = kl_divergence(p_x, p0_x)/log(2) #using function from Distances.jl
+
+    if isnan(kl_div)
+        error("NaN after kl_divergence computation!")
+    end
+
+    return kl_div
 end
 
 
@@ -123,20 +133,20 @@ end
 
 
 
-#compute I(A;O), H(A), H(A|O), E[U] and E[U]-I(A;O)/β
-function analyzeBAsolution(po::Vector, pa::Vector, pago::Matrix, U_pre::Matrix, β)
-    #compute I(a;o)
-    I = mutualinformation(po,pa,pago)
-    #compute H(a)
+#compute I(A;W), H(A), H(A|W), E[U] and E[U]-I(A;W)/β
+function analyzeBAsolution(pw::Vector, pa::Vector, pagw::Matrix, U_pre::Matrix, β)
+    #compute I(A;W)
+    I = mutualinformation(pw,pa,pagw)
+    #compute H(A)
     Ha = entropybits(pa)
-    #compute H(a|o)?
-    Hago = Ha-I
+    #compute H(A|W)
+    Hagw = Ha-I
     #compute EU
-    EU = expectedutility(po,pago,U_pre)
+    EU = expectedutility(pw,pagw,U_pre)
     #compute value of objective
     RDobj = RDobjective(EU,I,β)
 
-    return I, Ha, Hago, EU, RDobj
+    return I, Ha, Hagw, EU, RDobj
 end
 
 
@@ -157,14 +167,12 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     #compute I(A;W)
     I_aw = mutualinformation(pw,pa,pagw)
     
-    #compute H(O)
-    #s1 = sum(po) 
-    println("1: ∑p(o) = $(sum(po))") #TODO: rather wrap this in a try-catch block
+    #compute H(O) 
+    #println("1: ∑p(o) = $(sum(po))") #TODO: this does not always seem to sum up to 1, why not?
     Ho = entropybits(po)
     
     #compute H(A)
-    #s2 = sum(pa)
-    println("2: ∑p(a) =  $(sum(pa))") #TODO: rather wrap this in a try-catch block
+    #println("2: ∑p(a) =  $(sum(pa))") #TODO: this does not always seem to sum up to 1, why not?
     Ha = entropybits(pa)
     
     #compute H(O|W)

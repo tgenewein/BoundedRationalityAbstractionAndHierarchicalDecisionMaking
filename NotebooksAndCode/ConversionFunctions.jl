@@ -35,9 +35,9 @@ end
 
 
 
-#the function assumes that pago has one row per a-value and one column per o-value
-function BAconditional2DataFrame(pago::Matrix, avec::Vector, ovec::Vector, varargin...)  
-    #if string representations for a and o are provided, check their dimensionality and use them
+#the function assumes that pago has one row per a-value and one column per w-value
+function BAconditional2DataFrame(pagw::Matrix, avec::Vector, wvec::Vector, varargin...)  
+    #if string representations for a and w are provided, check their dimensionality and use them
     #otherwise do not include them into the data-frames
     strings_used = true;
     nargin = length(varargin)
@@ -46,44 +46,44 @@ function BAconditional2DataFrame(pago::Matrix, avec::Vector, ovec::Vector, varar
     elseif nargin == 2
         #check size (size of astring will be checked in boltmannresult2DataFrame)
         astring = varargin[1]
-        ostring = varargin[2]
-        if length(astring) != size(pago,1)
-            error("String representation for a and value-matrix for pago mismatch in size.")
+        wstring = varargin[2]
+        if length(astring) != size(pagw,1)
+            error("String representation for a and value-matrix for pagw mismatch in size.")
         end
-        if length(ostring) != size(pago,2)
-            error("String representation for o and value-matrix for pago mismatch in size.")
+        if length(wstring) != size(pagw,2)
+            error("String representation for w and value-matrix for pagw mismatch in size.")
         end        
     else
-        error("Wrong number of arguments. Either provide string-representations for both a AND o or for neither of them.")
+        error("Wrong number of arguments. Either provide string-representations for both a AND w or for neither of them.")
     end
     
     
     #map matrix onto a vector
-    na = size(pago,1)
-    no = size(pago,2)
-    pago_v = vec(pago) #conversion using column-major convention (columns-wise)
-    avec_v = vec(repmat(avec,1,no))
-    ovec_v = vec(repmat(ovec',na,1))
+    na = size(pagw,1)
+    nw = size(pagw,2)
+    pagw_v = vec(pagw) #conversion using column-major convention (column-wise)
+    avec_v = vec(repmat(avec,1,nw))
+    wvec_v = vec(repmat(wvec',na,1))
     if strings_used
-        astring_v = vec(repmat(astring,1,no))
-        ostring_v = vec(repmat(ostring',na,1))
+        astring_v = vec(repmat(astring,1,nw))
+        wstring_v = vec(repmat(wstring',na,1))
     end
        
     
     #fill data frames
     if strings_used
-        pago_df = DataFrame(p_ago=pago_v, a=avec_v, o=ovec_v, a_string=astring_v, o_string=ostring_v)    
+        pagw_df = DataFrame(p_agw=pagw_v, a=avec_v, w=wvec_v, a_string=astring_v, w_string=wstring_v)    
     else
-        pago_df = DataFrame(p_ago=pago_v, a=avec_v, o=ovec_v)    
+        pagw_df = DataFrame(p_agw=pagw_v, a=avec_v, w=wvec_v)    
     end
     
     
-    return pago_df
+    return pagw_df
 end
 
 
 #the function assumes that pago has one row per a-value and one column per o-value
-function BAresult2DataFrame(pa::Vector, pago::Matrix, avec::Vector, ovec::Vector, varargin...) 
+function BAresult2DataFrame(pa::Vector, pagw::Matrix, avec::Vector, wvec::Vector, varargin...) 
     nargin = length(varargin)
     if nargin > 0
         pa_df = BAmarginal2DataFrame(pa,avec,varargin[1])
@@ -92,17 +92,17 @@ function BAresult2DataFrame(pa::Vector, pago::Matrix, avec::Vector, ovec::Vector
     end
 
     if nargin > 1
-        pago_df = BAconditional2DataFrame(pago,avec,ovec,varargin...)
+        pagw_df = BAconditional2DataFrame(pagw,avec,wvec,varargin...)
     else
-        pago_df = BAconditional2DataFrame(pago,avec,ovec)
+        pagw_df = BAconditional2DataFrame(pagw,avec,wvec)
     end
 
-    return pa_df, pago_df
+    return pa_df, pagw_df
 end
 
 #convert performance measures to DataFrame representation
-function performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj)
-    return DataFrame(I_ao=I, H_a=Ha, H_ago = Hago, E_U = EU, RD_obj = RDobj)
+function performancemeasures2DataFrame(I, Ha, Hagw, EU, RDobj)
+    return DataFrame(I_aw=I, H_a=Ha, H_agw = Hagw, E_U = EU, RD_obj = RDobj)
 end
 
 

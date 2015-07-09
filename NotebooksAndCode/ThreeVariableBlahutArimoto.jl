@@ -6,6 +6,9 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
     #compute p(o)
     #p(o) = ∑_w p(o|w)p(w)
     po = pogw * pw
+
+    #add some small value to prevent NaNs in the KL-terms
+    po += eps()
     po = po / sum(po) #TODO: does this improve convergence?
 
 
@@ -18,7 +21,9 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
         #compute p(a|o=k)
         pago[:,k] = squeeze(pagow[:,k,:],2) * pwgo_k
 
-        #normalize
+
+        #add some small value to prevent NaNs in the KL-terms
+        pago[:,k] += eps()
         pago[:,k] = pago[:,k] / sum(pago[:,k]) #TODO: does this improve convergence?
     end
 
@@ -29,11 +34,22 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
     pagw = marginalizeo(pogw, pagow)
     #p(a) = ∑_w p(a|w)p(w)
     pa = pagw * pw
+
+    #add some small value to prevent NaNs in the KL-terms
+    pa += eps()
     pa = pa / sum(pa) #TODO: does this improve convergence?
 
 
     #TODO: renormalize marginals (in principle this should not be necessary,
     #but in practice they do not sum to one in the early iteration steps!)
+
+    #TODO: adding an epsilon should not make much of a difference, but 
+    #re-normalizing afterwards might do so, on the other hand... the distribution
+    #should already more or less sum to one, so getting rid of the zero-entries should 
+    #be fine
+
+    #TODO: if you really leave the function with adding an eps (and potentially renormalizing)
+    #indicate this in the function name somehow, and perhaps even offer both versions!
 
     
     return po, pa, pago, pagw
@@ -42,16 +58,12 @@ end
 
 
 function marginalizeo(pogw::Matrix, pagow)
-    #TODO: is this correct?
     card_a = size(pagow,1)
     card_w = size(pogw,2)
        
     #compute p(a|w)
     pagw = zeros(card_a,card_w)
-    #pagw = ones(card_a,card_w)    #this should be zeros(), but there is (currently) some bug 
-                                  #in Julia that causes the kernel to die when using zeros(...) in this line,
-                                  #therefore, use ones(...) since it's just about pre-allocation and the value
-                                  #doesn't make a difference
+
     for j in 1:card_w
         #p(a|w) = ∑_o p(o|w)p(a|o,w)
         pagw[:,j] = pagow[:,:,j] * pogw[:,j]
@@ -79,11 +91,13 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
 
     #initialize p(o|w) and p(a|o,w)
     if init_uniformly
-        p_ogw_init = ones(cardinality_obs, num_worldstates)  #uniform initialization
-        p_agow_init = ones(num_acts, cardinality_obs, num_worldstates) #uniform initialization
+        #uniform initialization
+        p_ogw_init = ones(cardinality_obs, num_worldstates)  
+        p_agow_init = ones(num_acts, cardinality_obs, num_worldstates) 
     else
-        p_ogw_init = rand(cardinality_obs, num_worldstates)  #random initialization
-        p_agow_init = rand(num_acts, cardinality_obs, num_worldstates) #random initialization
+        #random initialization
+        p_ogw_init = rand(cardinality_obs, num_worldstates) 
+        p_agow_init = rand(num_acts, cardinality_obs, num_worldstates)
     end
         
     #normalize
@@ -101,7 +115,9 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
     #------- Blahut-Arimoto call --------#
     #Blahut-Arimoto iterations for the three-variable general case
     return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, p_w, ε, maxiter, 
-                                compute_performance=true, performance_per_iteration=false, performance_as_dataframe=true)
+                                compute_performance=compute_performance,
+                                performance_per_iteration=performance_per_iteration,
+                                performance_as_dataframe=performance_as_dataframe)
     
 end
 
@@ -158,12 +174,8 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     iter = 0 #initialize counter, so it persists beyond the loop
     for iter in 1:maxiter
         pa = deepcopy(pa_new)  #make sure not to just copy the reference
-        #pa_new = zeros(card_a) #TODO: do you need to initialize?
         po = deepcopy(po_new)
-        #po_new = zeros(card_o) #TODO: do you need to initialize?
-        pago = deepcopy(pago_new)
-        #pago_new = zeros(card_a,card_o) #TODO: do you need to initialize
-            
+        pago = deepcopy(pago_new)            
 
 
         #compute p(o|w)
@@ -177,8 +189,6 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         end
 
         #------- compute the two KL terms -----------#
-        #TODO: rather than specifying the KL in bits here, do it in InformationTheoryFunctions,
-        #similar to entroybits
         DKL_a = zeros(card_o,card_w)
         DKL_ago = zeros(card_o,card_w)
         
@@ -194,10 +204,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         #TODO: can you really use EU here, or should the expectation depend on the conditioned vars o,w?
         
         for j in 1:card_w
-            #TODO: replace this with the function BoltzmannDist
             pogw[:,j] = boltzmanndist(po, β1, vec(pogw_util[:,j]))
-            #pogw_j = po .* exp(β1 * powg_util[:,j])
-            #pogw[:,j] = pogw_j ./ sum(pogw_j)  #normalize (TODO: is this correct?)
         end
         
         
@@ -205,14 +212,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         #2) compute p(a|o,w)
         #p(a|o,w) ∝ p(a|o) exp( β3 U(a,w) - β3/β2 log(p(a|o)/p(a)) )
         for k in 1:card_o
-            for j in 1:card_w
-                #TODO: replace this with the function BoltzmannDist
-                
-                #for a in 1:card_a
-                #    pagow[i,k,j] = pago[i,k] * exp( β3*U_pre[i,w] - β3/β2*log(pago[i,k]/pa[i])/log(2) #divide by log(2) for bits                                        
-                #end                
-                #normalize (TODO: is this normalization correct?)
-                #pagow[:,k,j] = pagow[:,k,j] / sum(pagow[:,k,j])                
+            for j in 1:card_w              
                 pagow_util_kj = U_pre[:,j] - (1/β2)*log_bits(pago[:,k]./pa)                
                 pagow[:,k,j] = boltzmanndist(vec(pago[:,k]), β3, pagow_util_kj)
             end
@@ -296,11 +296,8 @@ end
 
 #TODO: test the special cases by setting different temperatures to certain values
 
-#TODO: the code is numerically brittle (e.g. setting one of the temperatures < 0.01 can lead to NaNs)
-#try to improve this (by doing certain things in log-space? or perhaps by using an infinite precision data-type?
-# - that would sound nice if it doesn't make things too slow...)
 #TODO: is it possible to choose in the initialization routine, whether you want Float64 or the type with
-#infinite precision without changing anything else in the rest of the code - if so, provide the option to
+#infinite precision (BigFloat) without changing anything else in the rest of the code - if so, provide the option to
 #do so!
 #On the other hand, it would be sufficient to use the BigFloat only during the iterations and round
 #when computing the performance measures, etc. - perhaps that's a cleaner solution

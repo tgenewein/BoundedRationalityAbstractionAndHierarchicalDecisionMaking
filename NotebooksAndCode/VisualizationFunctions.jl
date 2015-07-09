@@ -95,7 +95,7 @@ end
 
 
 #rectbin plot of p(a) (the marginal)
-function visualizeBAmarginal(pa_df::DataFrame, avec::Vector; alabel="Action a", legendlabel="p(a)", theme_args...)
+function visualizeBAmarginal(pa_df::DataFrame, avec::Vector; alabel="Action a", legendlabel="p*(a)", theme_args...)
     #check if strings are provided (the check below is a bit ugly, 
     #but there seems to be a bug/problem with [:a_sting] in names(pa_df))
     use_strings = true
@@ -125,7 +125,7 @@ function visualizeBAmarginal(pa_df::DataFrame, avec::Vector; alabel="Action a", 
 end
 
 #2D rectbin plot of p(a) (the marginal)
-function visualizeBAmarginal(pa::Vector, avec::Vector; alabel="Action a", legendlabel="p(a)", theme_args...)
+function visualizeBAmarginal(pa::Vector, avec::Vector; alabel="Action a", legendlabel="p*(a)", theme_args...)
     pa_df = BAmarginal2DataFrame(pa,avec) 
     plt = visualizeBAmarginal(pa_df, avec, alabel=alabel, legendlabel=legendlabel; theme_args...)
     return plt
@@ -133,7 +133,7 @@ end
 
 #2D rectbin plot of p(a) (the marginal)
 function visualizeBAmarginal{T<:String}(pa::Vector, avec::Vector, a_strings::Vector{T};
-                             alabel="Action a", legendlabel="p(a)", theme_args...)
+                             alabel="Action a", legendlabel="p*(a)", theme_args...)
 
     pa_df = BAmarginal2DataFrame(pa,avec,a_strings) 
     plt = visualizeBAmarginal(pa_df, avec, alabel=alabel, legendlabel=legendlabel; theme_args...)
@@ -145,19 +145,19 @@ end
 
 
 
-#2D rectbin plot of p(a|o) (the conditional)
-function visualizeBAconditional(pago_df::DataFrame, avec::Vector, ovec::Vector; 
-                                alabel="Action a", olabel="Observation o", legendlabel="p(a|o)",
+#2D rectbin plot of p(a|w) (the conditional)
+function visualizeBAconditional(pagw_df::DataFrame, avec::Vector, wvec::Vector; 
+                                alabel="Action a", wlabel="World state o", legendlabel="p*(a|w)",
                                 useprob_colorscale::Bool=true, theme_args...)
     #check if strings are provided (the check below is a bit ugly, 
-    #but there seems to be a bug/problem with [:a_sting] in names(pago_df))
+    #but there seems to be a bug/problem with [:a_sting] in names(pagw_df))
     #if either one of the strings is missing, don't use both - 
     #only providing a string-representation for one variable is not provided
     use_strings = true
-    if sum([:a_string].==names(pago_df)) == 0
+    if sum([:a_string].==names(pagw_df)) == 0
         use_strings = false
     end
-    if sum([:o_string].==names(pago_df)) == 0
+    if sum([:w_string].==names(pagw_df)) == 0
         use_strings = false
     end
 
@@ -169,41 +169,41 @@ function visualizeBAconditional(pago_df::DataFrame, avec::Vector, ovec::Vector;
     
     #do the plotting - using a rectbin plot with discrete scales on both axes
     if(use_strings)
-        plt = plot(pago_df, x="o_string", y="a_string", color="p_ago", Geom.rectbin,
+        plt = plot(pagw_df, x="w_string", y="a_string", color="p_agw", Geom.rectbin,
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),Guide.xticks(orientation=:vertical),
-                   Guide.xlabel(olabel, orientation=:horizontal), Guide.ylabel(alabel, orientation=:vertical),
+                   Guide.xlabel(wlabel, orientation=:horizontal), Guide.ylabel(alabel, orientation=:vertical),
                    BAtheme(;theme_args...), colorscale )
     else
-        plt = plot(pago_df, x="o", y="a", color="p_ago", Geom.rectbin,
+        plt = plot(pagw_df, x="w", y="a", color="p_agw", Geom.rectbin,
                    Scale.x_discrete, Scale.y_discrete,
                    Guide.colorkey(legendlabel),
-                   Guide.xlabel(olabel, orientation=:horizontal), Guide.ylabel(alabel, orientation=:vertical),
+                   Guide.xlabel(wlabel, orientation=:horizontal), Guide.ylabel(alabel, orientation=:vertical),
                    BAtheme(;theme_args...), colorscale )
     end
 
     return plt
 end
 
-#2D rectbin plot of p(a|o) (the conditional)
-function visualizeBAconditional(pago::Matrix, avec::Vector, ovec::Vector; 
-                                alabel="Action a", olabel="Observation o", legendlabel="p(a|o)",
+#2D rectbin plot of p(a|w) (the conditional)
+function visualizeBAconditional(pagw::Matrix, avec::Vector, wvec::Vector; 
+                                alabel="Action a", wlabel="World state w", legendlabel="p*(a|w)",
                                 useprob_colorscale::Bool=true, theme_args...)
 
-    pago_df = BAconditional2DataFrame(pago,avec,ovec) 
-    plt = visualizeBAconditional(pago_df, avec, ovec, alabel=alabel, olabel=olabel, 
+    pagw_df = BAconditional2DataFrame(pagw,avec,wvec) 
+    plt = visualizeBAconditional(pagw_df, avec, wvec, alabel=alabel, wlabel=wlabel, 
                                  legendlabel=legendlabel, useprob_colorscale=useprob_colorscale; theme_args...)
     return plt
 end
 
-#2D rectbin plot of p(a|o) (the conditional)
-function visualizeBAconditional{T1<:String, T2<:String}(pago::Matrix, avec::Vector, ovec::Vector, 
-                                a_strings::Vector{T1}, o_strings::Vector{T2}; 
-                                alabel="Action a", olabel="Observation o", legendlabel="p(a|o)",
+#2D rectbin plot of p(a|w) (the conditional)
+function visualizeBAconditional{T1<:String, T2<:String}(pagw::Matrix, avec::Vector, wvec::Vector, 
+                                a_strings::Vector{T1}, w_strings::Vector{T2}; 
+                                alabel="Action a", wlabel="World state w", legendlabel="p*(a|w)",
                                 useprob_colorscale::Bool=true, theme_args...)
 
-    pago_df = BAconditional2DataFrame(pago,avec,ovec,a_strings,o_strings) 
-    plt = visualizeBAconditional(pago_df, avec, ovec, alabel=alabel, olabel=olabel,
+    pagw_df = BAconditional2DataFrame(pagw,avec,wvec,a_strings,w_strings) 
+    plt = visualizeBAconditional(pagw_df, avec, wvec, alabel=alabel, wlabel=wlabel,
                                  legendlabel=legendlabel, useprob_colorscale=useprob_colorscale; theme_args...)
     return plt
 end
@@ -214,7 +214,7 @@ end
 function visualizeMatrix(M_xy::Matrix, xvec::Vector, yvec::Vector; 
                          xlabel="x", ylabel="y", legendlabel="", theme_args...)
 
-    return visualizeBAconditional(M_xy, yvec, xvec, alabel=ylabel, olabel=xlabel, legendlabel=legendlabel,
+    return visualizeBAconditional(M_xy, yvec, xvec, alabel=ylabel, wlabel=xlabel, legendlabel=legendlabel,
                                   useprob_colorscale=false; theme_args...)
 end
 
@@ -223,7 +223,7 @@ function visualizeMatrix{T1<:String, T2<:String}(M_xy::Matrix, xvec::Vector, yve
                                 x_strings::Vector{T1}, y_strings::Vector{T2}; 
                                 xlabel="x", ylabel="y", legendlabel="", theme_args...)
 
-    return visualizeBAconditional(M_xy, yvec, xvec, y_strings, x_strings, alabel=ylabel, olabel=xlabel,
+    return visualizeBAconditional(M_xy, yvec, xvec, y_strings, x_strings, alabel=ylabel, wlabel=xlabel,
                                  legendlabel=legendlabel, useprob_colorscale=false; theme_args...)
 end
 
@@ -239,7 +239,7 @@ end
 #the dropdown was selected)
 function visualizeBA_double_conditional(pagow, avec::Vector, ovec::Vector;
                                         alabel="Action a", olabel="Observation o", 
-                                        legendlabelfunc=(w)->("p(a|o,w=$w)"),
+                                        legendlabelfunc=(w)->("p*(a|o,w=$w)"),
                                         dropdownlabel = "World state w",
                                         useprob_colorscale::Bool=true, theme_args...)
     if useprob_colorscale
@@ -259,7 +259,7 @@ function visualizeBA_double_conditional(pagow, avec::Vector, ovec::Vector;
     plt_pagow_vis = lift(w_vis->begin
                                 pagow_vis = pagow[:,:,w_vis]
                                 visualizeBAconditional(pagow_vis, avec, ovec,
-                                alabel=alabel, olabel=olabel, legendlabel=legendlabelfunc(w_vis),
+                                alabel=alabel, wlabel=olabel, legendlabel=legendlabelfunc(w_vis),
                                 useprob_colorscale=useprob_colorscale; theme_args...)
                                 end, dropdown_w)
 
@@ -274,10 +274,10 @@ end
 #legendlabelfunc is a function that takes the current w (Integer) and returns a string-representation
 #for the legend - the default below simply prints "p(a|o,w=3)" in case w_vis=3 (i.e. the third entry in
 #the dropdown was selected)
-function visualizeBA_double_conditional{T1<:String, T2<:String}(pagow, avec::Vector, ovec::Vector,
-                                        a_strings::Vector{T1}, o_strings::Vector{T2};
+function visualizeBA_double_conditional{T1<:String, T2<:String, T3<:String}(pagow, avec::Vector, ovec::Vector,
+                                        a_strings::Vector{T1}, o_strings::Vector{T2}, w_strings::Vector{T3};
                                         alabel="Action a", olabel="Observation o", 
-                                        legendlabelfunc=(w)->("p(a|o,w=$w)"),
+                                        legendlabelfunc=(w)->("p*(a|o,w=$w)"),
                                         dropdownlabel = "World state w",
                                         useprob_colorscale::Bool=true, theme_args...)
     if useprob_colorscale
@@ -287,17 +287,19 @@ function visualizeBA_double_conditional{T1<:String, T2<:String}(pagow, avec::Vec
     end
 
     #create a dropdown box for selecting wk in p(a|o,w=wk)
-    w_vals = [1:size(pagow,3)]  #all valid w-values
+    #w_vals = [1:size(pagow,3)]  #all valid w-values
 
     #dropdown box for selecting w
-    dropdown_w = dropdown(w_vals,label=dropdownlabel)
+    dropdown_w = dropdown(w_strings,label=dropdownlabel)
     
 
     #use lift to connect the actual plotting-code to the dropdown box
     plt_pagow_vis = lift(w_vis->begin
-                                pagow_vis = pagow[:,:,w_vis]
+                                w_index = find(w_strings.==w_vis)[1] #use this syntax to get a scalar index,
+                                                                     #otherwise it will be a 1-element array 
+                                pagow_vis = pagow[:,:,w_index]
                                 visualizeBAconditional(pagow_vis, avec, ovec, a_strings, o_strings,
-                                alabel=alabel, olabel=olabel, legendlabel=legendlabelfunc(w_vis),
+                                alabel=alabel, wlabel=olabel, legendlabel=legendlabelfunc(w_vis),
                                 useprob_colorscale=useprob_colorscale; theme_args...)
                                 end, dropdown_w)
 
@@ -312,13 +314,13 @@ end
 
 
 #visualization of both the marginal and the conditional
-function visualizeBAsolution(pa, pago, avec::Vector, ovec::Vector; 
-                             alabel="Action a", olabel="Observation o",
-                             legendlabel_marginal="p(a)", legendlabel_conditional="p(a|o)", suppress_vis::Bool=false,
+function visualizeBAsolution(pa, pagw, avec::Vector, wvec::Vector; 
+                             alabel="Action a", wlabel="World state w",
+                             legendlabel_marginal="p*(a)", legendlabel_conditional="p*(a|w)", suppress_vis::Bool=false,
                              theme_args...)
 
     plt_marg = visualizeBAmarginal(pa, avec, alabel=alabel, legendlabel=legendlabel_marginal; theme_args...)
-    plt_cond = visualizeBAconditional(pago, avec, ovec, alabel=alabel, olabel=olabel, 
+    plt_cond = visualizeBAconditional(pagw, avec, wvec, alabel=alabel, wlabel=wlabel, 
                                       legendlabel=legendlabel_conditional; theme_args...)
 
     if suppress_vis == false
@@ -330,14 +332,14 @@ function visualizeBAsolution(pa, pago, avec::Vector, ovec::Vector;
 end
 
 #visualization of both the marginal and the conditional
-function visualizeBAsolution{T1<:String, T2<:String}(pa::Vector, pago::Matrix, avec::Vector, ovec::Vector,
-                             a_strings::Vector{T1}, o_strings::Vector{T2}; 
-                             alabel="Action a", olabel="Observation o",
-                             legendlabel_marginal="p(a)", legendlabel_conditional="p(a|o)", suppress_vis::Bool=false,
+function visualizeBAsolution{T1<:String, T2<:String}(pa::Vector, pagw::Matrix, avec::Vector, wvec::Vector,
+                             a_strings::Vector{T1}, w_strings::Vector{T2}; 
+                             alabel="Action a", wlabel="World state w",
+                             legendlabel_marginal="p*(a)", legendlabel_conditional="p*(a|w)", suppress_vis::Bool=false,
                              theme_args...)
 
     plt_marg = visualizeBAmarginal(pa, avec, a_strings, alabel=alabel, legendlabel=legendlabel_marginal; theme_args...)
-    plt_cond = visualizeBAconditional(pago, avec, ovec, a_strings, o_strings, alabel=alabel, olabel=olabel,
+    plt_cond = visualizeBAconditional(pagw, avec, wvec, a_strings, w_strings, alabel=alabel, wlabel=wlabel,
                                       legendlabel=legendlabel_conditional; theme_args...)
 
     if suppress_vis == false
@@ -360,27 +362,27 @@ function visualize_three_var_BAsolution{T1<:String, T2<:String, T3<:String}(po::
                                         olabel_string="o", alabel_string="a", wlabel_string="w", theme_args...)
     
     plt_po = visualizeBAmarginal(po, ovec, o_strings, alabel="Observation $olabel_string",
-                                 legendlabel="p($olabel_string)"; theme_args...)
+                                 legendlabel="p*($olabel_string)"; theme_args...)
 
     plt_pa = visualizeBAmarginal(pa, avec, a_strings, alabel="Action $alabel_string",
-                                 legendlabel="p($alabel_string)"; theme_args...)
+                                 legendlabel="p*($alabel_string)"; theme_args...)
 
     plt_pogw = visualizeBAconditional(pogw, ovec, wvec, o_strings, w_strings,
-                                      alabel="Observation $olabel_string", olabel="Worldstate $wlabel_string", 
-                                      legendlabel="p($olabel_string|$wlabel_string)"; theme_args...)
+                                      alabel="Observation $olabel_string", wlabel="World state $wlabel_string", 
+                                      legendlabel="p*($olabel_string|$wlabel_string)"; theme_args...)
 
     plt_pago = visualizeBAconditional(pago, a_vec, o_vec, a_strings, o_strings,
-                                      alabel="Action $alabel_string", olabel="Observation $olabel_string",
-                                      legendlabel="p($alabel_string|$olabel_string)"; theme_args...)
+                                      alabel="Action $alabel_string", wlabel="Observation $olabel_string",
+                                      legendlabel="p*($alabel_string|$olabel_string)"; theme_args...)
 
 
     plt_pagw = visualizeBAconditional(pagw, avec, wvec, a_strings, w_strings,
-                                      alabel="Action $alabel_string", olabel="Worldstate $wlabel_string",
-                                      legendlabel="p($alabel_string|$wlabel_string)"; theme_args...)
+                                      alabel="Action $alabel_string", wlabel="World state $wlabel_string",
+                                      legendlabel="p*($alabel_string|$wlabel_string)"; theme_args...)
 
-    dpdown, plt_pagow_vis = visualizeBA_double_conditional(pagow, avec, ovec, a_strings, o_strings,
+    dpdown, plt_pagow_vis = visualizeBA_double_conditional(pagow, avec, ovec, a_strings, o_strings, w_strings,
                                                            alabel="Action $alabel_string", olabel="Observation $olabel_string",
-                                                           legendlabelfunc=(w)->("p($alabel_string|$olabel_string,$wlabel_string=$w)"),
+                                                           legendlabelfunc=(w)->("p*($alabel_string|$olabel_string,$wlabel_string=$w)"),
                                                            dropdownlabel = "World state $wlabel_string"; theme_args...)
 
     return plt_po, plt_pa, plt_pogw, plt_pago, plt_pagw, dpdown, plt_pagow_vis
@@ -390,48 +392,48 @@ end
 
 
 
-#plots the evolution of I(A;O), H(A), H(A|O), E[U] and the rate distortion objective as a function of β
-function plotperformancemeasures(I::Vector, Ha::Vector, Hago::Vector, EU::Vector, RDobj::Vector, β_vals::Vector;
+#plots the evolution of I(A;W), H(A), H(A|W), E[U] and the rate distortion objective as a function of β
+function plotperformancemeasures(I::Vector, Ha::Vector, Hagw::Vector, EU::Vector, RDobj::Vector, β_vals::Vector;
                                  suppress_vis::Bool=false, xlabel_perf="β", theme_args...)    
     #turn results into data frame
-    perf_res = performancemeasures2DataFrame(I, Ha, Hago, EU, RDobj)    
+    perf_res = performancemeasures2DataFrame(I, Ha, Hagw, EU, RDobj)    
     return plotperformancemeasures(perf_res, β_vals, suppress_vis = suppress_vis; theme_args...)
 end
 
-#plots the evolution of I(A;O), H(A), H(A|O), E[U] and the rate distortion objective as a function of β
+#plots the evolution of I(A;W), H(A), H(A|W), E[U] and the rate distortion objective as a function of β
 function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; suppress_vis::Bool=false,
                                  xlabel_perf="β", theme_args...)    
     #append inv. temp. column to data frame
-    perf_dataframe[:β] = β_vals;
+    perf_dataframe[:β] = β_vals
 
-    #------- plot evolution of I(a;o), H(a), H(a|o), E[U(a)] and E[U(a,o)]-1/β I(a;o)
+    #------- plot evolution of I(A;W), H(A), H(A|W), E[U(a,w)] and E[U(a,w)]-1/β I(A;W)
     #realign columns of data frame for easy plotting 
     #(each column will become a line in the plot - values will depend on the β column)
     #entropic variables (in bits) go in one plot
-    perf_res_entropic = stack(perf_dataframe, [:I_ao, :H_a, :H_ago], :β)
+    perf_res_entropic = stack(perf_dataframe, [:I_aw, :H_a, :H_agw], :β)
     #expected utility and the overall objective (in utils) go in another plot
     perf_res_utils = stack(perf_dataframe, [:E_U, :RD_obj], :β)
     
     
     #since Gadfly (currently) does not support setting the legend-strings only (colorkey strings)
     #add a column to the data-frame that has a nice string-representation of the variable-name
-    ncols = size(perf_res_entropic,1)
-    perf_res_entropic[:variable_str] = ["" for x in 1:ncols]
-    perf_res_entropic[perf_res_entropic[:variable].==:I_ao,:variable_str] = "I(A;O)"
+    nrows = size(perf_res_entropic,1)
+    perf_res_entropic[:variable_str] = ["" for x in 1:nrows]
+    perf_res_entropic[perf_res_entropic[:variable].==:I_aw,:variable_str] = "I(A;W)"
     perf_res_entropic[perf_res_entropic[:variable].==:H_a,:variable_str] = "H(A)"
-    perf_res_entropic[perf_res_entropic[:variable].==:H_ago,:variable_str] = "H(A|O)"
+    perf_res_entropic[perf_res_entropic[:variable].==:H_agw,:variable_str] = "H(A|W)"
 
-    ncols = size(perf_res_utils,1)
-    perf_res_utils[:variable_str] = ["" for x in 1:ncols]
+    nrows = size(perf_res_utils,1)
+    perf_res_utils[:variable_str] = ["" for x in 1:nrows]
     perf_res_utils[perf_res_utils[:variable].==:E_U,:variable_str] = "E[U]"
     perf_res_utils[perf_res_utils[:variable].==:RD_obj,:variable_str] = "RU_obj"
 
     #create the two plots
-    plt_entropic = plot(perf_res_entropic,x="β",y="value",color="variable_str",Geom.line,BAtheme(;theme_args...),
-    Guide.ylabel("[bits]"),Guide.colorkey(""))   
+    plt_entropic = plot(perf_res_entropic,x="β",y="value",color="variable_str",Geom.line,
+    BAtheme(key_position = :bottom; theme_args...), Guide.ylabel("[bits]"),Guide.colorkey(""))   
     
-    plt_utils = plot(perf_res_utils,x="β",y="value",color="variable_str",Geom.line,BAtheme(;theme_args...),
-    Guide.ylabel("[utils]"),Guide.colorkey(""),BAdiscretecolorscale(2))
+    plt_utils = plot(perf_res_utils,x="β",y="value",color="variable_str",Geom.line,
+    BAtheme(key_position = :bottom; theme_args...), Guide.ylabel("[utils]"),Guide.colorkey(""),BAdiscretecolorscale(2))
     #----------------------------------------------------------
     
     
@@ -439,8 +441,8 @@ function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; sup
     nvals = size(perf_dataframe,1)
     ymax_val = maximum(perf_dataframe[:E_U])
     ymax = ones(nvals)*ymax_val
-    plt_rateutility = plot(perf_dataframe,x="I_ao",y="E_U", ymin="E_U", ymax=ymax, Geom.line, Geom.ribbon,
-    Guide.xlabel("I(A;O) [bits]"),Guide.ylabel("E[U]"), BAtheme(;theme_args...))
+    plt_rateutility = plot(perf_dataframe,x="I_aw",y="E_U", ymin="E_U", ymax=ymax, Geom.line, Geom.ribbon,
+    Guide.xlabel("I(A;W) [bits]"),Guide.ylabel("E[U]"), BAtheme(;theme_args...))
     #----------------------------------------------------------
     
     if suppress_vis == false
@@ -453,6 +455,57 @@ function plotperformancemeasures(perf_dataframe::DataFrame, β_vals::Vector; sup
 end
 
 
+
+
+
+#plots evolution across BA iterations (i.e. convergence)
+function plot_three_var_BA_convergence(performance_df::DataFrame; suppress_vis::Bool=false,
+                                       xlabel_perf="Iteration", theme_args...)    
+    iter = [1:size(performance_df,1)]
+
+    #add a column with the iteration index to the performance data frame
+    performance_df[:iteration] = iter
+
+    #------- plot evolution of I(O;W), I(A;O), I(A;W|O), I(A|W)
+    #realign columns of data frame for easy plotting 
+    #(each column will become a line in the plot - values will depend on the iter column)
+    #entropic variables (in bits) go in one plot
+    perf_res_MI = stack(performance_df, [:I_ow, :I_ao, :I_awgo, :I_aw], :iteration)
+    #expected utility and the overall objective (in utils) go in another plot
+    perf_res_utils = stack(performance_df, [:E_U, :Objective_value], :iteration)
+
+    #since Gadfly (currently) does not support setting the legend-strings only (colorkey strings)
+    #add a column to the data-frame that has a nice string-representation of the variable-name
+    nrows = size(perf_res_MI,1)
+    perf_res_MI[:variable_str] = ["" for x in 1:nrows]
+    perf_res_MI[perf_res_MI[:variable].==:I_ow,:variable_str] = "I(O;W)"
+    perf_res_MI[perf_res_MI[:variable].==:I_ao,:variable_str] = "I(A;O)"
+    perf_res_MI[perf_res_MI[:variable].==:I_awgo,:variable_str] = "I(A;W|O)"
+    perf_res_MI[perf_res_MI[:variable].==:I_aw,:variable_str] = "I(A;W)"
+
+    nrows = size(perf_res_utils,1)
+    perf_res_utils[:variable_str] = ["" for x in 1:nrows]
+    perf_res_utils[perf_res_utils[:variable].==:E_U,:variable_str] = "E[U]"
+    perf_res_utils[perf_res_utils[:variable].==:Objective_value,:variable_str] = "Objective J"
+
+
+    plot_convergence_MI = plot(perf_res_MI, x=:iteration, y="value", color="variable_str", Geom.line,
+                               BAtheme(key_position = :bottom; theme_args...), Guide.ylabel("[bits]"),
+                               Guide.xlabel(xlabel_perf), Guide.colorkey(""))
+
+    plot_convergence_Util = plot(perf_res_utils, x=:iteration, y="value", color="variable_str", Geom.line,
+                                 BAtheme(key_position = :bottom; theme_args...), Guide.ylabel("[utils]"),
+                                 Guide.xlabel(xlabel_perf), Guide.colorkey(""), BAdiscretecolorscale(2))
+    
+    if suppress_vis == false
+        plt_convergence = vstack(plot_convergence_MI, plot_convergence_Util) #stack plots vertically
+        display(plt_convergence)
+    end
+    
+    return plot_convergence_MI, plot_convergence_Util
+    
+end
+#TODO: add a version of this function that accepts the arguments without a data-frame (low priority).
 
 
 #plots mutual informations, entropies and EU, J as (stacked) bars
@@ -491,11 +544,9 @@ function plot_three_var_performancemeasures(performance_df::DataFrame, max_utili
 
     return p_MI, p_composed, p_perf
 end
-
-
-#TODO: add the option to provide a title-string to the plots?
+#TODO: add a version of this function that accepts the arguments without a data-frame (low priority).
 
 #TODO: functions for visualizing distribution-vectors as bars (similar to the FreeEnergy notebook)?
 
 #TODO: for the discrete color-scale, the Gadfly default continuous colors are now used - use the default 
-#discrete colors
+#discrete colors?
