@@ -97,20 +97,13 @@ end
 function kl_divergence_bits(p_x::Vector, p0_x::Vector)
     #D_KL_bits = ∑_x p(x) log2 (p(x)/p0(x))
 
-    #TODO: once you can confirm that the KL is or is not the problem, clean this up
-    if sum(isnan(p0_x)) > 0
-        error("NaN before kl_divergence computation!")
-    end
-
+    #TODO: for now, throw an error if you have zeros in the denominator,
+    #perhaps think of a more graceful way to deal with this case?
     if sum(p0_x.==0) > 0
         error("Zeros in denominator before kl_divergence computation!")
     end
 
     kl_div = kl_divergence(p_x, p0_x)/log(2) #using function from Distances.jl
-
-    if isnan(kl_div)
-        error("NaN after kl_divergence computation!")
-    end
 
     return kl_div
 end
@@ -187,12 +180,8 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     #compute H(A|W)
     Hagw = Ha - I_aw
     
-    
     #compute EU
-    #TODO: this is already computed in the main-iterations, don't recompute it here!
-    #Perhaps allow the EU to be passed as an optional argument and if it's passed,
-    #don't recompute it
-    EU = expectedutility(pw,pogw,pagow,U_pre)
+    EU = expectedutility(pw,pagw,U_pre)
     
     #compute value of objective
     ThreeVarRDobj = ThreeVArRDobjective(EU, I_ow, I_ao, I_awgo, β1, β2, β3)

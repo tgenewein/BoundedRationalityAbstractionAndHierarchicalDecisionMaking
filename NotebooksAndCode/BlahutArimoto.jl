@@ -31,10 +31,18 @@ function boltzmanndist(p0::Vector, β, ΔU::Vector)
     p_boltz = p_boltz/sum(p_boltz)
     return p_boltz
 
+    #=
+    #do the computation with more precision (but slower)
+    deltaU = convert(Array{BigFloat}, ΔU)
+    p_boltz = p0.*exp(β.*ΔU)
+    p_boltz = p_boltz/sum(p_boltz)
+    return float64(p_boltz)
+    =#
+
     #TODO: the exponential operation might be problematic when you run out of machine precision
     #i.e. for very large β values or very large utility values - can you make this numerically
     #more stable (because afterwards there is a normalization step, where for instance a single
-    # large value in the exponential would simply be normalized to one)
+    #large value in the exponential would simply be normalized to one)
 end
 
 

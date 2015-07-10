@@ -31,7 +31,7 @@ include("VisualizationFunctions.jl")
 
 
 
-#TODO: document functions (in markdown? look up how to do this properly)
+#TODO: document functions (in markdown? look up how to do this properly - Julia 0.4 has @doc macro)
 
 #TODO: write some tests (especially in case future releases break something)
 

@@ -155,7 +155,6 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     end 
 
     #preallocate if necessary
-    EU_i = zeros(maxiter) #this is always necessary
     if performance_per_iteration 
         I_ow_i = zeros(maxiter)  #I(O;W)
         I_ao_i = zeros(maxiter)  #I(A;O)
@@ -167,9 +166,24 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         Hogw_i = zeros(maxiter)  #H(O|W)
         Hagow_i = zeros(maxiter)  #H(A|O,W)
         Hagw_i = zeros(maxiter) #H(A|W)
+        EU_i = zeros(maxiter)
         ThreeVarRDobj_i = zeros(maxiter)
     end
     
+
+
+    #TODO: rather have an optional keyword argument to select the sequential case
+    #- all of this make the code quite hard to read and understand
+    #maybe fix this by writing separate functions (pull the iterations into separate 
+    #functions and handle the different cases there!)
+    if(β3 == 0)
+        sequential_case = true 
+        β3 = 0.000001  #TODO: this is just a hack! Fix this!
+    else
+        sequential_case = false
+    end
+
+
     #main iteration
     iter = 0 #initialize counter, so it persists beyond the loop
     for iter in 1:maxiter
@@ -178,54 +192,82 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         pago = deepcopy(pago_new)            
 
 
-        #compute p(o|w)
-        #p(o|w) ∝ p(o) exp( β1 (E[U] - 1/β2 DKL(p(a|o,w)||p(a))) - β1 DKL(p(a|o,w)||p(a|o)) (1/β3-1/β2) )
+        
+        #TODO: try if initializing the conditional with the marginal helps with numerical stability
+        #for the sequential case
+        for k in 1:card_o
+            pago[:,k] = pa
+        end
+        for j in 1:card_w
+            pagow[:,:,j] = pago
+            pogw[:,j] = po
+        end 
 
-        #------- E[U] (of previous iteration) ---------#            
-        if iter==1
-            EU_last = expectedutility(pw,pogw,pagow,U_pre)
+
+
+        #TODO: doing this computation first should help in the sequential case, however
+        #for one of the other special cases doing the other computation first might help?
+        #1) compute p(a|o,w)
+        if(sequential_case)
+            #in the sequential case corresponding to β3=0 we have p(a|o,w)=p(a|o) ∀w
+            for k in 1:card_o
+                #in the sequential case corresponding to β3=0 we have 
+                #p(a|o,w)=p(a|o) ∝ p(a)exp( β2 ∑_w p(w|o)U(a,w) )
+
+                #compute p(w|o=k)
+                pwgo_k = vec(pogw[k,:]).*pw / po[k]
+                pago[:,k] = boltzmanndist(pa, β2, U_pre*pwgo_k)               
+                
+                for j in 1:card_w
+                    pagow[:,k,j] = pago[:,k]                       
+                end
+            end
         else
-            EU_last = EU_i[iter-1]
+            #p(a|o,w) ∝ p(a|o) exp( β3 U(a,w) - β3/β2 log(p(a|o)/p(a)) )
+            for k in 1:card_o
+                for j in 1:card_w              
+                    pagow_util_kj = U_pre[:,j] - (1/β2)*log_bits(pago[:,k]./pa)                
+                    pagow[:,k,j] = boltzmanndist(vec(pago[:,k]), β3, pagow_util_kj)
+                end
+            end
         end
 
-        #------- compute the two KL terms -----------#
+
+
+
+        #2) compute p(o|w)
+        #p(o|w) ∝ p(o) exp( β1 (E[U] - 1/β2 DKL(p(a|o,w)||p(a))) - β1 DKL(p(a|o,w)||p(a|o)) (1/β3-1/β2) )
+        #------- compute the conditional EU and the two KL terms -----------#
+        EU_cond = zeros(card_o,card_w)
         DKL_a = zeros(card_o,card_w)
         DKL_ago = zeros(card_o,card_w)
         
         for j in 1:card_w
             for k in 1:card_o
+                EU_cond[k,j] = (pagow[:,k,j]' * U_pre[:,j])[1]  # =∑_a p(a|o=k,w=j) U(a,w=j)
+                                                                #use the (...)[1] syntax to get a scalar
                 DKL_a[k,j] = kl_divergence_bits(vec(pagow[:,k,j]),pa)
                 DKL_ago[k,j] = kl_divergence_bits(vec(pagow[:,k,j]),vec(pago[:,k]))
             end
         end
         
-
-        pogw_util = EU_last - 1/β2 * DKL_a - (1/β3-1/β2) * DKL_ago
+        println("DKL_ago: $(sum(DKL_ago))")
+        pogw_util = EU_cond - 1/β2 * DKL_a - (1/β3-1/β2) * DKL_ago
         #TODO: can you really use EU here, or should the expectation depend on the conditioned vars o,w?
         
         for j in 1:card_w
             pogw[:,j] = boltzmanndist(po, β1, vec(pogw_util[:,j]))
         end
-        
-        
+               
 
-        #2) compute p(a|o,w)
-        #p(a|o,w) ∝ p(a|o) exp( β3 U(a,w) - β3/β2 log(p(a|o)/p(a)) )
-        for k in 1:card_o
-            for j in 1:card_w              
-                pagow_util_kj = U_pre[:,j] - (1/β2)*log_bits(pago[:,k]./pa)                
-                pagow[:,k,j] = boltzmanndist(vec(pago[:,k]), β3, pagow_util_kj)
-            end
-        end
+
         
 
         #3) update the marginals p(o), p(a), p(a|o)
         po_new, pa_new, pago_new, pagw = compute_marginals(pw, pogw, pagow) 
         
-        
-        #------- compute E[U] (using p(a|w)) ---------#            
-        EU_i[iter] = expectedutility(pw,pagw,U_pre)
-        
+
+
         
         #TODO: is it better to immediately use the pxx_new quantities, or just update all of them
         #after each iteration (the latter is implemented right now)?
