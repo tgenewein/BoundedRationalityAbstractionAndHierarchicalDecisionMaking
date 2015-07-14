@@ -119,6 +119,12 @@ end
 
 #Objective-value for the three-variable general case
 function ThreeVArRDobjective(EU, I_ow, I_ao, I_awgo, β1, β2, β3)
+    if(β3==0)
+        #sequential case - I(A;W|O) should be zero and since β3=Inf → ∞ * 0 = NaN
+        #handle this by using a tiny β3 - if I(A;W|O) is nonzero, this should be easily detectable through the huge
+        #value of the objective
+        β3 = eps()
+    end
     return EU - (1/β1)*I_ow - (1/β2)*I_ao - (1/β3)*I_awgo
 end
 
