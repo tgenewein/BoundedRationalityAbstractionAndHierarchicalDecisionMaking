@@ -56,7 +56,7 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
     pa_new = pa_init    
     card_a = size(U_pre,1)
     card_w = size(U_pre,2)    
-    pagw = zeros(card_a,card_w)
+    pagw_new = zeros(card_a,card_w)
 
     #if performance measures don't need to be returned, don't compute them per iteration
     if compute_performance==false
@@ -76,12 +76,15 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
     iter = 0 #initialize counter, so it persists beyond the loop
     for iter in 1:maxiter
         pa = deepcopy(pa_new)  #make sure not to just copy the reference
-        pa_new = zeros(card_a)       
+        #pa_new = zeros(card_a)       
+        pagw = deepcopy(pagw_new)
+        pagw_new = zeros(card_a,card_w)
+
         for k in 1:card_w
             #update p(a|o)
-            pagw[:,k] = boltzmanndist(pa,β,vec(U_pre[:,k]))            
+            pagw_new[:,k] = boltzmanndist(pa,β,vec(U_pre[:,k]))            
             #update p(a)            
-            pa_new = pa_new + vec((pagw[:,k]')*pw[k])
+            pa_new = pa_new + vec((pagw_new[:,k]')*pw[k])
         end
 
         #TODO: is this really necessary
@@ -93,11 +96,11 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
 
         #compute entropic quantities (if requested with additional parameter)
         if performance_per_iteration
-            I_i[iter], Ha_i[iter], Hagw_i[iter], EU_i[iter], RDobj_i[iter] = analyzeBAsolution(pw, pa_new, pagw, U_pre, β)
+            I_i[iter], Ha_i[iter], Hagw_i[iter], EU_i[iter], RDobj_i[iter] = analyzeBAsolution(pw, pa_new, pagw_new, U_pre, β)
         end
 
         #check for convergence
-        if norm(pa-pa_new) < ε_conv            
+        if norm(pagw-pagw_new) < ε_conv            
             break
         end
     end
@@ -111,11 +114,11 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
 
     #return results
     if compute_performance == false
-        return pagw, vec(pa_new)  #the squeeze will turn pa into a vector again
+        return pagw_new, vec(pa_new)  #the squeeze will turn pa into a vector again
     else
         if performance_per_iteration == false
             #compute performance measures for final solution
-            I, Ha, Hagw, EU, RDobj = analyzeBAsolution(pw, pa_new, pagw, U_pre, β)
+            I, Ha, Hagw, EU, RDobj = analyzeBAsolution(pw, pa_new, pagw_new, U_pre, β)
         else
             #"cut" valid results from preallocated vector
             I = I_i[1:iter]
@@ -127,10 +130,10 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
 
         #if needed, transform to data frame
         if performance_as_dataframe == false
-            return pagw, vec(pa_new), I, Ha, Hagw, EU, RDobj
+            return pagw_new, vec(pa_new), I, Ha, Hagw, EU, RDobj
         else
             performance_df = performancemeasures2DataFrame(I, Ha, Hagw, EU, RDobj)
-            return pagw, vec(pa_new), performance_df 
+            return pagw_new, vec(pa_new), performance_df 
         end
     end
     

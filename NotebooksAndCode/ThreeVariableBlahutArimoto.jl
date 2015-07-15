@@ -206,6 +206,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
         p_agow_init = ones(num_acts, cardinality_obs, num_worldstates) 
     else
         #random initialization
+        #p_ogw_init = eye(cardinality_obs) + rand(cardinality_obs, num_worldstates) * 0.1
         p_ogw_init = rand(cardinality_obs, num_worldstates)  
         p_agow_init = rand(num_acts, cardinality_obs, num_worldstates) 
     end
@@ -218,6 +219,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
         end
     end     
 
+    
 
     #------- Blahut-Arimoto call --------#
     #Blahut-Arimoto iterations for the three-variable general case
@@ -244,13 +246,14 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     pogw_new = pogw_init
     pagow_new = pagow_init
 
-     #Initialize the marginals consistent with the conditionals
+
+    #Initialize the marginals consistent with the conditionals
     po_new, pa_new, pagw = compute_marginals(pw, pogw_init, pagow_init)       
 
     pago_new = compute_pago_iteration(pogw_init, pagow_init, β2, β3, U_pre, pa_new, po_new, pw)
     if(β3==0)
         #sequential case - make sure that D_KL( p(a|o,w)||p(a|o) ) = 0
-        pagow_new = compute_pagow_iteration(pago_new, β2, β3, U_pre, pa)
+        pagow_new = compute_pagow_iteration(pago_new, β2, β3, U_pre, pa_new)
     end
 
 
@@ -294,8 +297,8 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     #main iteration
     iter = 0 #initialize counter, so it persists beyond the loop
     for iter in 1:maxiter
-        pa = deepcopy(pa_new)  #make sure not to just copy the reference
-        po = deepcopy(po_new)  
+        pa = pa_new 
+        po = po_new 
         pago = pago_new
         pagow = pagow_new
         pogw = pogw_new
@@ -307,10 +310,10 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         #   perhaps it needs "layer-wise" initialization? If so, why?
 
 
+
         #compute p(o|w)
         pogw_new = compute_pogw_iteration(pago, pagow, β2, β3, U_pre, pa, po)
-
-
+        
         #compute p(a|o,w) and p(a|o)
         if(β3==0)
             #sequential case - compute p(a|o) first and then p(a|o,w)
@@ -321,6 +324,9 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
             pagow_new = compute_pagow_iteration(pago, β2, β3, U_pre, pa)
             pago_new = compute_pago_iteration(pogw, pagow_new, β2, β3, U_pre, pa, po, pw) #TODO: use pagow_new here?
         end      
+
+
+
   
 
 
@@ -343,7 +349,9 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         end
 
         #check for convergence
-        if (norm(pa-pa_new) + norm(po-po_new)) < ε_conv            
+        #TODO: change the convergence-criterion to the conditionals!
+        #if (norm(pa-pa_new) + norm(po-po_new)) < ε_conv            
+        if (norm(pagow[:]-pagow_new[:]) + norm(pogw[:]-pogw_new[:])) < ε_conv            
             break
         end
         
@@ -403,5 +411,8 @@ end
 #do so!
 #On the other hand, it would be sufficient to use the BigFloat only during the iterations and round
 #when computing the performance measures, etc. - perhaps that's a cleaner solution
+
+#TODO: make sure that all functions that modify the arguments that are passed on to them (in particular
+#matrices and vectors) indicate this with '!' in the function-name!
 
 

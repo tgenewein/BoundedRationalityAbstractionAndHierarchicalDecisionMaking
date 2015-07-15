@@ -509,7 +509,7 @@ end
 
 
 #plots mutual informations, entropies and EU, J as (stacked) bars
-function plot_three_var_performancemeasures(performance_df::DataFrame, max_utility; theme_args...)
+function plot_three_var_performancemeasures(performance_df::DataFrame, max_utility, β1, β2, β3; theme_args...)
     #extract relevant fields in correct order from data frame
     bitval_all = [performance_df[end,:I_ow], performance_df[end,:I_ao], performance_df[end,:I_awgo], performance_df[end,:I_aw],
                   performance_df[end,:H_ogw], performance_df[end,:H_ago], performance_df[end,:H_agow], performance_df[end,:H_agw]]
@@ -520,7 +520,9 @@ function plot_three_var_performancemeasures(performance_df::DataFrame, max_utili
 
     #the x-values are used for stacking the bars and denoting the corresponding entropic term
     x_label_bitvals = ["H(O)", "H(A)", "H(A|O)", "H(A) ",
-                       "H(O)","H(A)","H(A|O)", "H(A) "]
+                       "H(O)","H(A)","H(A|O)", "H(A) "]  #be careful, two of the H(A) strings have an additional space, to
+                                                         #make sure that it corresponds to two different bars on the x-axis
+                                                         #(though the stacked height of both bars should be equal)
 
     #plot stacked bars for the entropic terms, that are a sum of a mutual information term and
     #a conditional term
@@ -533,14 +535,38 @@ function plot_three_var_performancemeasures(performance_df::DataFrame, max_utili
                 Guide.ylabel("[bits]"), Guide.xlabel(""), Guide.title("Mutual information terms"), 
                 Scale.y_continuous(minvalue=0), BAtheme(key_position = :none; theme_args...))
 
-    #extract expected utility and value of objective
-    perf = [performance_df[end,:E_U], performance_df[end,:Objective_value]]
-    #these labels will define the legend entries
-    label_perf = ["E[U]", "J = E[U] - 1/β ∑ I"]
 
-    p_perf = plot(x=label_perf, y=perf, color=label_perf, Geom.bar,
-                  Guide.ylabel("[utils]"), Guide.xlabel(""), Guide.title(""), Guide.colorkey(""), 
-                  BAdiscretecolorscale(2), Scale.y_continuous(minvalue=0, maxvalue=max_utility), BAtheme(;theme_args...))
+
+    
+
+
+    #extract expected utility and value of objective and mutual information terms
+    subs = [1,2,3]
+    if(β3==0)
+        #sequential case
+        β3=eps()  #use tiny value for β3 to prevent NaN - I(A;W|O) should equal zero in the sequential case anyway
+    end
+
+    inv_betas = [1/β1, 1/β2, 1/β3]
+    perf = [performance_df[end,:E_U], bitval_all[subs] .* inv_betas, performance_df[end,:Objective_value]]
+    
+    #these labels will define the legend entries
+    label_perf = ["E[U]", "1/β1 I(O;W)", "1/β2 I(A;O)", "1/β3 I(A;W|O)", "J = E[U] - 1/β ∑ I"]
+    x_label_perf = ["E[U]", "E[U] ", "E[U] ", "E[U] ", "E[U] "]  #be careful, four of the entries have an additonal space,
+                                                                 #to make sure that there are two stacked bars (that will
+                                                                 #have the same height)
+
+
+    cont_colors = [Scale.color_continuous().f(p) for p in linspace(0, 1, 2)]
+    disc_colors = Scale.color_discrete_hue().f(3)
+    all_colors = [cont_colors[1], disc_colors, cont_colors[2]]
+    colscale = Scale.color_discrete_manual(all_colors...)
+
+
+    p_perf = plot(x=x_label_perf, y=perf, color=label_perf, Geom.bar(position=:stack),
+                  Guide.ylabel("[utils]"), Guide.xlabel(""), Guide.colorkey(""), 
+                  Guide.title("Utility vs. processing-cost trade-off"),
+                  colscale, Scale.y_continuous(minvalue=0, maxvalue=max_utility), BAtheme(;theme_args...))
 
     return p_MI, p_composed, p_perf
 end
