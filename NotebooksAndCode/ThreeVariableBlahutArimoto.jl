@@ -9,7 +9,7 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
 
     #add some small value to prevent NaNs in the KL-terms
     po += eps()
-    po = po / sum(po) #TODO: does this improve convergence?
+    po /= sum(po) #TODO: does this improve convergence?
 
 
 
@@ -22,7 +22,7 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
 
     #add some small value to prevent NaNs in the KL-terms
     pa += eps()
-    pa = pa / sum(pa) #TODO: does this improve convergence?
+    pa /= sum(pa) #TODO: does this improve convergence?
 
 
     #TODO: renormalize marginals (in principle this should not be necessary,
@@ -213,9 +213,9 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
         
     #normalize
     for j in 1:num_worldstates
-        p_ogw_init[:,j] = p_ogw_init[:,j] / sum(p_ogw_init[:,j])        
+        p_ogw_init[:,j] /=  sum(p_ogw_init[:,j])        
         for k in 1:cardinality_obs
-            p_agow_init[:,:,j] = p_agow_init[:,:,j] / sum(p_agow_init[:,:,j])
+            p_agow_init[:,:,j] /= sum(p_agow_init[:,:,j])
         end
     end     
 
@@ -349,7 +349,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         end
 
         #check for convergence
-        #TODO: change the convergence-criterion to the conditionals!
+        #TODO: store the value of the convergence criterion over iterations and return it (for plotting)
         #if (norm(pa-pa_new) + norm(po-po_new)) < ε_conv            
         if (norm(pagow[:]-pagow_new[:]) + norm(pogw[:]-pogw_new[:])) < ε_conv            
             break

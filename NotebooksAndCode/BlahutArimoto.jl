@@ -28,7 +28,7 @@ end
 #p_boltz ... 1/Z * p0 * exp(β*ΔU)
 function boltzmanndist(p0::Vector, β, ΔU::Vector)
     p_boltz = p0.*exp(β.*ΔU)
-    p_boltz = p_boltz/sum(p_boltz)
+    p_boltz /= sum(p_boltz)
     return p_boltz
 
     #=
@@ -91,7 +91,7 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
         #add small value to pa_new to make sure there are no zero-entries
         #due to limited numerical precision, then re-normalize
         pa_new += eps()
-        pa_new = pa_new / sum(pa_new)
+        pa_new /= sum(pa_new)
 
 
         #compute entropic quantities (if requested with additional parameter)
