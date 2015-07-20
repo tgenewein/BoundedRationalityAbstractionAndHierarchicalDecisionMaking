@@ -524,14 +524,18 @@ function plot_three_var_performancemeasures(performance_df::DataFrame, max_utili
                                                          #make sure that it corresponds to two different bars on the x-axis
                                                          #(though the stacked height of both bars should be equal)
 
+    
+    #manually set y-limits, because automatic setting fails in Gadfly when using stacked bars
+    maxy = maximum(bitval_all[1:4]+bitval_all[5:end])
+
     #plot stacked bars for the entropic terms, that are a sum of a mutual information term and
     #a conditional term
     p_composed = plot(x=x_label_bitvals, y=bitval_all, color=color_label_bitvals, Geom.bar(position=:stack),
                       Guide.ylabel("[bits]"), Guide.xlabel(""), Guide.title("Composition of entropic terms"), 
-                      Guide.colorkey(""), Scale.y_continuous(minvalue=0), BAtheme(;theme_args...))
+                      Guide.colorkey(""), Scale.y_continuous(minvalue=0, maxvalue=maxy), BAtheme(;theme_args...))
 
     subs = [1,2,3,4]
-    p_MI = plot(x=color_label_bitvals[subs], y=bitval_all[subs], color=color_label_bitvals[subs], Geom.bar(position=:stack),
+    p_MI = plot(x=color_label_bitvals[subs], y=bitval_all[subs], color=color_label_bitvals[subs], Geom.bar(),
                 Guide.ylabel("[bits]"), Guide.xlabel(""), Guide.title("Mutual information terms"), 
                 Scale.y_continuous(minvalue=0), BAtheme(key_position = :none; theme_args...))
 

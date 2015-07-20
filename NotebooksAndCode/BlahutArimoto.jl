@@ -82,7 +82,7 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
 
         for k in 1:card_w
             #update p(a|o)
-            pagw_new[:,k] = boltzmanndist(pa,β,vec(U_pre[:,k]))            
+            pagw_new[:,k] = boltzmanndist(pa,β,vec(U_pre[:,k]))
             #update p(a)            
             pa_new = pa_new + vec((pagw_new[:,k]')*pw[k])
         end
