@@ -69,7 +69,7 @@ function setup_predator_prey_example(;mating_utility=false)
                     return 1 #decreases chances to find a mate
                 else
                     #display
-                    return 2 #might drive rival away, but risk of confrontation
+                    return 2.5 #might drive rival away, but risk of confrontation
                 end
             end
 
@@ -97,7 +97,7 @@ function setup_predator_prey_example(;mating_utility=false)
 
             #w = animal from the small animal group - displaying to them or fleeing from them makes no difference
             #return a utility that is larger than when displaying to large animal (and become their prey)
-            return 0.5
+            return 1
         end
     else
         function U(a,w)
