@@ -233,9 +233,9 @@ end
 
 #This function performs Blahut-Arimoto iterations for the three-variable general case
 function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3, 
-    U_pre::Matrix, pw::Vector, ε_conv::Real, maxiter::Integer;
-    compute_performance::Bool=false, performance_per_iteration::Bool=false,
-    performance_as_dataframe::Bool=false)
+                              U_pre::Matrix, pw::Vector, ε_conv::Real, maxiter::Integer;
+                              compute_performance::Bool=false, performance_per_iteration::Bool=false,
+                              performance_as_dataframe::Bool=false)
     
     card_a = size(U_pre,1)
     card_w = size(U_pre,2)
