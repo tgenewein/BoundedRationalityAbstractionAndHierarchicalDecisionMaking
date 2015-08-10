@@ -371,7 +371,7 @@ function visualize_three_var_BAsolution{T1<:String, T2<:String, T3<:String}(po::
                                       alabel="Observation $olabel_string", wlabel="World state $wlabel_string", 
                                       legendlabel="p*($olabel_string|$wlabel_string)"; theme_args...)
 
-    plt_pago = visualizeBAconditional(pago, a_vec, o_vec, a_strings, o_strings,
+    plt_pago = visualizeBAconditional(pago, avec, ovec, a_strings, o_strings,
                                       alabel="Action $alabel_string", wlabel="Observation $olabel_string",
                                       legendlabel="p*($alabel_string|$olabel_string)"; theme_args...)
 

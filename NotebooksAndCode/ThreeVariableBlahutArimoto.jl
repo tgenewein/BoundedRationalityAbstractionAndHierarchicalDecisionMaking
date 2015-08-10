@@ -194,23 +194,58 @@ end
 function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Matrix, pw::Vector,
                               ε_conv::Real, maxiter::Integer; compute_performance::Bool=false,
                               performance_per_iteration::Bool=false, performance_as_dataframe::Bool=false,
-                              init_uniformly = false)
+                              init_pogw_uniformly::Bool=false, init_pogw_sparse::Bool=true,
+                              init_pagow_uniformly::Bool=true)
     
     num_acts = size(U_pre,1)
     num_worldstates = size(U_pre,2)
+    num_obs = cardinality_obs
 
-    #initialize p(o|w) and p(a|o,w)
-    if init_uniformly
-        #uniform initialization
+    if init_pogw_uniformly && init_pogw_sparse
+        warn("Cannot initialize p(o|w) uniformly and sparse at the same time - choosing uniform initialization.")
+        init_pogw_sparse = false
+    end
+
+
+    #initialize p(o|w)
+    if init_pogw_uniformly
+        #init uniform
         p_ogw_init = ones(cardinality_obs, num_worldstates)  
+    elseif init_pogw_sparse
+        #init with a sparse, diagonal pattern (maximizing H(O) - inspired by autoencoder pre-training)
+        if(num_worldstates<=num_obs)
+            p_ogw_init = eye(num_obs,num_worldstates)
+        else
+            for b in num_obs:num_obs:num_worldstates
+                if b==num_obs
+                    p_ogw_init = eye(num_obs, num_obs)
+                else
+                    p_ogw_init = [p_ogw_init eye(num_obs,b-size(p_ogw_init,2))]
+                end
+            end
+            extra = num_worldstates - size(p_ogw_init,2)
+            if extra>0
+                p_ogw_init = [p_ogw_init eye(num_obs,extra)]
+            end
+        end
+        #make sure that all elements are nonzero
+        p_ogw_init += rand(size(p_ogw_init)) * 0.01  #TODO: this factor depends on the number of rows in p_ogw_init... fix this!
+    else
+        #init random
+        p_ogw_init = rand(cardinality_obs, num_worldstates)  
+    end
+
+
+    #initialize p(a|o,w)
+    if init_pagow_uniformly
+        #uniform initialization        
         p_agow_init = ones(num_acts, cardinality_obs, num_worldstates) 
     else
         #random initialization
-        #p_ogw_init = eye(cardinality_obs) + rand(cardinality_obs, num_worldstates) * 0.1
-        p_ogw_init = rand(cardinality_obs, num_worldstates)  
         p_agow_init = rand(num_acts, cardinality_obs, num_worldstates) 
     end
         
+
     #normalize
     for j in 1:num_worldstates
         p_ogw_init[:,j] /=  sum(p_ogw_init[:,j])        
@@ -223,7 +258,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
 
     #------- Blahut-Arimoto call --------#
     #Blahut-Arimoto iterations for the three-variable general case
-    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, p_w, ε, maxiter, 
+    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, pw, ε, maxiter, 
                                 compute_performance=compute_performance,
                                 performance_per_iteration=performance_per_iteration,
                                 performance_as_dataframe=performance_as_dataframe)

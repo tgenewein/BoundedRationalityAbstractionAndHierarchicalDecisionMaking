@@ -3,7 +3,7 @@
 
 function setup_medical_example(;uniform_w=true)
 
-    w_strings = ["h1","h2","h3", "l1","l2", "l4", "l5", "p1", "p2"]
+    w_strings = ["h1","h2", "l1","l2", "l3", "l4"]
     w_values = [1:length(w_strings)]
 
     numw = length(w_values)
@@ -17,8 +17,9 @@ function setup_medical_example(;uniform_w=true)
     end
 
 
-    a_strings = [ map((x)->("treat "*w_strings[x]), w_values) ]
-    a_values = w_values
+    a_strings = [ map((x)->("treat "*w_strings[x]), w_values),
+                  "treat l12", "treat l34", "treat h", "treat l" ]
+    a_values = [1:length(a_strings)]
 
 
     function U(a,w)
@@ -28,14 +29,23 @@ function setup_medical_example(;uniform_w=true)
         #wrong treatment for cause: heard-disease
         wrong_utility_heart = correct_utility * 0.3
 
-        #wrong treatment for cause: lung-disease
-        wrong_utility_lung = correct_utility * 0.8
+        #general heart-treatment
+        utility_heart_general = 1.5
 
         #wrong treatment for cause: lung-disease
-        wrong_utility_lung_2 = correct_utility * 0.3
+        wrong_utility_lung = correct_utility * 0.5
 
-        #wrong treatment for cause: pancreatic-desease
-        wrong_utility_pancreas = correct_utility * 0.8
+        #wrong treatment for cause: lung-disease
+        wrong_utility_lung_2 = correct_utility * 0
+
+        #general lung treatment
+        utility_lung_general = 1.5
+
+        #general lung treatment l12
+        utiliy_lung_general_12 = 2.5
+
+        #general lung treatment l12
+        utiliy_lung_general_34 = 2.5
 
 
         #correct treatment
@@ -45,35 +55,50 @@ function setup_medical_example(;uniform_w=true)
 
 
         #heart-disease, heart treatment (but not correct one)
-        if w<4 && a<4
+        if w<3 && a<3
             return wrong_utility_heart
         end
 
         #lung-disease, lung treatment (but not correct one)
-        if w>3 && w<6 && a>3 && a<6
+        if w>2 && w<5 && a>2 && a<5
             return wrong_utility_lung
         end
 
         #lung-disease, lung treatment (but not correct one)
-        if w>3 && w<6 && a>5 && a<8
+        if w>2 && w<5 && a>4 && a<7
             return wrong_utility_lung_2
         end
 
         #lung-disease, lung treatment (but not correct one)
-        if w>5 && w<8 && a>5 && a<8
+        if w>4 && w<7 && a>4 && a<7
             return wrong_utility_lung
         end
 
         #lung-disease, lung treatment (but not correct one)
-        if w>5 && w<8 && a>3 && a<6
+        if w>4 && w<7 && a>2 && a<5
             return wrong_utility_lung_2
         end
 
-
-        #pancreatic-disease, pancreas treatment (but not correct one)
-        if w>7 && a>7
-            return wrong_utility_pancreas
+        #general heart treatment
+        if w<3 && a==9
+            return utility_heart_general
         end
+
+        #general lung treatments
+        if w>2 && w<7
+            if a==7 && w<5
+                return utiliy_lung_general_12
+            end
+
+            if a==8 && w>4
+                return utiliy_lung_general_34
+            end
+
+            if a==10
+                return utility_lung_general
+            end
+        end
+
 
 
 
@@ -92,8 +117,8 @@ end
 function medical_nonuniform_pw(num_w_values)
         #increased probability of one heart-disease and pancreatic disease
         pw = ones(num_w_values)
-        #pw[1] = 5
-        pw[4:7] = 3
+        pw[1:2] = 3
+        #pw[3:6] = 3
         #pw[6:7] = 3
         #pw[8:9] = 1
         pw /= sum(pw)  #re-normalize
