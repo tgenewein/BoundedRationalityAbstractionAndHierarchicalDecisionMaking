@@ -574,9 +574,3 @@ function plot_three_var_performancemeasures(performance_df::DataFrame, max_utili
 
     return p_MI, p_composed, p_perf
 end
-#TODO: add a version of this function that accepts the arguments without a data-frame (low priority).
-
-#TODO: functions for visualizing distribution-vectors as bars (similar to the FreeEnergy notebook)?
-
-#TODO: for the discrete color-scale, the Gadfly default continuous colors are now used - use the default 
-#discrete colors?

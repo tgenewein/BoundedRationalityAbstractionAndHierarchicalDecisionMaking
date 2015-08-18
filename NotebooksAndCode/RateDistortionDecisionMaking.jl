@@ -4,15 +4,21 @@ module RateDistortionDecisionMaking
 
 using DataFrames, Color, Gadfly, 
       Distances.kl_divergence,
-      Distributions
+      Distributions,
+      Reactive, Interact
 
 export boltzmanndist, BAiterations, setuputilityarrays,
-       mutualinformation, expectedutility, entropybits, kl_divergence_bits,
-       RDobjective, analyzeBAsolution, performancemeasures2DataFrame,
-       boltzmannresult2DataFrame, BAtheme, 
-       BAmarginal2DataFrame, BAconditional2DataFrame, BAresult2DataFrame,
+       compute_marginals, marginalizeo, threevarBAiterations, 
+       mutualinformation, conditional_mutualinformation, expectedutility, entropybits, 
+       log_bits, kl_divergence_bits,
+       RDobjective, ThreeVArRDobjective, analyzeBAsolution, analyze_three_var_BAsolution,
+       BAtheme, BAcontinuouscolorscale, BAmatrixvisscale, BAprobabilityvisscale, BAdiscretecolorscale,
        visualizeBAmarginal, visualizeBAconditional, visualizeBAsolution, visualizeMatrix,
-       plotperformancemeasures, BAdiscretecolorscale
+       visualizeBA_double_conditional, visualize_three_var_BAsolution,
+       plotperformancemeasures, plot_three_var_BA_convergence, plot_three_var_performancemeasures,
+       boltzmannresult2DataFrame, BAmarginal2DataFrame, BAconditional2DataFrame, 
+       BAresult2DataFrame, performancemeasures2DataFrame, 
+       visualize_three_var_BAsolution, plot_three_var_performancemeasures
 
 
 
@@ -22,13 +28,15 @@ include("InformationTheoryFunctions.jl")
 #include BlahutArimoto iterations
 include("BlahutArimoto.jl")
 
+#include three-variable iteration schemes
+include("ThreeVariableBlahutArimoto.jl")
+
+
 #include helper functions to aggregate results (as vectors/matrices) into DataFrames
 include("ConversionFunctions.jl")
 
 #include helper functions for visualization
 include("VisualizationFunctions.jl")
-
-
 
 
 #TODO: document functions (in markdown? look up how to do this properly - Julia 0.4 has @doc macro)

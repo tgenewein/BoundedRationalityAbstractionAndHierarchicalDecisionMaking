@@ -129,7 +129,7 @@ end
 
 
 
-function compute_pogw_iteration(pago::Matrix, pagow, β2, β3, U_pre::Matrix, pa::Vector, po::Vector)
+function compute_pogw_iteration(pago::Matrix, pagow, β1, β2, β3, U_pre::Matrix, pa::Vector, po::Vector)
 
     card_w = size(U_pre,2)
     card_o = size(po,1)
@@ -258,7 +258,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
 
     #------- Blahut-Arimoto call --------#
     #Blahut-Arimoto iterations for the three-variable general case
-    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, pw, ε, maxiter, 
+    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, pw, ε_conv, maxiter, 
                                 compute_performance=compute_performance,
                                 performance_per_iteration=performance_per_iteration,
                                 performance_as_dataframe=performance_as_dataframe)
@@ -347,7 +347,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
 
 
         #compute p(o|w)
-        pogw_new = compute_pogw_iteration(pago, pagow, β2, β3, U_pre, pa, po)
+        pogw_new = compute_pogw_iteration(pago, pagow, β1, β2, β3, U_pre, pa, po)
         
         #compute p(a|o,w) and p(a|o)
         if(β3==0)
@@ -435,17 +435,6 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     
 end
 
-
-
-#TODO: update module (export the new functions)
-
-#TODO: test the special cases by setting different temperatures to certain values
-
-#TODO: is it possible to choose in the initialization routine, whether you want Float64 or the type with
-#infinite precision (BigFloat) without changing anything else in the rest of the code - if so, provide the option to
-#do so!
-#On the other hand, it would be sufficient to use the BigFloat only during the iterations and round
-#when computing the performance measures, etc. - perhaps that's a cleaner solution
 
 #TODO: make sure that all functions that modify the arguments that are passed on to them (in particular
 #matrices and vectors) indicate this with '!' in the function-name!

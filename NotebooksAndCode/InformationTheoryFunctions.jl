@@ -195,7 +195,3 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     return I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj
 end
 
-
-
-
-#TODO: add functions for conditional entropy?
