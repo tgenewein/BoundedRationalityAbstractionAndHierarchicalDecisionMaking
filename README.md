@@ -16,7 +16,7 @@ The easiest and installation-free method of using the notebooks provided here is
   *  It should give you: ``https://github.com/tgenewein/LossyCompressionAndDecisionMaking.git``
 *  Select the branch ``master`` in the second edit-field of JuliaBox and specify a local folder name in the third edit-field.
 *  Finally click the plus sign to clone the repository.
-  *  It should look like this: 
+  *  It should look like this: ![Cloning repository to JuliaBox](AddRepoToJuliaBox.png)
   
 
 Alternatively, you can use the ``Console`` tab in JuliaBox to get a shell and clone the repository with standard git commands.
