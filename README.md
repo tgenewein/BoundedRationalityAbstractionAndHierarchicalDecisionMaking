@@ -6,6 +6,9 @@ If you are unfamiliar with Jupyter notebooks it is strongly suggested that you h
 
 The easiest and installation-free method of using the notebooks provided here is through JuliaBox. Alternatively Julia and IJulia must be installed (on top of IPython) along with a few Julia packages.
 
+Alternatively, you can view a static HTML rendering of the notebook (which means that you can not change any parameters) through nbviewer:
+http://nbviewer.ipython.org/github/tgenewein/LossyCompressionAndDecisionMaking/tree/master/NotebooksAndCode/
+
 ### Usage through JuliaBox
 
 *  Go to https://www.juliabox.org/ and sign in with your Google account (currently only Google accounts are supported).
