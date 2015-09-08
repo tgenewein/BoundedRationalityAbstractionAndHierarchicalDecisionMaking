@@ -1,5 +1,5 @@
-# Bounded rational inference and decision-making hierarchies: aninformation-theoretic optimality principle
-Supplementary code and Jupyter notebooks for publication: Bounded rational inference and decision-making hierarchies: an information-theoretic optimality principle
+# Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle
+Supplementary code and Jupyter notebooks for publication: Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle
 
 ## Using the notebooks
 If you are unfamiliar with Jupyter notebooks it is strongly suggested that you have a look here: http://jupyter-notebook-beginner-guide.readthedocs.org/en/latest/index.html
@@ -38,7 +38,7 @@ Download the contents of this repository
 
 Or alternatively, clone/fork the repository using git.
 
-Navigate to the folder that contains the repository contents and start a new notebook server (typically by opening a console and typing: ``ipython notebook``). A new browser tab should open and you open notebooks by clicking on them.
+Navigate to the folder that contains the repository contents and start a new notebook server (typically by opening a console and typing: ``ipython notebook``). A new browser tab should open and you can open notebooks by clicking on them.
 
 ## I've never used a Jupyter/IPython notebook before...
 The notebooks are very simple to use - you can get an overwiew by clicking on ``Help -> User Interface Tour`` in any running notebook (in the browser). It might be best to run all cells after opening a notebook (by selecting ``Cell -> Run all``). Note that the first run (of any function) in Julia can take quite a bit longer (because the function gets JIT compiled).
