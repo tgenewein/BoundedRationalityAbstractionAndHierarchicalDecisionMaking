@@ -2,7 +2,7 @@ module RateDistortionDecisionMaking
 
 #using #dependencies
 
-using DataFrames, Color, Gadfly, 
+using DataFrames, Colors, Gadfly, 
       Distances.kl_divergence,
       Distributions,
       Reactive, Interact
