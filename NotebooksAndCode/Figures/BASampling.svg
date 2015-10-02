@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="130mm" height="110mm" viewBox="0 0 130 110"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-1">
+  <g font-size="4.23" font-family="'Latin Modern Math','Latin-Modern',serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-2">
+    <text x="62.04" y="102" text-anchor="middle">I(A;O) [bits]</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'Latin Modern Math','Latin-Modern',serif" fill="#6C606B" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-3">
+    <text x="18.55" y="94.02" text-anchor="middle">0</text>
+    <text x="40.29" y="94.02" text-anchor="middle">1</text>
+    <text x="62.04" y="94.02" text-anchor="middle">2</text>
+    <text x="83.79" y="94.02" text-anchor="middle">3</text>
+    <text x="105.54" y="94.02" text-anchor="middle">4</text>
+  </g>
+  <g class="guide colorkey" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-4">
+    <g fill="#4C404B" font-size="3.53" font-family="'Latin Modern Math','Latin-Modern',serif" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-5">
+      <text x="111.7" y="51.67" dy="0.35em" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-6" class="color_false">false</text>
+      <text x="111.7" y="55.99" dy="0.35em" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-7" class="color_true">true</text>
+    </g>
+    <g stroke="#000000" stroke-opacity="0.000" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-8">
+      <rect x="108.54" y="50.59" width="2.16" height="2.16" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-9" fill="#004D84" class="color_false"/>
+      <rect x="108.54" y="54.91" width="2.16" height="2.16" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-10" fill="#7E273E" class="color_true"/>
+    </g>
+    <g fill="#362A35" font-size="3.88" font-family="'Latin Modern Math','Latin-Modern',serif" stroke="#000000" stroke-opacity="0.000" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-11">
+      <text x="108.54" y="47.18" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-12">Forgetting</text>
+    </g>
+  </g>
+  <g clip-path="url(#fig-9752d9d946af44a79b8dd74ba68bddbd-element-14)" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-13">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-15">
+      <rect x="16.55" y="12.98" width="90.99" height="77.39" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-16"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-17">
+      <path fill="none" d="M16.55,88.37 L 107.54 88.37" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-18"/>
+      <path fill="none" d="M16.55,63.9 L 107.54 63.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-19"/>
+      <path fill="none" d="M16.55,39.44 L 107.54 39.44" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-20"/>
+      <path fill="none" d="M16.55,14.98 L 107.54 14.98" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-21"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-22">
+      <path fill="none" d="M18.55,12.98 L 18.55 90.37" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-23"/>
+      <path fill="none" d="M40.29,12.98 L 40.29 90.37" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-24"/>
+      <path fill="none" d="M62.04,12.98 L 62.04 90.37" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-25"/>
+      <path fill="none" d="M83.79,12.98 L 83.79 90.37" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-26"/>
+      <path fill="none" d="M105.54,12.98 L 105.54 90.37" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-27"/>
+    </g>
+    <g class="plotpanel" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-28">
+      <g stroke-width="0.71" fill="#000000" fill-opacity="0.000" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-29">
+        <path fill="none" d="M18.63,77.69 L 22.97 62.49 34.5 49.26 44.03 42.03 56.33 34.08 69.24 26.87 88.5 17.6" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-30" class="geometry color_false" stroke="#004D84"/>
+        <path fill="none" d="M22.67,68.7 L 21.32 61.49 31.06 51.27 40.76 43.89 48.83 38.31 66.38 27.89 89.54 17.2" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-31" class="geometry color_true" stroke="#7E273E"/>
+      </g>
+      <g stroke-width="0.71" stroke="#000000" stroke-opacity="0.000" class="geometry" fill="#D1EAC7" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-32">
+        <path d="M95.2,15.09 L 95.14 15.11 95.06 15.13 94.97 15.16 94.87 15.18 94.75 15.22 94.62 15.26 94.47 15.3 94.3 15.35 94.11 15.41 93.88 15.48 93.63 15.56 93.35 15.65 93.03 15.76 92.66 15.89 92.25 16.03 91.78 16.2 91.25 16.39 90.65 16.61 89.98 16.87 89.22 17.17 88.37 17.51 87.42 17.91 86.36 18.36 85.17 18.88 72.67 24.56 70.97 25.35 69.68 25.96 68.27 26.66 66.74 27.44 65.06 28.32 63.25 29.3 61.29 30.4 48.32 38.02 46.86 38.9 45.34 39.86 43.66 40.97 41.13 42.71 38.35 44.71 36.74 45.91 31.32 50.26 30.19 51.2 29.08 52.18 27.97 53.21 26.87 54.31 24.29 57.07 22.31 59.3 21.79 59.94 21.31 60.57 20.86 61.23 20.44 61.9 20.06 62.6 19.7 63.31 19.39 64.04 19.12 64.78 18.89 65.54 18.71 66.3 18.58 67.07 18.55 67.29 18.55 67.31 18.55 15.09 18.55 15.09 18.58 15.09 18.71 15.09 18.89 15.09 19.12 15.09 19.39 15.09 19.7 15.09 20.06 15.09 20.44 15.09 20.86 15.09 21.31 15.09 21.79 15.09 22.31 15.09 24.29 15.09 26.87 15.09 27.97 15.09 29.08 15.09 30.19 15.09 31.32 15.09 36.74 15.09 38.35 15.09 41.13 15.09 43.66 15.09 45.34 15.09 46.86 15.09 48.32 15.09 61.29 15.09 63.25 15.09 65.06 15.09 66.74 15.09 68.27 15.09 69.68 15.09 70.97 15.09 72.67 15.09 85.17 15.09 86.36 15.09 87.42 15.09 88.37 15.09 89.22 15.09 89.98 15.09 90.65 15.09 91.25 15.09 91.78 15.09 92.25 15.09 92.66 15.09 93.03 15.09 93.35 15.09 93.63 15.09 93.88 15.09 94.11 15.09 94.3 15.09 94.47 15.09 94.62 15.09 94.75 15.09 94.87 15.09 94.97 15.09 95.06 15.09 95.14 15.09 95.2 15.09 z" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-33"/>
+      </g>
+      <g stroke-width="0.71" fill="#000000" fill-opacity="0.000" class="geometry" stroke="#00BFFF" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-34">
+        <path fill="none" d="M18.55,67.31 L 18.55 67.29 18.58 67.07 18.71 66.3 18.89 65.54 19.12 64.78 19.39 64.04 19.7 63.31 20.06 62.6 20.44 61.9 20.86 61.23 21.31 60.57 21.79 59.94 22.31 59.3 24.29 57.07 26.87 54.31 27.97 53.21 29.08 52.18 30.19 51.2 31.32 50.26 36.74 45.91 38.35 44.71 41.13 42.71 43.66 40.97 45.34 39.86 46.86 38.9 48.32 38.02 61.29 30.4 63.25 29.3 65.06 28.32 66.74 27.44 68.27 26.66 69.68 25.96 70.97 25.35 72.67 24.56 85.17 18.88 86.36 18.36 87.42 17.91 88.37 17.51 89.22 17.17 89.98 16.87 90.65 16.61 91.25 16.39 91.78 16.2 92.25 16.03 92.66 15.89 93.03 15.76 93.35 15.65 93.63 15.56 93.88 15.48 94.11 15.41 94.3 15.35 94.47 15.3 94.62 15.26 94.75 15.22 94.87 15.18 94.97 15.16 95.06 15.13 95.14 15.11 95.2 15.09" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-35"/>
+      </g>
+      <g class="geometry" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-36">
+        <g class="color_AlphaColorValue{RGB{Float32},Float32}(RGB{Float32}(0.0f0,0.74736935f0,1.0f0),1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-37">
+          <circle cx="18.55" cy="67.29" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-38"/>
+          <circle cx="20.78" cy="61.36" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-39"/>
+          <circle cx="29.96" cy="51.4" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-40"/>
+          <circle cx="40.59" cy="43.09" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-41"/>
+          <circle cx="48.01" cy="38.2" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-42"/>
+          <circle cx="66.41" cy="27.61" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-43"/>
+          <circle cx="89.84" cy="16.93" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-44"/>
+        </g>
+      </g>
+      <g class="geometry" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-45">
+        <g stroke-width="0.3" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-46">
+          <circle cx="18.63" cy="77.69" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-47" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="22.67" cy="68.7" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-48" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+          <circle cx="22.97" cy="62.49" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-49" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="21.32" cy="61.49" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-50" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+          <circle cx="34.5" cy="49.26" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-51" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="31.06" cy="51.27" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-52" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+          <circle cx="44.03" cy="42.03" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-53" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="40.76" cy="43.89" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-54" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+          <circle cx="56.33" cy="34.08" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-55" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="48.83" cy="38.31" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-56" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+          <circle cx="69.24" cy="26.87" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-57" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="66.38" cy="27.89" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-58" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+          <circle cx="88.5" cy="17.6" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-59" fill="#004D84" class="color_false" stroke="#FFFFFF"/>
+          <circle cx="89.54" cy="17.2" r="0.9" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-60" fill="#7E273E" class="color_true" stroke="#FFFFFF"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'Latin Modern Math','Latin-Modern',serif" fill="#6C606B" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-61">
+    <text x="15.55" y="88.37" text-anchor="end" dy="0.35em" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-62">0</text>
+    <text x="15.55" y="63.9" text-anchor="end" dy="0.35em" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-63">1</text>
+    <text x="15.55" y="39.44" text-anchor="end" dy="0.35em" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-64">2</text>
+    <text x="15.55" y="14.98" text-anchor="end" dy="0.35em" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-65">3</text>
+  </g>
+  <g font-size="4.23" font-family="'Latin Modern Math','Latin-Modern',serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-66">
+    <text x="8.99" y="49.67" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.99, 51.67)" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-67">E[U]</text>
+  </g>
+  <g font-size="4.23" font-family="'Latin Modern Math','Latin-Modern',serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-68">
+    <text x="62.04" y="10.98" text-anchor="middle" id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-69">Rate-Utility curve (dots show mean sampling solutions)</text>
+  </g>
+</g>
+<defs>
+<clipPath id="fig-9752d9d946af44a79b8dd74ba68bddbd-element-14">
+  <path d="M16.55,12.98 L 107.54 12.98 107.54 90.37 16.55 90.37" />
+</clipPath
+></defs>
+</svg>
