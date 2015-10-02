@@ -33,7 +33,7 @@ function BAcontinuouscolorscale(scalename::String)
     #  cchoices - from 0-100
     #  hchoices - from 0-360
     #-----------------------
-    #colors = distinguishable_colors(3,[color("darkblue")],
+    #colors = distinguishable_colors(2,[color("darkblue"),color("white")],
     #lchoices = linspace(0, 100, 15),cchoices = linspace(0, 100, 15),hchoices = linspace(0, 360, 20))
     
     
