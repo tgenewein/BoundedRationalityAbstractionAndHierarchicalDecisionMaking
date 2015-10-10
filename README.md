@@ -25,6 +25,14 @@ Alternatively, you can use the ``Console`` tab in JuliaBox to get a shell and cl
 
 If you completed this successfully, you should see a new folder under the ``IJulia`` tab that contains the contents of the repository, including the notebooks. Simply select a notebook by clicking on it and it opens in a new tab.
 
+If you run the notebooks and encounter a "Type cannot be constructed error" add a code-cell at the very beginning of the notebook and enter the following
+```
+Pkg.add("Colors")
+Pkg.pin("Colors",v"0.5.1")
+```
+This will add the ``Colors`` package and pin it to an older version (since there is some issue with the latest version that has not been resolved at the time of writing). Then re-start the kernel and run the whole notebook (including the newly created cell). After the notebook runs successfully, you can remove the cell again (alternatively, you can use the console provided by JuliaBox and then type ``julia`` to start julia and enter the two commands above in the Julia REPL.
+
+
 ### Usage with IJulia installation
 
 Install IJulia by following the instructions [here](https://github.com/JuliaLang/IJulia.jl)
