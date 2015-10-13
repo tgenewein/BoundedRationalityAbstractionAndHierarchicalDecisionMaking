@@ -2,6 +2,9 @@
 Supplementary code and Jupyter notebooks for publication:  
 Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): *Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*, Frontiers in Robotics and AI.
 
+Citation for this repository:  
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.32055.svg)](http://dx.doi.org/10.5281/zenodo.32055)
+
 ## Using the notebooks
 **Note:** It is recommended that you run these notebooks with ***Chrome*** as there are some issues with the interactive plots in Firefox and Internet Explorer.
 
