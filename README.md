@@ -12,6 +12,7 @@ The easiest and installation-free method of using the notebooks provided here is
 Alternatively, you can view a static HTML rendering of the notebook (which means that you cannot change any parameters) through [nbviewer](http://nbviewer.ipython.org/github/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking/tree/master/NotebooksAndCode/)
 
 ## Julia version
+Julia release 0.3.11: [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21449.svg)](http://dx.doi.org/10.5281/zenodo.21449)   
 The supplementary code and notebooks are published for Julia 0.3 (0.3.11 to be precise). When following the instructions below, try using Julia 0.3.11 or at least another 0.3.x release as future versions of Julia might possibly break the code. Alternatively, check the [github repository](https://github.com/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking) for updated versions of the code that are compatible with later Julia releases. Up-to-date instructions on how to run the notebooks can be found there as well. If you experience problems or have suggestions for improvements, feel free to file a new issue on the github repository ([here](https://github.com/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking/issues)).
 A complete listing of the versions of all required Julia packages is at the bottom of this page. You can specify a particular version of a package in the Julia REPL with ``Pkg.pin("<Name>",v"<Version No.>")``.
 
