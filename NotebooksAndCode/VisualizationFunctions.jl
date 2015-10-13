@@ -505,7 +505,6 @@ function plot_three_var_BA_convergence(performance_df::DataFrame; suppress_vis::
     return plot_convergence_MI, plot_convergence_Util
     
 end
-#TODO: add a version of this function that accepts the arguments without a data-frame (low priority).
 
 
 #plots mutual informations, entropies and EU, J as (stacked) bars

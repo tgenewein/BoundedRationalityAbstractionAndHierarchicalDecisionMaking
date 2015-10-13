@@ -24,8 +24,6 @@ function conditional_mutualinformation(py::Vector, pzgy::Matrix, pxgz::Matrix, p
     #I(X;Y|Z) = ∑_y p(y) DKL( p(x|z,y)||p(x|z) )
     #I(X;Y|Z) = ∑_y p(y) ∑_z p(z|y) ∑_x p(x|z,y) log( p(x|z,y)/p(x|z) )
     
-    #TODO: dimensionality check?
-    
     card_y = length(py)
     card_z = size(pzgy,1)    
     
@@ -97,8 +95,6 @@ end
 function kl_divergence_bits(p_x::Vector, p0_x::Vector)
     #D_KL_bits = ∑_x p(x) log2 (p(x)/p0(x))
 
-    #TODO: for now, throw an error if you have zeros in the denominator,
-    #perhaps think of a more graceful way to deal with this case?
     if sum(p0_x.==0) > 0
         error("Zeros in denominator before kl_divergence computation!")
     end
@@ -167,11 +163,11 @@ function analyze_three_var_BAsolution(pw::Vector, po::Vector, pa::Vector, pogw::
     I_aw = mutualinformation(pw,pa,pagw)
     
     #compute H(O) 
-    #println("1: ∑p(o) = $(sum(po))") #TODO: this does not always seem to sum up to 1, why not?
+    #println("1: ∑p(o) = $(sum(po))")
     Ho = entropybits(po)
     
     #compute H(A)
-    #println("2: ∑p(a) =  $(sum(pa))") #TODO: this does not always seem to sum up to 1, why not?
+    #println("2: ∑p(a) =  $(sum(pa))") 
     Ha = entropybits(pa)
     
     #compute H(O|W)

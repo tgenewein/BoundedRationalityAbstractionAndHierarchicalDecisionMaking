@@ -3,6 +3,7 @@ module RateDistortionDecisionMaking
 #using #dependencies
 
 using DataFrames, Colors, Gadfly, 
+      Patchwork,  #there seems to be an issue with Patchwork and firefox right now
       Distances.kl_divergence,
       Distributions,
       Reactive, Interact
@@ -37,13 +38,6 @@ include("ConversionFunctions.jl")
 
 #include helper functions for visualization
 include("VisualizationFunctions.jl")
-
-
-#TODO: document functions (in markdown? look up how to do this properly - Julia 0.4 has @doc macro)
-
-#TODO: write some tests (especially in case future releases break something)
-
-#TODO: adopt src/ test/ structure
 
 
 end

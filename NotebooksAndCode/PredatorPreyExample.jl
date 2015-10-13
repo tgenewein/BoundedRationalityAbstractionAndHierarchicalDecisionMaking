@@ -1,3 +1,7 @@
+# This example contains two different utility functions which can be switched
+# with the optional input argutment to ``setup_preator_prey_example``
+
+# =============== 1 - predator-prey utility =====================
 #w is size of opponent and there are three generic actions:
 #a1 - ambush (wait and attack)
 #a2 - sneak up (stalk and attack)
@@ -26,7 +30,31 @@
 #When applying a specific action to the wrong animal (within the same group), it is only 80% effective,
 #thus the utility is 20% lower
 
-#TODO: document the mating_utility as well
+# =============== 2 - mating utility =====================
+#same animal sizes as before (they come in three groups, small, medium, large)
+#Potential mate is in the medium group: w=8
+#Rival of the same size is: w=6
+#Rival that is bigger is: w=7
+#
+#All animals of the large group must be avoided in order not to fall prey to them
+#Animals of the small size are irrelevant for the mating scenario
+#
+#
+#Two possible actions
+# 1) Display: gets the attention of the other animal
+#             this is good for attracting a potential mate (w=8, high utility)
+#             this is bad when facing a rival that is bigger (w=7) as it probably leads to aggression against you
+#             this is ok when facing a rival of the same size as it might either drive the rival away or lead to a confrontation
+#             this is bad when facing a large animal as it draws attention to you
+#             this is a waste of time when facing a small animal (but it also won't harm you)
+#
+# 2) Flee:    move away from the other animal as quickly as possible
+#             this is good when facing a large animal (increses chances of survival)
+#             this is bad when facing a potential mate (w=8)
+#             this is pretty good when facing a larger rival (w=7, avoids injury)
+#             this is not so good when facing a rival of the same size (w=6)
+#             this is a waste of time when facing a small animal
+#
 function setup_predator_prey_example(;mating_utility=false)
 
     w_values = [2,3,4, 6,7,8, 10,11,12]

@@ -1,6 +1,38 @@
-#TODO: document utility
-
-
+# Medical system utility
+# There are three kinds of diseases, each comes in two types
+#
+#  *  Heart disease
+#    *  h1
+#    *  h2
+#  *  Lung disease 1
+#    *  l1
+#    *  l2
+#  *  Lung disease 2
+#    *  l3
+#    *  l4
+#
+#
+# For each specific type, there is a specific treatment that works best (=highest utility)
+# Applying the specific treatment to the wrong type of the same disease is less effective
+# Applying the specific treatment to the wrong disease is bad (low utility)
+#
+# There are also general treatments for each disease: ``treat h``, ``treat l12``, ``treat l34``
+# The general treatement works for both types of the corresponding disease equally well, 
+# but has no effect when applied to the wrong disease.
+# The general treatement for the heart is less effective (lower utility) than the general treatments
+# for lung disease 1 or lung disease 2.
+#
+# There is one general lung treatement ``treat l`` that has an effect when applied to ``l1, l2, l3`` or ``l4``
+# However, it is less efficient than the general treatments for the corresponding lung disease ``treat l12`` or ``treat l34``
+# The general lung treatment has no effect when applied to a heart disease
+#
+#
+#
+# The function ``setup_medical_example`` has an optional argument that allows to choose between
+#   -) a uniform environment where all diseases appear with equal probability and
+#   -) a nonuniform environment where both heart disease types ``h1, h2`` appear with inceased chance.
+#
+#
 function setup_medical_example(;uniform_w=true)
 
     w_strings = ["h1","h2", "l1","l2", "l3", "l4"]

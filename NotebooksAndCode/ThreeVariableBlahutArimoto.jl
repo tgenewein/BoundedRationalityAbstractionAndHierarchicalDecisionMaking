@@ -9,7 +9,7 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
 
     #add some small value to prevent NaNs in the KL-terms
     po += eps()
-    po /= sum(po) #TODO: does this improve convergence?
+    po /= sum(po) 
 
 
 
@@ -22,19 +22,7 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
 
     #add some small value to prevent NaNs in the KL-terms
     pa += eps()
-    pa /= sum(pa) #TODO: does this improve convergence?
-
-
-    #TODO: renormalize marginals (in principle this should not be necessary,
-    #but in practice they do not sum to one in the early iteration steps!)
-
-    #TODO: adding an epsilon should not make much of a difference, but 
-    #re-normalizing afterwards might do so, on the other hand... the distribution
-    #should already more or less sum to one, so getting rid of the zero-entries should 
-    #be fine
-
-    #TODO: if you really leave the function with adding an eps (and potentially renormalizing)
-    #indicate this in the function name somehow, and perhaps even offer both versions!
+    pa /= sum(pa) 
 
     
     return po, pa, pagw
@@ -71,11 +59,8 @@ function compute_pago_iteration(pogw::Matrix, pagow, β2, β3,
     pago = zeros(card_a,card_o)
 
     for k in 1:card_o
-        #compute p(w|o=k)
-        #TODO:which version of p(w|o) is correct?             
+        #compute p(w|o=k)        
         pwgo_k = vec(pogw[k,:]).*pw / po[k]                
-        #pwgo_k = vec(pogw[k,:]).*pw
-        #pwgo_k = pwgo_k / sum(pwgo_k)
 
 
         #compute p(a|o=k)
@@ -89,7 +74,7 @@ function compute_pago_iteration(pogw::Matrix, pagow, β2, β3,
             pago[:,k] = squeeze(pagow[:,k,:],2) * pwgo_k
 
             pago[:,k] += eps() #add some small value to prevent NaNs in the KL-terms
-            pago[:,k] = pago[:,k] / sum(pago[:,k]) #TODO: does this improve convergence?
+            pago[:,k] = pago[:,k] / sum(pago[:,k])
         end
     end
 
@@ -229,7 +214,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
             end
         end
         #make sure that all elements are nonzero
-        p_ogw_init += rand(size(p_ogw_init)) * 0.01  #TODO: this factor depends on the number of rows in p_ogw_init... fix this!
+        p_ogw_init += rand(size(p_ogw_init)) * 0.01  #this factor depends on the number of rows in p_ogw_init...
     else
         #init random
         p_ogw_init = rand(cardinality_obs, num_worldstates)  
@@ -317,10 +302,6 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     
 
 
-    #TODO: rather have an optional keyword argument to select the sequential case
-    #- all of this makes the code quite hard to read and understand
-    #maybe fix this by writing separate functions (pull the iterations into separate 
-    #functions and handle the different cases there!)
     if(β3 == 0)
         sequential_case = true 
     else
@@ -357,7 +338,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         else
             #general case - compute p(a|o,w) first and then p(a|o)
             pagow_new = compute_pagow_iteration(pago, β2, β3, U_pre, pa)
-            pago_new = compute_pago_iteration(pogw, pagow_new, β2, β3, U_pre, pa, po, pw) #TODO: use pagow_new here?
+            pago_new = compute_pago_iteration(pogw, pagow_new, β2, β3, U_pre, pa, po, pw)
         end      
 
 
@@ -369,10 +350,6 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         po_new, pa_new, pagw = compute_marginals(pw, pogw_new, pagow_new) 
 
 
-        
-        #TODO: is it better to immediately use the pxx_new quantities, or just update all of them
-        #after each iteration (the latter is implemented right now)?
-        #Does the order of the equations play any role?
 
         #compute entropic quantities (if requested with additional parameter)
         if performance_per_iteration
@@ -384,7 +361,6 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         end
 
         #check for convergence
-        #TODO: store the value of the convergence criterion over iterations and return it (for plotting)
         #if (norm(pa-pa_new) + norm(po-po_new)) < ε_conv            
         if (norm(pagow[:]-pagow_new[:]) + norm(pogw[:]-pogw_new[:])) < ε_conv            
             break
@@ -434,9 +410,5 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     end
     
 end
-
-
-#TODO: make sure that all functions that modify the arguments that are passed on to them (in particular
-#matrices and vectors) indicate this with '!' in the function-name!
 
 

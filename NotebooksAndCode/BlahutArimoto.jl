@@ -39,10 +39,6 @@ function boltzmanndist(p0::Vector, β, ΔU::Vector)
     return float64(p_boltz)
     =#
 
-    #TODO: the exponential operation might be problematic when you run out of machine precision
-    #i.e. for very large β values or very large utility values - can you make this numerically
-    #more stable (because afterwards there is a normalization step, where for instance a single
-    #large value in the exponential would simply be normalized to one)
 end
 
 
@@ -87,7 +83,7 @@ function BAiterations(pa_init::Vector, β, U_pre::Matrix, pw::Vector, ε_conv::R
             pa_new = pa_new + vec((pagw_new[:,k]')*pw[k])
         end
 
-        #TODO: is this really necessary
+
         #add small value to pa_new to make sure there are no zero-entries
         #due to limited numerical precision, then re-normalize
         pa_new += eps()
