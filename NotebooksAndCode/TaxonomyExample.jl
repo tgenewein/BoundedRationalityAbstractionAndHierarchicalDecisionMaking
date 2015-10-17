@@ -9,7 +9,7 @@ function setuptaxonomy()
                 ]
 
     num_obs = size(w_strings,1)
-    w_vec = [1:num_obs]
+    w_vec = collect(1:num_obs)
 
     #actions
     a_strings = ["Laptop sleeve","Monitor cable","Video game",
@@ -18,7 +18,7 @@ function setuptaxonomy()
                  "Maple syrup","Vinegar","Flour","Chocolate chips",
                  "COMPUTERS","APPLIANCES","FRUIT","BAKING","Electronics","Food"]
     num_acts = size(a_strings,1)
-    a_vec = [1:num_acts]
+    a_vec = collect(1:num_acts)
     
     #set up uniform p(w)
     p_w = ones(num_obs)/num_obs 
@@ -94,12 +94,12 @@ function setuptaxonomy_animals_plants()
                 ]
 
     num_obs = size(w_strings,1)
-    w_vec = [1:num_obs]
+    w_vec = collect(1:num_obs)
 
     #actions are observations + categories + supercategories
-    a_strings = [w_strings, "CAT","DOG","TREE","FLOWER","Animal","Plant"]
+    a_strings = [w_strings; "CAT";"DOG";"TREE";"FLOWER";"Animal";"Plant"]
     num_acts = size(a_strings,1)
-    a_vec = [1:num_acts]
+    a_vec = collect(1:num_acts)
     
     #set up uniform p(w)
     p_w = ones(num_obs)/num_obs 

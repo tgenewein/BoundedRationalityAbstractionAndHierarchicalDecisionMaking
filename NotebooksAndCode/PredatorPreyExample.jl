@@ -58,7 +58,7 @@
 function setup_predator_prey_example(;mating_utility=false)
 
     w_values = [2,3,4, 6,7,8, 10,11,12]
-    w_vec = [1:length(w_values)]
+    w_vec = collect(1:length(w_values))
     w_strings = map((x)->string(x), w_values)
 
     numw = length(w_vec)
@@ -70,10 +70,10 @@ function setup_predator_prey_example(;mating_utility=false)
         a_strings = ["display", "flee"]
         a_values = [400, 500]
     else
-        a_strings = [ map((x)->("sneak up w="*w_strings[x]), w_vec[1:3]),
-                      map((x)->("ambush w="*w_strings[x]), w_vec[4:6]),
-                      "ambush", "sneak up", "flee"]
-        a_values = [w_values[1:6], 100, 200, 300]
+        a_strings = [ map((x)->("sneak up w="*w_strings[x]), w_vec[1:3]);
+                      map((x)->("ambush w="*w_strings[x]), w_vec[4:6]);
+                      "ambush"; "sneak up"; "flee"]
+        a_values = [w_values[1:6]; 100; 200; 300]
     end
 
     if(mating_utility)
