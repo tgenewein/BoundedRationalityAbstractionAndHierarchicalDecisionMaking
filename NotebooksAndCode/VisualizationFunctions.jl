@@ -461,7 +461,7 @@ end
 #plots evolution across BA iterations (i.e. convergence)
 function plot_three_var_BA_convergence(performance_df::DataFrame; suppress_vis::Bool=false,
                                        xlabel_perf="Iteration", theme_args...)
-    iter = [1:size(performance_df,1)]
+    iter = collect(1:size(performance_df,1))
 
     #add a column with the iteration index to the performance data frame
     performance_df[:iteration] = iter

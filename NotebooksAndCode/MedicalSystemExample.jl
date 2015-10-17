@@ -49,8 +49,8 @@ function setup_medical_example(;uniform_w=true)
     end
 
 
-    a_strings = [ map((x)->("treat "*w_strings[x]), w_values),
-                  "treat l12", "treat l34", "treat h", "treat l" ]
+    a_strings = [ map((x)->("treat "*w_strings[x]), w_values);
+                  "treat l12"; "treat l34"; "treat h"; "treat l" ]
     a_values = collect(1:length(a_strings))
 
 
