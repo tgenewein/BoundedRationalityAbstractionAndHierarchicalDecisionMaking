@@ -2,6 +2,8 @@
 Supplementary code and Jupyter notebooks for publication:  
 Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): *Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*, Frontiers in Robotics and AI.
 
+Citation for the latest release:  
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.32410.svg)](http://dx.doi.org/10.5281/zenodo.32410)
 
 ## Using the notebooks
 **Note:** It is recommended that you run these notebooks with ***Chrome*** as there might be some issues with the interactive plots in Firefox and Internet Explorer.
@@ -62,7 +64,9 @@ Every release of this repository is tagged using a git tag. Alternatively, see t
 
 tag | Julia version | DOI
 --- | ------------- | ---
-v1.0.0 | 0.3.11 | http://dx.doi.org/10.5281/zenodo.32055
+v1.1.0 | 0.4.0 | [10.5281/zenodo.32410](http://dx.doi.org/10.5281/zenodo.32410)
+v1.0.0 | 0.3.11 | [10.5281/zenodo.32055](http://dx.doi.org/10.5281/zenodo.32055)
+
 
 ## Exact package versions
 The code provided was tested with Julia 0.4.0, Jupyter 0.4.1 and the following package versions
