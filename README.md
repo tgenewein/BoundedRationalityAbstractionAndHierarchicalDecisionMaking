@@ -1,11 +1,10 @@
+# Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle: supplementary code and Jupyter notebooks  
+[![DOI:10.5281/zenodo.32410](http://img.shields.io/badge/DOI-10.5281%2Fzenodo.32410-blue.svg?style=flat)](http://dx.doi.org/10.5281/zenodo.32410)  
 citation for latest release  
-[![DOI](http://img.shields.io/badge/DOI-10.5281%2Fzenodo.32410-blue.svg?style=flat)](http://dx.doi.org/10.5281/zenodo.32410)
 
-
-# Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle
-Supplementary code and Jupyter notebooks for publication:  
+This repostory contains the supplementary code for:  
 Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): [*Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*](http://journal.frontiersin.org/article/10.3389/frobt.2015.00027/), Frontiers in Robotics and AI, 2.  
-[![DOI](http://img.shields.io/badge/DOI-10.3389%2Ffrobt.2015.00027-blue.svg?style=flat)](http://dx.doi.org/10.3389/frobt.2015.00027) 
+[![DOI:10.3389/frobt.2015.00027](http://img.shields.io/badge/DOI-10.3389%2Ffrobt.2015.00027-blue.svg?style=flat)](http://dx.doi.org/10.3389/frobt.2015.00027) 
 
 
 
@@ -20,7 +19,7 @@ The easiest and installation-free method of using the notebooks provided here is
 Alternatively, you can view a static HTML rendering of the notebook (which means that you cannot change any parameters) through [nbviewer](http://nbviewer.ipython.org/github/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking/tree/master/NotebooksAndCode/)
 
 ## Julia version
-Julia release 0.4.0: [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.31957.svg)](http://dx.doi.org/10.5281/zenodo.31957)  
+Julia release 0.4.0: [![DOI:10.5281/zenodo.31957](https://zenodo.org/badge/doi/10.5281/zenodo.31957.svg)](http://dx.doi.org/10.5281/zenodo.31957)  
 The supplementary code and notebooks are published for Julia 0.4 (0.4.0 to be precise). When following the instructions below, try using Julia 0.4.0 or at least another 0.4.x release as future versions of Julia might possibly break the code. Alternatively, check the [github repository](https://github.com/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking) for updated versions of the code that are compatible with later Julia releases. Up-to-date instructions on how to run the notebooks can be found there as well. If you experience problems or have suggestions for improvements, feel free to file a new issue on the github repository ([here](https://github.com/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking/issues)).
 A complete listing of the versions of all required Julia packages is at the bottom of this page. You can specify a particular version of a package in the Julia REPL with ``Pkg.pin("<Name>",v"<Version No.>")``.
 
