@@ -1,4 +1,4 @@
-# Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle: supplementary code and Jupyter notebooks  
+# Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle --- *supplementary code and Jupyter notebooks*  
 [![DOI:10.5281/zenodo.32410](http://img.shields.io/badge/DOI-10.5281%2Fzenodo.32410-blue.svg?style=flat)](http://dx.doi.org/10.5281/zenodo.32410)  
 citation for latest release  
 
