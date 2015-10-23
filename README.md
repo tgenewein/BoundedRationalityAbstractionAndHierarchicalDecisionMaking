@@ -2,8 +2,8 @@
 [![DOI:10.5281/zenodo.32410](http://img.shields.io/badge/DOI-10.5281%2Fzenodo.32410-blue.svg?style=flat)](http://dx.doi.org/10.5281/zenodo.32410)  
 citation for latest release  
 
-This repostory contains the supplementary code for:  
-Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): [*Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*](http://journal.frontiersin.org/article/10.3389/frobt.2015.00027/), Frontiers in Robotics and AI, 2, [DOI:10.3389/frobt.2015.00027](http://dx.doi.org/10.3389/frobt.2015.00027) 
+> This repostory contains the supplementary code for:  
+Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): [*Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*](http://journal.frontiersin.org/article/10.3389/frobt.2015.00027/), Frontiers in Robotics and AI, 2, [DOI:10.3389/frobt.2015.00027](http://dx.doi.org/10.3389/frobt.2015.00027)
 
 
 
