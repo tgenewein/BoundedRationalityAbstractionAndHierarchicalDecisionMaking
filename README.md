@@ -1,9 +1,13 @@
+citation for latest release  
+[![DOI](http://img.shields.io/badge/DOI-10.5281%2Fzenodo.32410-blue.svg?style=flat)](http://dx.doi.org/10.5281/zenodo.32410)
+
+
 # Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle
 Supplementary code and Jupyter notebooks for publication:  
-Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): *Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*, Frontiers in Robotics and AI.
+Genewein T., Leibfried F., Grau-Moya J., Braun D.A. (2015): [*Bounded rationality, abstraction and hierarchical decision-making: an information-theoretic optimality principle*](http://journal.frontiersin.org/article/10.3389/frobt.2015.00027/), Frontiers in Robotics and AI, 2.  
+[![DOI](http://img.shields.io/badge/DOI-10.3389%2Ffrobt.2015.00027-blue.svg?style=flat)](http://dx.doi.org/10.3389/frobt.2015.00027) 
 
-Citation for the latest release of the supplementary code:  
-[![DOI](http://img.shields.io/badge/DOI-10.5281%2Fzenodo.32410-blue.svg?style=flat)](http://dx.doi.org/10.5281/zenodo.32410)
+
 
 
 ## Using the notebooks
