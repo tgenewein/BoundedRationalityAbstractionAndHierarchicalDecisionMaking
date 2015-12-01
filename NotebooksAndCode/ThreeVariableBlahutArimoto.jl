@@ -1,20 +1,20 @@
 function compute_marginals(pw::Vector, pogw::Matrix, pagow)
-    
+
     card_o = size(pogw,1)
     card_a = size(pagow,1)
-    
+
     #compute p(o)
     #p(o) = ∑_w p(o|w)p(w)
     po = pogw * pw
 
     #add some small value to prevent NaNs in the KL-terms
     po += eps()
-    po /= sum(po) 
+    po /= sum(po)
 
 
 
     #compute p(a)
-    #p(a) = ∑_w,o p(w)p(o|w)p(a|o,w)    
+    #p(a) = ∑_w,o p(w)p(o|w)p(a|o,w)
     #compute p(a|w)
     pagw = marginalizeo(pogw, pagow)
     #p(a) = ∑_w p(a|w)p(w)
@@ -22,9 +22,9 @@ function compute_marginals(pw::Vector, pogw::Matrix, pagow)
 
     #add some small value to prevent NaNs in the KL-terms
     pa += eps()
-    pa /= sum(pa) 
+    pa /= sum(pa)
 
-    
+
     return po, pa, pagw
 end
 
@@ -33,7 +33,7 @@ end
 function marginalizeo(pogw::Matrix, pagow)
     card_a = size(pagow,1)
     card_w = size(pogw,2)
-       
+
     #compute p(a|w)
     pagw = zeros(card_a,card_w)
 
@@ -41,7 +41,7 @@ function marginalizeo(pogw::Matrix, pagow)
         #p(a|w) = ∑_o p(o|w)p(a|o,w)
         pagw[:,j] = pagow[:,:,j] * pogw[:,j]
     end
-    
+
     return pagw
 end
 
@@ -49,7 +49,7 @@ end
 
 
 
-function compute_pago_iteration(pogw::Matrix, pagow, β2, β3, 
+function compute_pago_iteration(pogw::Matrix, pagow, β2, β3,
                                 U_pre::Matrix, pa::Vector, po::Vector, pw::Vector)
 
     card_a = size(U_pre,1)
@@ -59,15 +59,15 @@ function compute_pago_iteration(pogw::Matrix, pagow, β2, β3,
     pago = zeros(card_a,card_o)
 
     for k in 1:card_o
-        #compute p(w|o=k)        
-        pwgo_k = vec(pogw[k,:]).*pw / po[k]                
+        #compute p(w|o=k)
+        pwgo_k = vec(pogw[k,:]).*pw / po[k]
 
 
         #compute p(a|o=k)
         if(β3==0)
             #sequential case
-            #p(a|o) ∝ p(a)exp( β2 ∑_w p(w|o)U(a,w) )                    
-            pago[:,k] = boltzmanndist(pa, β2, U_pre*pwgo_k)               
+            #p(a|o) ∝ p(a)exp( β2 ∑_w p(w|o)U(a,w) )
+            pago[:,k] = boltzmanndist(pa, β2, U_pre*pwgo_k)
         else
             #general case
             #p(a|o) = ∑_w p(w|o)p(a|o,w)   with p(w|o) = p(o|w)p(w)/p(o)
@@ -84,7 +84,7 @@ end
 
 
 
-function compute_pagow_iteration(pago::Matrix, β2, β3, U_pre::Matrix, pa::Vector) 
+function compute_pagow_iteration(pago::Matrix, β2, β3, U_pre::Matrix, pa::Vector)
 
     card_a = size(U_pre,1)
     card_w = size(U_pre,2)
@@ -97,12 +97,12 @@ function compute_pagow_iteration(pago::Matrix, β2, β3, U_pre::Matrix, pa::Vect
             #sequential case: p(a|o,w)=p(a|o) ∀w
             #save some computation by implementing this directly rather than evaluating the
             #expression for the general case
-            pagow[:,:,j] = pago                       
+            pagow[:,:,j] = pago
         else
             #general case
             #p(a|o,w) ∝ p(a|o) exp( β3 U(a,w) - β3/β2 log(p(a|o)/p(a)) )
-            for k in 1:card_o              
-                pagow_util_kj = U_pre[:,j] - (1/β2)*log_bits(pago[:,k]./pa)                
+            for k in 1:card_o
+                pagow_util_kj = U_pre[:,j] - (1/β2)*log(pago[:,k]./pa)   #use natural logarithm here!
                 pagow[:,k,j] = boltzmanndist(vec(pago[:,k]), β3, pagow_util_kj)
             end
         end
@@ -125,26 +125,26 @@ function compute_pogw_iteration(pago::Matrix, pagow, β1, β2, β3, U_pre::Matri
     EU_cond = zeros(card_o,card_w)
     DKL_a = zeros(card_o,card_w)
     DKL_ago = zeros(card_o,card_w)
-    
+
     for j in 1:card_w
         for k in 1:card_o
             if(β3==0)
                 #sequential case
                 EU_cond[k,j] = (pago[:,k]' * U_pre[:,j])[1]  # E[U(a,w=j) = ∑_a p(a|o=k) U(a,w=j)
                                                                 #use the (...)[1] syntax to get a scalar
-                DKL_a[k,j] = kl_divergence_bits(vec(pago[:,k]),pa)
-                
+                DKL_a[k,j] = kl_divergence_nats(vec(pago[:,k]),pa)
+
             else
                 EU_cond[k,j] = (pagow[:,k,j]' * U_pre[:,j])[1]  # E[U(a,w=j) = ∑_a p(a|o=k,w=j) U(a,w=j)
                                                                 #use the (...)[1] syntax to get a scalar
-                DKL_a[k,j] = kl_divergence_bits(vec(pagow[:,k,j]),pa)
+                DKL_a[k,j] = kl_divergence_nats(vec(pagow[:,k,j]),pa)
             end
-            DKL_ago[k,j] = kl_divergence_bits(vec(pagow[:,k,j]),vec(pago[:,k])) 
+            DKL_ago[k,j] = kl_divergence_nats(vec(pagow[:,k,j]),vec(pago[:,k]))
         end
     end
 
     if(β3==0)
-        #sequential case      
+        #sequential case
         #we have β3=0 which would lead to ∞*0=NaN in the computation for pogw_util
         #DKL_ago must be zero in the sequential case, therefore β3 does not matter
 
@@ -153,8 +153,8 @@ function compute_pogw_iteration(pago::Matrix, pagow, β1, β2, β3, U_pre::Matri
             error("Sequential case: D_KL( p(a|o,w)||p(a|o) )=$(sum(DKL_ago)) is nonzero which violates sequential case assumption!")
         end
 
-        #p(o|w) ∝ exp( β1 E[U] - 1/β2 DKL(p(a|o)||p(a)) )    
-        pogw_util = EU_cond - 1/β2 * DKL_a                
+        #p(o|w) ∝ exp( β1 E[U] - 1/β2 DKL(p(a|o)||p(a)) )
+        pogw_util = EU_cond - 1/β2 * DKL_a
     else
         #general case
         #p(o|w) ∝ p(o) exp( β1 (E[U] - 1/β2 DKL(p(a|o,w)||p(a))) - β1 DKL(p(a|o,w)||p(a|o)) (1/β3-1/β2) )
@@ -162,7 +162,7 @@ function compute_pogw_iteration(pago::Matrix, pagow, β1, β2, β3, U_pre::Matri
     end
 
 
-    #comptue p(o|w)    
+    #comptue p(o|w)
     for j in 1:card_w
         pogw[:,j] = boltzmanndist(po, β1, vec(pogw_util[:,j]))
     end
@@ -181,7 +181,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
                               performance_per_iteration::Bool=false, performance_as_dataframe::Bool=false,
                               init_pogw_uniformly::Bool=false, init_pogw_sparse::Bool=true,
                               init_pagow_uniformly::Bool=true)
-    
+
     num_acts = size(U_pre,1)
     num_worldstates = size(U_pre,2)
     num_obs = cardinality_obs
@@ -195,7 +195,7 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
     #initialize p(o|w)
     if init_pogw_uniformly
         #init uniform
-        p_ogw_init = ones(cardinality_obs, num_worldstates)  
+        p_ogw_init = ones(cardinality_obs, num_worldstates)
     elseif init_pogw_sparse
         #init with a sparse, diagonal pattern (maximizing H(O) - inspired by autoencoder pre-training)
         if(num_worldstates<=num_obs)
@@ -217,50 +217,50 @@ function threevarBAiterations(cardinality_obs::Integer, β1, β2, β3, U_pre::Ma
         p_ogw_init += rand(size(p_ogw_init)) * 0.01  #this factor depends on the number of rows in p_ogw_init...
     else
         #init random
-        p_ogw_init = rand(cardinality_obs, num_worldstates)  
+        p_ogw_init = rand(cardinality_obs, num_worldstates)
     end
 
 
     #initialize p(a|o,w)
     if init_pagow_uniformly
-        #uniform initialization        
-        p_agow_init = ones(num_acts, cardinality_obs, num_worldstates) 
+        #uniform initialization
+        p_agow_init = ones(num_acts, cardinality_obs, num_worldstates)
     else
         #random initialization
-        p_agow_init = rand(num_acts, cardinality_obs, num_worldstates) 
+        p_agow_init = rand(num_acts, cardinality_obs, num_worldstates)
     end
-        
+
 
     #normalize
     for j in 1:num_worldstates
-        p_ogw_init[:,j] /=  sum(p_ogw_init[:,j])        
+        p_ogw_init[:,j] /=  sum(p_ogw_init[:,j])
         for k in 1:cardinality_obs
             p_agow_init[:,:,j] /= sum(p_agow_init[:,:,j])
         end
-    end     
+    end
 
-    
+
 
     #------- Blahut-Arimoto call --------#
     #Blahut-Arimoto iterations for the three-variable general case
-    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, pw, ε_conv, maxiter, 
+    return threevarBAiterations(p_ogw_init, p_agow_init, β1, β2, β3, U_pre, pw, ε_conv, maxiter,
                                 compute_performance=compute_performance,
                                 performance_per_iteration=performance_per_iteration,
                                 performance_as_dataframe=performance_as_dataframe)
-    
+
 end
 
 
 #This function performs Blahut-Arimoto iterations for the three-variable general case
-function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3, 
+function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
                               U_pre::Matrix, pw::Vector, ε_conv::Real, maxiter::Integer;
                               compute_performance::Bool=false, performance_per_iteration::Bool=false,
                               performance_as_dataframe::Bool=false)
-    
+
     card_a = size(U_pre,1)
     card_w = size(U_pre,2)
-    card_o = size(pogw_init,1)     
-   
+    card_o = size(pogw_init,1)
+
 
 
     pogw_new = pogw_init
@@ -268,7 +268,7 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
 
 
     #Initialize the marginals consistent with the conditionals
-    po_new, pa_new, pagw = compute_marginals(pw, pogw_init, pagow_init)       
+    po_new, pa_new, pagw = compute_marginals(pw, pogw_init, pagow_init)
 
     pago_new = compute_pago_iteration(pogw_init, pagow_init, β2, β3, U_pre, pa_new, po_new, pw)
     if(β3==0)
@@ -277,15 +277,15 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     end
 
 
-   
+
 
     #if performance measures don't need to be returned, don't compute them per iteration
     if compute_performance==false
         performance_per_iteration = false
-    end 
+    end
 
     #preallocate if necessary
-    if performance_per_iteration 
+    if performance_per_iteration
         I_ow_i = zeros(maxiter)  #I(O;W)
         I_ao_i = zeros(maxiter)  #I(A;O)
         I_awgo_i = zeros(maxiter)  #I(A;W|O)
@@ -299,11 +299,11 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         EU_i = zeros(maxiter)
         ThreeVarRDobj_i = zeros(maxiter)
     end
-    
+
 
 
     if(β3 == 0)
-        sequential_case = true 
+        sequential_case = true
     else
         sequential_case = false
     end
@@ -313,8 +313,8 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
     #main iteration
     iter = 0 #initialize counter, so it persists beyond the loop
     for iter in 1:maxiter
-        pa = pa_new 
-        po = po_new 
+        pa = pa_new
+        po = po_new
         pago = pago_new
         pagow = pagow_new
         pogw = pogw_new
@@ -322,14 +322,14 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         #
         #figure out best or correct order of equations
         #make sure to use old distributions in curr. iteration and update all of them after every iteration
-        #check the sequential case by reproducing the MEU solution 
+        #check the sequential case by reproducing the MEU solution
         #   perhaps it needs "layer-wise" initialization? If so, why?
 
 
 
         #compute p(o|w)
         pogw_new = compute_pogw_iteration(pago, pagow, β1, β2, β3, U_pre, pa, po)
-        
+
         #compute p(a|o,w) and p(a|o)
         if(β3==0)
             #sequential case - compute p(a|o) first and then p(a|o,w)
@@ -339,15 +339,15 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
             #general case - compute p(a|o,w) first and then p(a|o)
             pagow_new = compute_pagow_iteration(pago, β2, β3, U_pre, pa)
             pago_new = compute_pago_iteration(pogw, pagow_new, β2, β3, U_pre, pa, po, pw)
-        end      
+        end
 
 
 
-  
+
 
 
         #update the marginals p(o), p(a), p(a|w)
-        po_new, pa_new, pagw = compute_marginals(pw, pogw_new, pagow_new) 
+        po_new, pa_new, pagw = compute_marginals(pw, pogw_new, pagow_new)
 
 
 
@@ -361,13 +361,13 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
         end
 
         #check for convergence
-        #if (norm(pa-pa_new) + norm(po-po_new)) < ε_conv            
-        if (norm(pagow[:]-pagow_new[:]) + norm(pogw[:]-pogw_new[:])) < ε_conv            
+        #if (norm(pa-pa_new) + norm(po-po_new)) < ε_conv
+        if (norm(pagow[:]-pagow_new[:]) + norm(pogw[:]-pogw_new[:])) < ε_conv
             break
         end
-        
+
     end
-    
+
     #check if iteration limit has been reached (before convergence)
     if iter == maxiter
         warn("[Three variable BAiterations] maximum iteration reached - returning... (results might be inaccurate)")
@@ -405,10 +405,8 @@ function threevarBAiterations(pogw_init::Matrix, pagow_init, β1, β2, β3,
             return po_new, pa_new, pogw_new, pago_new, pagow_new, pagw, I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj
         else
             performance_df = performancemeasures2DataFrame(I_ow, I_ao, I_awgo, I_aw, Ho, Ha, Hogw, Hago, Hagow, Hagw, EU, ThreeVarRDobj)
-            return po_new, pa_new, pogw_new, pago_new, pagow_new, pagw, performance_df 
+            return po_new, pa_new, pogw_new, pago_new, pagow_new, pagw, performance_df
         end
     end
-    
+
 end
-
-

@@ -3,6 +3,7 @@
 ##### Jupyter #####
 ###################
 startIJulia.bat
+startJupyter.bat
 .ipynb_checkpoints/
 
 

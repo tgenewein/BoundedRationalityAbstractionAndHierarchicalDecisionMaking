@@ -551,10 +551,10 @@ function plot_three_var_performancemeasures(performance_df::DataFrame, max_utili
     end
 
     inv_betas = [1/β1, 1/β2, 1/β3]
-    perf = [performance_df[end,:E_U]; bitval_all[subs] .* inv_betas; performance_df[end,:Objective_value]]
+    perf = [performance_df[end,:E_U]; bits_to_nats(bitval_all[subs]) .* inv_betas; performance_df[end,:Objective_value]]
 
     #these labels will define the legend entries
-    label_perf = ["E[U]", "1/β1 I(O;W)", "1/β2 I(A;O)", "1/β3 I(A;W|O)", "J = E[U] - 1/β ∑ I"]
+    label_perf = ["E[U]", "1/β1 I(O;W)_nats", "1/β2 I(A;O)_nats", "1/β3 I(A;W|O)_nats", "J = E[U] - 1/β ∑ I_nats"]
     x_label_perf = ["E[U]", "E[U] ", "E[U] ", "E[U] ", "E[U] "]  #be careful, four of the entries have an additonal space,
                                                                  #to make sure that there are two stacked bars (that will
                                                                  #have the same height)
